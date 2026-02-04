@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.DriveWithAprilTagCommand;
-import frc.robot.commands.DriveWithAprilTagCommandOffset;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
@@ -23,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import com.pathplanner.lib.auto.AutoBuilder;
 
-//import frc.robot.subsystems.Limelight;
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -36,7 +34,6 @@ public class RobotContainer {
     private final DriveSubsystem m_robotDrive = new DriveSubsystem();
     private final LightsSubsystem m_lights = new LightsSubsystem();
     private final Camera m_arducam = new Camera("Arducam");
-   
 
     // The driver's controller
     Joystick m_leftDriverController = new Joystick(OIConstants.kLeftDriverControllerPort);
@@ -49,27 +46,30 @@ public class RobotContainer {
     private final SendableChooser<Command> autoChooser;
 
     /**
-    * The container for the robot. Contains subsystems, OI devices, and commands.
-    */
+     * The container for the robot. Contains subsystems, OI devices, and commands.
+     */
     public RobotContainer() {
-        //Register Named Commands
+        // Register Named Commands
         // Configure the button bindings
         configureButtonBindings();
 
         // Configure default commands
         m_robotDrive.setDefaultCommand(
-        // The left Joystick controls translation of the robot.
-        // The right Joystick controls rotation of the robot.
-        new RunCommand(
-            () -> m_robotDrive.drive(
-                -MathUtil.applyDeadband(m_leftDriverController.getRawAxis(1) * speedMultiplier, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_leftDriverController.getRawAxis(0) * speedMultiplier, OIConstants.kDriveDeadband),
-                -MathUtil.applyDeadband(m_rightDriverController.getRawAxis(0) * speedMultiplier, OIConstants.kDriveDeadband) * OIConstants.kRotateScale,
-                fieldOriented, true),
-            m_robotDrive));
+                // The left Joystick controls translation of the robot.
+                // The right Joystick controls rotation of the robot.
+                new RunCommand(
+                        () -> m_robotDrive.drive(
+                                -MathUtil.applyDeadband(m_leftDriverController.getRawAxis(1) * speedMultiplier,
+                                        OIConstants.kDriveDeadband),
+                                -MathUtil.applyDeadband(m_leftDriverController.getRawAxis(0) * speedMultiplier,
+                                        OIConstants.kDriveDeadband),
+                                -MathUtil.applyDeadband(m_rightDriverController.getRawAxis(0) * speedMultiplier,
+                                        OIConstants.kDriveDeadband) * OIConstants.kRotateScale,
+                                fieldOriented, true),
+                        m_robotDrive));
 
-            autoChooser = AutoBuilder.buildAutoChooser(); 
-            SmartDashboard.putData("Auto Chooser", autoChooser);             
+        autoChooser = AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     /**
@@ -82,79 +82,65 @@ public class RobotContainer {
      * {@link JoystickButton}.
      */
     private void configureButtonBindings() {
-    
-////    Driver Controls
 
-       new JoystickButton(m_leftDriverController,OIConstants.kJS_BB)
-            .whileTrue(new RunCommand(
-                () -> m_robotDrive.setX(),
-                m_robotDrive));
+        //// Driver Controls
 
-        new JoystickButton(m_leftDriverController, OIConstants.kJS_LB)
-            .whileTrue(new DriveWithAprilTagCommandOffset(
-                m_robotDrive, m_arducam, m_leftDriverController, m_rightDriverController, true));
+        new JoystickButton(m_leftDriverController, OIConstants.kJS_BB)
+                .whileTrue(new RunCommand(
+                        () -> m_robotDrive.setX(),
+                        m_robotDrive));
 
-        new JoystickButton(m_leftDriverController, OIConstants.kJS_RB)
-            .whileTrue(new DriveWithAprilTagCommandOffset(
-                m_robotDrive, m_arducam, m_leftDriverController, m_rightDriverController, false));
-       
-        new JoystickButton(m_rightDriverController, OIConstants.kJS_RB).debounce(0.1)  //Gyro reset
-            .whileTrue(new InstantCommand(
-                () -> m_robotDrive.zeroHeading(),
-                m_robotDrive)); 
+        new JoystickButton(m_rightDriverController, OIConstants.kJS_RB).debounce(0.1) // Gyro reset
+                .whileTrue(new InstantCommand(
+                        () -> m_robotDrive.zeroHeading(),
+                        m_robotDrive));
 
-        new JoystickButton(m_rightDriverController, OIConstants.kJS_LB)  //Field oriented toggle
-            .whileTrue(new InstantCommand(
-                () -> toggleFieldOriented()));
-        
-        new JoystickButton(m_leftDriverController, OIConstants.kJS_Trigger)  //Precise Driving Mode set
-            .whileTrue(new InstantCommand(
-                () -> speedMultiplier=OIConstants.kSpeedMultiplierPrecise));
+        new JoystickButton(m_rightDriverController, OIConstants.kJS_LB) // Field oriented toggle
+                .whileTrue(new InstantCommand(
+                        () -> toggleFieldOriented()));
 
-        new JoystickButton(m_leftDriverController, OIConstants.kJS_Trigger)  //Precise Driving Mode clear
-            .whileFalse(new InstantCommand(
-                () -> speedMultiplier=OIConstants.kSpeedMultiplierDefault));
+        new JoystickButton(m_leftDriverController, OIConstants.kJS_Trigger) // Precise Driving Mode set
+                .whileTrue(new InstantCommand(
+                        () -> speedMultiplier = OIConstants.kSpeedMultiplierPrecise));
+
+        new JoystickButton(m_leftDriverController, OIConstants.kJS_Trigger) // Precise Driving Mode clear
+                .whileFalse(new InstantCommand(
+                        () -> speedMultiplier = OIConstants.kSpeedMultiplierDefault));
 
         new JoystickButton(m_leftDriverController, OIConstants.kJS_Trigger)
-            .whileTrue(new DriveWithAprilTagCommand(
-            m_robotDrive, m_arducam, m_leftDriverController, m_rightDriverController));
-        
-        
+                .whileTrue(new DriveWithAprilTagCommand(
+                        m_robotDrive, m_arducam, m_leftDriverController, m_rightDriverController));
+
         // Operator Controls
 
         m_operatorController1.a()
-            .whileTrue(new RunCommand(
-                () -> m_lights.setLEDs(LightsConstants.GREEN),
-                m_lights));
+                .whileTrue(new RunCommand(
+                        () -> m_lights.setLEDs(LightsConstants.GREEN),
+                        m_lights));
         m_operatorController1.x()
-            .whileTrue(new RunCommand(
-                () -> m_lights.setLEDs(LightsConstants.RED),
-                m_lights));
+                .whileTrue(new RunCommand(
+                        () -> m_lights.setLEDs(LightsConstants.RED),
+                        m_lights));
         m_operatorController1.b()
-            .whileTrue(new RunCommand(
-                () -> m_lights.setLEDs(LightsConstants.VIOLET),
-                m_lights));
+                .whileTrue(new RunCommand(
+                        () -> m_lights.setLEDs(LightsConstants.VIOLET),
+                        m_lights));
         m_operatorController1.y()
-            .whileTrue(new RunCommand(
-                () -> m_lights.setLEDs(LightsConstants.GOLD),
-                m_lights));
+                .whileTrue(new RunCommand(
+                        () -> m_lights.setLEDs(LightsConstants.GOLD),
+                        m_lights));
 
-////    Operator Controls 
- 
-
-          }
-
-    private void toggleFieldOriented () {
-        fieldOriented = !fieldOriented;
     }
 
+    private void toggleFieldOriented() {
+        fieldOriented = !fieldOriented;
+    }
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
      *
      * @return the command to run in autonomous
      */
-
 
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();

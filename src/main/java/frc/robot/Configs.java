@@ -30,7 +30,6 @@ public final class Configs {
             driveConfig.closedLoop
                 .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
                 .pid(ModuleConstants.kDrivingP, ModuleConstants.kDrivingI, ModuleConstants.kDrivingD)
-                //.velocityFF(drivingVelocityFeedForward)
                 .outputRange(ModuleConstants.kDrivingMinOutput, ModuleConstants.kDrivingMaxOutput)
                 .feedForward //TODO Figure out actual value
                     .kV(drivingVelocityFeedForward);
