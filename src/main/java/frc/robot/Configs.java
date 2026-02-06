@@ -1,12 +1,15 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.FeedbackSensor;
+
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ModuleConstants;
 
 public final class Configs {
 
-    public static final class MAXSwerveModule{
+    public static final class MAXSwerveModule {
 
         public static final SparkMaxConfig driveConfig = new SparkMaxConfig();
         public static final SparkMaxConfig turnConfig = new SparkMaxConfig();
@@ -52,6 +55,19 @@ public final class Configs {
                 .positionWrappingEnabled(true)
                 .positionWrappingInputRange(0, turningFactor);
 
+        }
+    }
+
+    public static final class IntakeConfigs {
+
+        public static final SparkMaxConfig intakeConfig = new SparkMaxConfig();
+        public static final SparkMaxConfig intakeAngleConfig = new SparkMaxConfig();
+
+        static {
+            intakeConfig
+                .idleMode(IdleMode.kBrake);
+            intakeConfig.closedLoop
+                .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD);
         }
     }
 }

@@ -139,16 +139,6 @@ public final class Constants {
     //driver buttons
     public static final int kGyroReset_Start = 3;
     public static final int kFieldOrientedToggle_LB = 4;
-
-    //operator buttons
-
-
-    public static final String kAuton1 = "1. Front Speaker Two Note";
-    public static final String kAuton2 = "2. Front Speaker Launch & Leave";
-    public static final String kAuton3 = "3. Source Side Leave";
-    public static final String kAuton4 = "4. Blue Amp Side Leave";
-    public static final String kAuton5 = "5. Red Amp Side Leave";
-    public static final String kAuton6 = "6. Test Sequential Command";
   }
 
 
@@ -169,6 +159,32 @@ public final class Constants {
 
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
+  }
+
+  public static final class FlywheelConstants{
+    public static final int kflywheel1CanId = -1;
+    public static final int kflywheel2CanId = -1;
+    public static final int kflywheel3CanId = -1;
+
+    public static final int kFlywheelCurrentLimit = 40;
+    public static final int kFlywheelP = 1;
+    public static final int kFlywheelI = 0;
+    public static final int kFlywheelD = 0;
+  }
+
+  public static final class IntakeConstants {
+    public static final int kIntakeCanId = -1;
+    public static final int kIntakeP = 1;
+    public static final int kIntakeI = 0;
+    public static final int kIntakeD = 0;
+
+    public static final int kIntakeAngleCanId = -1;
+    public static final int kIntakeAngleP = 1;
+    public static final int kIntakeAngleI = 0;
+    public static final int kIntakeAngleD = 0;
+
+    public static final int kIntakeCurrentLimit = 20;
+    public static final int kIntakeAngleCurrentLimit = 20;
   }
   
   public static final class LightsConstants {
