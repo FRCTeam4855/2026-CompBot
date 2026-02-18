@@ -19,5 +19,7 @@ public class Flywheel extends SubsystemBase {
         PIDController1 = m_flywheel1.getClosedLoopController();
         PIDController2 = m_flywheel2.getClosedLoopController();
         PIDController3 = m_flywheel3.getClosedLoopController();
+
+        m_flywheel1.configure(FlywheelConfigs)
     }
 }
