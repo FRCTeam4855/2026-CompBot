@@ -1,0 +1,49 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway 3 Meter Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway -3 Meter Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway 3 Meter Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway -3 Meter Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway 3 Meter Test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Sideway -3 Meter Test"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
