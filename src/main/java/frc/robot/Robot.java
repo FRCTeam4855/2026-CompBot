@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-  private final CommandJoystick m_driverController =
+  private final CommandJoystick m_leftDriveController =
       new CommandJoystick(OperatorConstants.kDriverControllerPort);
 
   private final RobotContainer m_robotContainer;
@@ -48,8 +48,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
-    SmartDashboard.putNumber("Driver Y", m_driverController.getY());
-    SmartDashboard.putNumber("Driver X", m_driverController.getX());
+    SmartDashboard.putNumber("Driver Y", m_leftDriveController.getY());
+    SmartDashboard.putNumber("Driver X", m_leftDriveController.getX());
 
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
@@ -105,12 +105,4 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
-
-  /** This function is called once when the robot is first started up. */
-  @Override
-  public void simulationInit() {}
-
-  /** This function is called periodically whilst in simulation. */
-  @Override
-  public void simulationPeriodic() {}
 }

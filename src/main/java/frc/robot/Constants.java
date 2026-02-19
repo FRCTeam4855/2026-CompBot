@@ -31,8 +31,36 @@ public final class Constants {
       public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
       public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
       public static final double MAX_SPEED  = Units.feetToMeters(4.5);
-      
+      public static final double kSpeedMultiplierDefault = 1.0;   
+      public static final double kSpeedMultiplierSlow = 0.2;   
   }
+
+  public static final class FlywheelConstants{
+    public static final int kflywheel1CanId = -1;
+    public static final int kflywheel2CanId = -1;
+    public static final int kflywheel3CanId = -1;
+
+    public static final int kFlywheelCurrentLimit = 40;
+    public static final int kFlywheelP = 1;
+    public static final int kFlywheelI = 0;
+    public static final int kFlywheelD = 0;
+  }
+
+  public static final class IntakeConstants {
+    public static final int kIntakeCanId = -1;
+    public static final int kIntakeP = 1;
+    public static final int kIntakeI = 0;
+    public static final int kIntakeD = 0;
+
+    public static final int kIntakeAngleCanId = -1;
+    public static final int kIntakeAngleP = 1;
+    public static final int kIntakeAngleI = 0;
+    public static final int kIntakeAngleD = 0;
+
+    public static final int kIntakeCurrentLimit = 20;
+    public static final int kIntakeAngleCurrentLimit = 20;
+  }
+
   public static final class LightsConstants {
     public final static double RAINBOW_RAINBOWPALETTE = -.99;
     public final static double RAINBOW_PARTYPALETTE = -.97;

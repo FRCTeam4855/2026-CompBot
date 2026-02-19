@@ -6,8 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -46,12 +46,14 @@ public class RobotContainer {
   public final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   
   public static boolean FieldOriented = true;
+  public static boolean SlowMode = false;
+  public static double speedMultiplier = SwerveConstants.kSpeedMultiplierDefault;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandJoystick m_driverController =
+  private final CommandJoystick m_leftDriveController =
       new CommandJoystick(OperatorConstants.kDriverControllerPort);
 
-  private final CommandJoystick m_rotController =
+  private final CommandJoystick m_rightDriveController =
       new CommandJoystick(OperatorConstants.kRotControllerPort);
 
 
@@ -63,16 +65,16 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
 
-    SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> m_driverController.getY() * 1,
-                                                                () -> m_driverController.getX() * 1)
-                                                            .withControllerRotationAxis(() -> m_rotController.getX() * -1)
+    SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(), 
+                                                                () -> m_leftDriveController.getY() * speedMultiplier,
+                                                                () -> m_leftDriveController.getX() * speedMultiplier)
+                                                            .withControllerRotationAxis(() -> m_rightDriveController.getX() * -speedMultiplier)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
-    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_driverController::getX,
-                                                                                               m_driverController::getY)
+    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_leftDriveController::getX,
+                                                                                               m_leftDriveController::getY)
                                                            .headingWhile(true);
 
     drivebase.setDefaultCommand(
@@ -106,21 +108,21 @@ public class RobotContainer {
     NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
     NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
 
-    
-    m_driverController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
-    m_rotController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
-    m_driverController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
-    m_rotController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
-    m_driverController.button(4).whileTrue(drivebase.strafeLeft());
-    m_driverController.button(5).whileTrue(drivebase.strafeRight());
-    m_rotController.button(4).whileTrue(drivebase.forward());
-    m_rotController.button(5).whileTrue(drivebase.backward());
+    m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
+    m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
+    m_leftDriveController.povLeft().whileTrue(drivebase.strafeLeft());
+    m_leftDriveController.povRight().whileTrue(drivebase.strafeRight());
+    m_leftDriveController.povUp().whileTrue(drivebase.forward());
+    m_leftDriveController.povDown().whileTrue(drivebase.backward());
 
+    m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
+    m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
+    m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
     //light start
-    m_driverController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
-    m_driverController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
-    m_driverController.button(8).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
-    m_driverController.button(9).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+    m_leftDriveController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
+    m_leftDriveController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
+    m_leftDriveController.button(8).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
+    m_leftDriveController.button(9).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
   }
 
   /**
@@ -130,6 +132,10 @@ public class RobotContainer {
   */
   private void toggleFieldOriented() {
     FieldOriented = !FieldOriented;
+  }
+
+  private void toggleSlowMode() {
+    SlowMode = !SlowMode;
   }
 
   /**
