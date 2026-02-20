@@ -9,8 +9,7 @@ public class RotateForBumpCommand extends Command {
 
     SwerveSubsystem drive;
     CommandJoystick leftJoystick;
-    private final int[] angles = {135, 225, 315};
-    private double target = 45;
+    private double target;
     private Rotation2d targetRotation;
     public RotateForBumpCommand(SwerveSubsystem drive, CommandJoystick leftJoystick) {
         this.leftJoystick = leftJoystick;
@@ -20,22 +19,20 @@ public class RotateForBumpCommand extends Command {
 
     @Override
     public void initialize() {
-        double gyroAngle = drive.getHeading().getDegrees();
-        for (int angle : angles) {
-            if (Math.abs(gyroAngle - angle) < Math.abs(gyroAngle - target)) {
-                target = angle;
-            }
-        }
+        System.out.println("RotateForBumpCommand initialized");
+        int gyroAngle = (int) drive.getHeading().getDegrees();
+        double signum = gyroAngle == 0 ? 1.0 : Math.signum(gyroAngle);
+        target = gyroAngle / 90 * 90 + 45 * signum;
         targetRotation = new Rotation2d(Math.toRadians(target));
     }
 
     @Override
     public void execute() {
-        drive.driveFieldOriented(drive.getTargetSpeeds(leftJoystick.getX(), leftJoystick.getY(), targetRotation));
+        drive.driveFieldOriented(drive.getTargetSpeeds(leftJoystick.getY(), leftJoystick.getX(), targetRotation));
     }
 
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }
