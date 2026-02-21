@@ -286,16 +286,16 @@ public class Vision
              new Translation3d(Units.inchesToMeters(9),
                                Units.inchesToMeters(.5),
                                Units.inchesToMeters(14)),
-             VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1)),
+             VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0)),
     /**
      * Rear Camera
      */
-    REAR_CAM("rear",
+    REAR_CAM("Arducam_OV9281_USB_Camera", //Don't change the name of the cam on the USB 2.0
               new Rotation3d(0, 0, Math.toRadians(180)),
               new Translation3d(Units.inchesToMeters(-9),
                                 Units.inchesToMeters(9.25),
                                 Units.inchesToMeters(14.5)),
-              VecBuilder.fill(4, 4, 8), VecBuilder.fill(0.5, 0.5, 1));
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0));
     /**
      * Latency alert to use when high latency is detected.
      */
