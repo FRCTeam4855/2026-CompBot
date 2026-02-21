@@ -7,16 +7,12 @@ package frc.robot;
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
-import frc.robot.commands.Autos;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-import frc.robot.subsystems.SwerveSubsystem;
-import swervelib.SwerveDrive;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
-import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -31,7 +27,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -56,8 +51,6 @@ public class RobotContainer {
 
   private final CommandJoystick m_rightDriveController =
       new CommandJoystick(OperatorConstants.kRotControllerPort);
-
-
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -88,7 +81,6 @@ public class RobotContainer {
       })
     );
   }
-
 
     public Command getAutonomousCommand() {
     return autoChooser.getSelected();

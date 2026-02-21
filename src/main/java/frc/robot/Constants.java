@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.config.RobotConfig;
-
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
-import swervelib.SwerveModule;
 import swervelib.math.Matter;
 
 /**
