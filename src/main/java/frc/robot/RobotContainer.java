@@ -17,6 +17,8 @@ import java.io.File;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -112,6 +114,7 @@ public class RobotContainer {
     m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
     m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
+    m_rightDriveController.button(5).onTrue(new RunCommand(() -> drivebase.driveToPose(new Pose2d(2, 2, new Rotation2d(0))), drivebase));
     
     m_leftDriveController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
     m_leftDriveController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));

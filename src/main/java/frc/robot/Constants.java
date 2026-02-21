@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
@@ -30,6 +32,8 @@ public final class Constants {
       public static final double MAX_SPEED  = Units.feetToMeters(4.5);
       public static final double kSpeedMultiplierDefault = 1.0;   
       public static final double kSpeedMultiplierSlow = 0.2;   
+
+      public static final Pose2d kTestPose = new Pose2d(2, 2, new Rotation2d(0));
   }
 
   public static final class FlywheelConstants{
