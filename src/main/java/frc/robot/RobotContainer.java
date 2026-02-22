@@ -62,8 +62,8 @@ public class RobotContainer {
     configureBindings();
 
     SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(), 
-                                                                () -> m_leftDriveController.getY() * speedMultiplier,
-                                                                () -> m_leftDriveController.getX() * speedMultiplier)
+                                                                () -> m_leftDriveController.getY() * -speedMultiplier,
+                                                                () -> m_leftDriveController.getX() * -speedMultiplier)
                                                             .withControllerRotationAxis(() -> m_rightDriveController.getX() * -speedMultiplier)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -82,6 +82,24 @@ public class RobotContainer {
         }
       })
     );
+
+    //register named commands
+    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
+    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
+    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights).repeatedly());
+    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights).repeatedly());
+
+    NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Intaking!!!"))));
+
+    NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
+
+    NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
+                            
+    NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
+
   }
 
     public Command getAutonomousCommand() {
@@ -98,28 +116,31 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
-    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
-    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
-    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
 
+      //drivebase commands
     m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
     m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
+    m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
+    m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
+    m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro 90 offset
+    
+    //movement commands
     m_leftDriveController.povLeft().whileTrue(drivebase.strafeLeft());
     m_leftDriveController.povRight().whileTrue(drivebase.strafeRight());
     m_leftDriveController.povUp().whileTrue(drivebase.forward());
     m_leftDriveController.povDown().whileTrue(drivebase.backward());
 
     m_rightDriveController.button(1).whileTrue(new RotateForBumpCommand(drivebase, m_leftDriveController));
-    m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
-    m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
-    m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro reset
-    m_rightDriveController.button(5).onTrue(new RunCommand(() -> drivebase.driveToPose(new Pose2d(2, 2, new Rotation2d(0))), drivebase));
-    
+
+    //light commands
     m_leftDriveController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
     m_leftDriveController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
-    m_leftDriveController.button(8).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
-    m_leftDriveController.button(9).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+    m_leftDriveController.button(11).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
+    m_leftDriveController.button(10).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
+
+    m_rightDriveController.button(6).whileTrue(NamedCommands.getCommand("Intake Representation"));
+    m_rightDriveController.button(7).whileTrue(NamedCommands.getCommand("Launch Representation"));
+    m_rightDriveController.button(11).whileTrue(NamedCommands.getCommand("Climb Representation"));
   }
 
   /**
