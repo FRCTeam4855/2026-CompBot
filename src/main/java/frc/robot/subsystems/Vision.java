@@ -286,7 +286,7 @@ public class Vision
              new Translation3d(Units.inchesToMeters(9),
                                Units.inchesToMeters(.5),
                                Units.inchesToMeters(14)),
-             VecBuilder.fill(4, 4, 9999), VecBuilder.fill(0.5, 0.5, 9999)),
+             VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0)),
     /**
      * Rear Camera
      */
@@ -295,7 +295,7 @@ public class Vision
               new Translation3d(Units.inchesToMeters(-9),
                                 Units.inchesToMeters(9.25),
                                 Units.inchesToMeters(14.5)),
-              VecBuilder.fill(4, 4, 9999), VecBuilder.fill(0.5, 0.5, 9999));
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0));
     /**
      * Latency alert to use when high latency is detected.
      */
