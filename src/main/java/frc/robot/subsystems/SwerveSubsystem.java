@@ -167,7 +167,7 @@ public class SwerveSubsystem extends SubsystemBase
     {
       config = RobotConfig.fromGUISettings();
 
-      final boolean enableFeedforward = true;
+      final boolean enableFeedforward = true; // Set to true to enable feedforward during path following. This is not necessary to follow the path, but can help reduce error. Tune the feedforward values in the GUI settings if you enable this.
       // Configure AutoBuilder last
       AutoBuilder.configure(
           this::getPose,
@@ -192,9 +192,9 @@ public class SwerveSubsystem extends SubsystemBase
           // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
           new PPHolonomicDriveController(
               // PPHolonomicController is the built in path following controller for holonomic drive trains
-              new PIDConstants(5.0, 0.0, 0.0),
+              new PIDConstants(0.0020645, 0.0, 0.0),
               // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0)
+              new PIDConstants(0.0020645, 0.0, 0.0)
               // Rotation PID constants
           ),
           config,
@@ -271,6 +271,7 @@ public class SwerveSubsystem extends SubsystemBase
   public Command driveToPose(Pose2d pose)
   {
 // Create the constraints to use while pathfinding
+System.out.println("driveToPose command started");
     PathConstraints constraints = new PathConstraints(
         swerveDrive.getMaximumChassisVelocity(), 4.0,
         swerveDrive.getMaximumChassisAngularVelocity(), Units.degreesToRadians(720));

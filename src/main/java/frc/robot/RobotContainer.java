@@ -46,6 +46,7 @@ public class RobotContainer {
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
   public static double speedMultiplier = SwerveConstants.kSpeedMultiplierDefault;
+ // public static double speedMultiplier = 1.0;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_leftDriveController =
@@ -66,7 +67,7 @@ public class RobotContainer {
                                                                 () -> m_leftDriveController.getX() * -speedMultiplier)
                                                             .withControllerRotationAxis(() -> m_rightDriveController.getX() * -speedMultiplier)
                                                             .deadband(OperatorConstants.DEADBAND)
-                                                            .scaleTranslation(0.8)
+                                                            //.scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
 
     SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_leftDriveController::getX,
@@ -123,6 +124,7 @@ public class RobotContainer {
     m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
     m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro 90 offset
+    m_rightDriveController.button(5).whileTrue(new RunCommand(() -> drivebase.driveToPose(new Pose2d(2, 2, new Rotation2d(0))), drivebase));
     
     //movement commands
     m_leftDriveController.povLeft().whileTrue(drivebase.strafeLeft());

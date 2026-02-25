@@ -30,7 +30,7 @@ public final class Constants {
       public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
       public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
       public static final double MAX_SPEED  = Units.feetToMeters(4.5);
-      public static final double kSpeedMultiplierDefault = 1.0;   
+      public static final double kSpeedMultiplierDefault = 2.0;   
       public static final double kSpeedMultiplierSlow = 0.2;   
 
       public static final Pose2d kTestPose = new Pose2d(2, 2, new Rotation2d(0));
