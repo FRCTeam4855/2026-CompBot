@@ -46,12 +46,6 @@
               }
             ]
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Launch to Climb"
-          }
         }
       ]
     }

@@ -59,6 +59,24 @@ public class RobotContainer {
   public RobotContainer() {
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
+
+    //register named commands
+    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
+    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
+    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights).repeatedly());
+    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights).repeatedly());
+
+    NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Intaking!!!"))));
+
+    NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
+
+    NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
+                                                                .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
+                            
+    NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
+    
     // Configure the trigger bindings
     configureBindings();
 
@@ -83,23 +101,6 @@ public class RobotContainer {
         }
       })
     );
-
-    //register named commands
-    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
-    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
-    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights).repeatedly());
-    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights).repeatedly());
-
-    NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Intaking!!!"))));
-
-    NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
-
-    NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
-                            
-    NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
 
   }
 
