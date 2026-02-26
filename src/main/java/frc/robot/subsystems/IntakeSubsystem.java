@@ -16,8 +16,8 @@ public class IntakeSubsystem extends SubsystemBase {
     public final SparkMax m_intakeMotor, m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
 
-    public IntakeSubsystem() {
-        m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
+    public IntakeSubsystem() { //Putting intake out using throughbore absolute encoder
+        m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless); 
         m_intakeAngleMotor = new SparkMax(IntakeConstants.kIntakeAngleCanId, MotorType.kBrushless);
         intakePIDController = m_intakeMotor.getClosedLoopController();
         anglePIDController = m_intakeAngleMotor.getClosedLoopController();

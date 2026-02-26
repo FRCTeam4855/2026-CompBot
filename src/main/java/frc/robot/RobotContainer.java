@@ -81,9 +81,11 @@ public class RobotContainer {
     configureBindings();
 
     SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(), 
-                                                                () -> m_leftDriveController.getY() * -speedMultiplier,
-                                                                () -> m_leftDriveController.getX() * -speedMultiplier)
-                                                            .withControllerRotationAxis(() -> m_rightDriveController.getX() * -speedMultiplier)
+                                                                () -> (0.4 * m_leftDriveController.getY() + 0.6 * 
+                                                                      Math.pow(m_leftDriveController.getY(), 3)) * -speedMultiplier,
+                                                                () -> (0.4 * m_leftDriveController.getX() + 0.6 *
+                                                                      Math.pow(m_leftDriveController.getX(), 3)) * -speedMultiplier)
+                                                            .withControllerRotationAxis(() -> -m_rightDriveController.getX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             //.scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -122,6 +124,7 @@ public class RobotContainer {
       //drivebase commands
     m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
     m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
+
     m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));
     m_rightDriveController.button(4).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().zeroGyro())); //gyro reset
     m_rightDriveController.button(3).debounce(0.1).onTrue(new InstantCommand(() -> drivebase.getSwerveDrive().setGyroOffset(new Rotation3d(0, 0, Math.toRadians(90))))); //gyro 90 offset
