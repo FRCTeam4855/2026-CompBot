@@ -37,29 +37,41 @@ public final class Constants {
   }
 
   public static final class FlywheelConstants{
-    public static final int kflywheel1CanId = -1;
-    public static final int kflywheel2CanId = -1;
-    public static final int kflywheel3CanId = -1;
+    public static final int kflywheelLCanId = -1;
+    public static final int kflywheelMCanId = -1;
+    public static final int kflywheelRCanId = -1;
 
     public static final int kFlywheelCurrentLimit = 40;
-    public static final int kFlywheelP = 1;
-    public static final int kFlywheelI = 0;
-    public static final int kFlywheelD = 0;
+    public static final double kFlywheelP = 1;
+    public static final double kFlywheelI = 0;
+    public static final double kFlywheelD = 0;
   }
 
   public static final class IntakeConstants {
     public static final int kIntakeCanId = -1;
-    public static final int kIntakeP = 1;
-    public static final int kIntakeI = 0;
-    public static final int kIntakeD = 0;
+    public static final double kIntakeP = 1;
+    public static final double kIntakeI = 0;
+    public static final double kIntakeD = 0;
 
     public static final int kIntakeAngleCanId = -1;
-    public static final int kIntakeAngleP = 1;
-    public static final int kIntakeAngleI = 0;
-    public static final int kIntakeAngleD = 0;
+    public static final double kIntakeAngleP = 1;
+    public static final double kIntakeAngleI = 0;
+    public static final double kIntakeAngleD = 0;
 
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
+
+    public static final double kIntakeRetractPosition = 1;
+    public static final double kIntakeExtendPosition = 0;
+  }
+
+  public static final class ClimberConstants {
+    public static final int kClimberCanId = -1;
+    public static final double kClimberP = 1;
+    public static final double kClimberI = 0;
+    public static final double kClimberD = 0;
+
+    public static final int kClimberCurrentLimit = 40;
   }
 
   public static final class LightsConstants {

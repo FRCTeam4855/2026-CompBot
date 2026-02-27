@@ -12,17 +12,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class FlywheelSubsystem extends SubsystemBase {
     
-    public final SparkMax m_flywheel1, m_flywheel2, m_flywheel3;
-    public final SparkClosedLoopController PIDController1, PIDController2, PIDController3;
+    public final SparkMax m_flywheelL, m_flywheelM, m_flywheelR;
+    public final SparkClosedLoopController PIDControllerL, PIDControllerM, PIDControllerR;
     
     public FlywheelSubsystem() {
-        m_flywheel1 = new SparkMax(FlywheelConstants.kflywheel1CanId, MotorType.kBrushless);
-        m_flywheel2 = new SparkMax(FlywheelConstants.kflywheel2CanId, MotorType.kBrushless);
-        m_flywheel3 = new SparkMax(FlywheelConstants.kflywheel3CanId, MotorType.kBrushless);
-        PIDController1 = m_flywheel1.getClosedLoopController();
-        PIDController2 = m_flywheel2.getClosedLoopController();
-        PIDController3 = m_flywheel3.getClosedLoopController();
+        m_flywheelL = new SparkMax(FlywheelConstants.kflywheelLCanId, MotorType.kBrushless); 
+        m_flywheelM = new SparkMax(FlywheelConstants.kflywheelMCanId, MotorType.kBrushless); 
+        m_flywheelR = new SparkMax(FlywheelConstants.kflywheelRCanId, MotorType.kBrushless); 
+        PIDControllerL = m_flywheelL.getClosedLoopController();
+        PIDControllerM = m_flywheelM.getClosedLoopController();
+        PIDControllerR = m_flywheelR.getClosedLoopController();
 
-        m_flywheel1.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_flywheelL.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 }
