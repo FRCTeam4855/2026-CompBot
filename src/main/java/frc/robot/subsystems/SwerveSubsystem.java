@@ -151,6 +151,7 @@ public class SwerveSubsystem extends SubsystemBase
       swerveDrive.updateOdometry();
       vision.updatePoseEstimation(swerveDrive);      
     }
+    SmartDashboard.putNumber("Distance to Hub", getDistanceToHub());
     SmartDashboard.putBoolean("Field Oriented", RobotContainer.FieldOriented);
     SmartDashboard.putNumber("Robot Pose X", getPose().getX());
     SmartDashboard.putNumber("Robot Pose Y", getPose().getY());
@@ -253,24 +254,6 @@ public class SwerveSubsystem extends SubsystemBase
                                                              .getYaw()))); // Not sure if this will work, more math may be required.
         }
       }
-    });
-  }
-
-  public Command aimAtPoint(CommandJoystick leftJoystick) {
-    return run(() -> {
-      //if (Robot.blueAlliance = true) {
-        System.out.println("aimAtPoint initialized for blue side");
-        drive(getTargetSpeeds(0.4 * leftJoystick.getX() + 0.6 * Math.pow(leftJoystick.getX(), 3),
-                              0.4 * leftJoystick.getY() + 0.6 * Math.pow(leftJoystick.getY(), 3),
-                              PhotonUtils.getYawToPose(getPose(), 
-                              PoseConstants.kblueHubPose)));
-      //} else {
-        // System.out.println("aimAtPoint initialized for red side");
-        // drive(getTargetSpeeds(0.4 * leftJoystick.getX() + 0.6 * Math.pow(leftJoystick.getX(), 3),
-        //                       0.4 * leftJoystick.getY() + 0.6 * Math.pow(leftJoystick.getY(), 3),
-        //                       PhotonUtils.getYawToPose(getPose(), 
-        //                       PoseConstants.kredHubPose)));
-      //}
     });
   }
 
@@ -608,7 +591,7 @@ System.out.println("driveToPose command started");
    *
    * @return true if the red alliance, false if blue. Defaults to false if none is available.
    */
-  private boolean isRedAlliance()
+  public boolean isRedAlliance()
   {
     var alliance = DriverStation.getAlliance();
     return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
@@ -768,6 +751,14 @@ System.out.println("driveToPose command started");
   public SwerveDrive getSwerveDrive()
   {
     return swerveDrive;
+  }
+
+  public double getDistanceToHub() {
+    if (isRedAlliance()) {
+      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kredHubPose);
+    } else {
+      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kblueHubPose);
+    }
   }
 
   /**

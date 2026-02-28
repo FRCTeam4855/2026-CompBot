@@ -37,7 +37,7 @@ public final class Constants {
   }
 
   public static final class PoseConstants {
-    public static final Pose2d kblueHubPose = new Pose2d(0,0, new Rotation2d(0)); //x = 4.6256 y = 4.0345
+    public static final Pose2d kblueHubPose = new Pose2d(4.6256,4.0345, new Rotation2d(0)); //x = 4.6256 y = 4.0345
     public static final Pose2d kredHubPose = new Pose2d(11.9408,4.0345, new Rotation2d(0));
   }
 
@@ -50,6 +50,8 @@ public final class Constants {
     public static final double kFlywheelP = 1;
     public static final double kFlywheelI = 0;
     public static final double kFlywheelD = 0;
+
+    public static final int[] kFlywheelSpeeds = {10, 20, 30, 40, 50, 60};
   }
 
   public static final class IntakeConstants {
