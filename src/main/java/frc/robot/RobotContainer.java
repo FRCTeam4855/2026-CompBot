@@ -44,16 +44,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   private final LightsSubsystem m_lights = new LightsSubsystem();
   private final SendableChooser<Command> autoChooser;
-  // The robot's subsystems and commands are defined here...
   public final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
   public static double speedMultiplier = SwerveConstants.kSpeedMultiplierDefault;
   public static Optional<Alliance> alliance = DriverStation.getAlliance();
- // public static double speedMultiplier = 1.0;
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandJoystick m_leftDriveController =
       new CommandJoystick(OperatorConstants.kDriverControllerPort);
 
@@ -92,7 +89,7 @@ public class RobotContainer {
                                                                       Math.pow(m_leftDriveController.getX(), 3)) * -speedMultiplier)
                                                             .withControllerRotationAxis(() -> -m_rightDriveController.getX())
                                                             .deadband(OperatorConstants.DEADBAND)
-                                                            .scaleTranslation(0.8)
+                                                            .scaleTranslation(SwerveConstants.kScaleTranslation)
                                                             .allianceRelativeControl(true);
 
     SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_leftDriveController::getX,

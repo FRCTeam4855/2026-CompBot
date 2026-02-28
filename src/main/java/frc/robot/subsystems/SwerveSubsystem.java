@@ -37,7 +37,9 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PoseConstants;
+import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -648,9 +650,10 @@ System.out.println("driveToPose command started");
    */
   public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double headingX, double headingY)
   {
-    Translation2d scaledInputs = SwerveMath.cubeTranslation(new Translation2d(xInput, yInput));
-    return swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(),
-                                                        scaledInputs.getY(),
+    double scaledX = 0.4 * xInput + 0.6 * Math.pow(xInput, 3);
+    double scaledY = 0.4 * yInput + 0.6 * Math.pow(yInput, 3);
+    return swerveDrive.swerveController.getTargetSpeeds(scaledX * SwerveConstants.kScaleTranslation,
+                                                        scaledY * SwerveConstants.kScaleTranslation,
                                                         headingX,
                                                         headingY,
                                                         getHeading().getRadians(),
@@ -666,16 +669,26 @@ System.out.println("driveToPose command started");
    * @param angle  The angle in as a {@link Rotation2d}.
    * @return {@link ChassisSpeeds} which can be sent to the Swerve Drive.
    */
-  public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle)
-  {
-    Translation2d scaledInputs = SwerveMath.cubeTranslation(new Translation2d(xInput, yInput));
-
-    return swerveDrive.swerveController.getTargetSpeeds(scaledInputs.getX(),
-                                                        scaledInputs.getY(),
-                                                        angle.getRadians(),
-                                                        getHeading().getRadians(),
-                                                        Constants.SwerveConstants.MAX_SPEED);
+public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle)
+{
+  // Handle alliance relative control to match default command behavior
+  if (isRedAlliance()) {
+    xInput = -xInput;
+    yInput = -yInput;
+    angle = angle.plus(Rotation2d.fromDegrees(180));
   }
+
+  double scaledX = 0.4 * xInput + 0.6 * Math.pow(xInput, 3);
+  double scaledY = 0.4 * yInput + 0.6 * Math.pow(yInput, 3);
+  scaledX = Math.abs(scaledX) < OperatorConstants.DEADBAND ? 0 : scaledX;
+  scaledY = Math.abs(scaledY) < OperatorConstants.DEADBAND ? 0 : scaledY;
+
+  return swerveDrive.swerveController.getTargetSpeeds(scaledX * SwerveConstants.kScaleTranslationLow * -SwerveConstants.kSpeedMultiplierDefault,
+                                                      scaledY * SwerveConstants.kScaleTranslationLow * -SwerveConstants.kSpeedMultiplierDefault,
+                                                      angle.getRadians(),
+                                                      getHeading().getRadians(),
+                                                      Constants.SwerveConstants.MAX_SPEED);
+}
 
   /**
    * Gets the current field-relative velocity (x, y and omega) of the robot
@@ -755,9 +768,9 @@ System.out.println("driveToPose command started");
 
   public double getDistanceToHub() {
     if (isRedAlliance()) {
-      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kredHubPose);
+      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kRedHubPose);
     } else {
-      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kblueHubPose);
+      return PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kBlueHubPose);
     }
   }
 

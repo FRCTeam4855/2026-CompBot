@@ -22,7 +22,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kRotControllerPort = 1;
-    public static final double DEADBAND = 0.1;    //joystick deadband
+    public static final double DEADBAND = 0.05;    //joystick deadband
   }
 
   public static class SwerveConstants {
@@ -31,27 +31,29 @@ public final class Constants {
       public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
       public static final double MAX_SPEED  = 4.3;
       public static final double kSpeedMultiplierDefault = 1.0;   
-      public static final double kSpeedMultiplierSlow = 0.2;   
+      public static final double kSpeedMultiplierSlow = 0.2;
+      public static final double kScaleTranslation = 0.8; //Used for normal drive
+      public static final double kScaleTranslationLow = 0.65; //Used for drive with the getTargetSpeedsMethod
 
       public static final Pose2d kTestPose = new Pose2d(2, 2, new Rotation2d(0));
   }
 
   public static final class PoseConstants {
-    public static final Pose2d kblueHubPose = new Pose2d(4.6256,4.0345, new Rotation2d(0)); //x = 4.6256 y = 4.0345
-    public static final Pose2d kredHubPose = new Pose2d(11.9408,4.0345, new Rotation2d(0));
+    public static final Pose2d kBlueHubPose = new Pose2d(4.6256,4.0345, new Rotation2d(0)); //x = 4.6256 y = 4.0345
+    public static final Pose2d kRedHubPose = new Pose2d(11.9408,4.0345, new Rotation2d(0));
   }
 
   public static final class FlywheelConstants{
-    public static final int kflywheelLCanId = -1;
-    public static final int kflywheelMCanId = -1;
-    public static final int kflywheelRCanId = -1;
+    public static final int kFlywheelLCanId = -1;
+    public static final int kFlywheelMCanId = -1;
+    public static final int kFlywheelRCanId = -1;
 
     public static final int kFlywheelCurrentLimit = 40;
     public static final double kFlywheelP = 1;
     public static final double kFlywheelI = 0;
     public static final double kFlywheelD = 0;
 
-    public static final int[] kFlywheelSpeeds = {10, 20, 30, 40, 50, 60};
+    public static final int[] kFlywheelSpeeds = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240};
   }
 
   public static final class IntakeConstants {
