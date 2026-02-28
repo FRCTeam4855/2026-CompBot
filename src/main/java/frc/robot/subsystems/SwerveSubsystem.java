@@ -32,9 +32,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.PoseConstants;
 import frc.robot.subsystems.Vision.Cameras;
 import java.io.File;
 import java.io.IOException;
@@ -44,6 +47,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import org.json.simple.parser.ParseException;
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -148,6 +152,8 @@ public class SwerveSubsystem extends SubsystemBase
       vision.updatePoseEstimation(swerveDrive);      
     }
     SmartDashboard.putBoolean("Field Oriented", RobotContainer.FieldOriented);
+    SmartDashboard.putNumber("Robot Pose X", getPose().getX());
+    SmartDashboard.putNumber("Robot Pose Y", getPose().getY());
   }
 
   @Override
@@ -247,6 +253,24 @@ public class SwerveSubsystem extends SubsystemBase
                                                              .getYaw()))); // Not sure if this will work, more math may be required.
         }
       }
+    });
+  }
+
+  public Command aimAtPoint(CommandJoystick leftJoystick) {
+    return run(() -> {
+      //if (Robot.blueAlliance = true) {
+        System.out.println("aimAtPoint initialized for blue side");
+        drive(getTargetSpeeds(0.4 * leftJoystick.getX() + 0.6 * Math.pow(leftJoystick.getX(), 3),
+                              0.4 * leftJoystick.getY() + 0.6 * Math.pow(leftJoystick.getY(), 3),
+                              PhotonUtils.getYawToPose(getPose(), 
+                              PoseConstants.kblueHubPose)));
+      //} else {
+        // System.out.println("aimAtPoint initialized for red side");
+        // drive(getTargetSpeeds(0.4 * leftJoystick.getX() + 0.6 * Math.pow(leftJoystick.getX(), 3),
+        //                       0.4 * leftJoystick.getY() + 0.6 * Math.pow(leftJoystick.getY(), 3),
+        //                       PhotonUtils.getYawToPose(getPose(), 
+        //                       PoseConstants.kredHubPose)));
+      //}
     });
   }
 

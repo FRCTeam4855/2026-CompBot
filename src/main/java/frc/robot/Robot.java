@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,6 +25,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private final CommandJoystick m_leftDriveController =
       new CommandJoystick(OperatorConstants.kDriverControllerPort);
+  public static boolean blueAlliance = true;
 
   private final RobotContainer m_robotContainer;
 
@@ -35,9 +40,13 @@ public class Robot extends TimedRobot {
   }
     @Override
   public void robotInit(){
-    
+    // Optional<Alliance> ally = DriverStation.getAlliance();
+    // if (ally.isPresent()) {
+    //   if (ally.get() == Alliance.Red) {
+    //     blueAlliance = false;
+    //   }
+    // }
   }
-
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.

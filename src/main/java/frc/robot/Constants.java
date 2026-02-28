@@ -36,6 +36,11 @@ public final class Constants {
       public static final Pose2d kTestPose = new Pose2d(2, 2, new Rotation2d(0));
   }
 
+  public static final class PoseConstants {
+    public static final Pose2d kblueHubPose = new Pose2d(0,0, new Rotation2d(0)); //x = 4.6256 y = 4.0345
+    public static final Pose2d kredHubPose = new Pose2d(11.9408,4.0345, new Rotation2d(0));
+  }
+
   public static final class FlywheelConstants{
     public static final int kflywheelLCanId = -1;
     public static final int kflywheelMCanId = -1;
@@ -72,6 +77,9 @@ public final class Constants {
     public static final double kClimberD = 0;
 
     public static final int kClimberCurrentLimit = 40;
+
+    public static final double kClimberExtendPosition = 1;
+    public static final double kClibmerRetractPosition = 0;
   }
 
   public static final class LightsConstants {

@@ -7,12 +7,14 @@ package frc.robot;
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
+import frc.robot.commands.AimAtPointCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
+import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -20,6 +22,8 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -46,6 +50,7 @@ public class RobotContainer {
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
   public static double speedMultiplier = SwerveConstants.kSpeedMultiplierDefault;
+  public static Optional<Alliance> alliance = DriverStation.getAlliance();
  // public static double speedMultiplier = 1.0;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -122,7 +127,8 @@ public class RobotContainer {
   private void configureBindings() {
 
       //drivebase commands
-    m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
+    //m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
+    m_leftDriveController.button(1).whileTrue(new AimAtPointCommand(drivebase, m_leftDriveController));
     m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
 
     m_rightDriveController.button(2).onTrue(Commands.runOnce(() -> toggleFieldOriented()));

@@ -266,7 +266,7 @@ public class Vision
     /**
      * Rear Camera
      */
-    REAR_CAM("Arducam_OV9281_USB_Camera", //Don't change the name of the cam on the USB 2.0
+    REAR_CAM("rear",
               new Rotation3d(0, 0, Math.toRadians(180)),
               new Translation3d(Units.inchesToMeters(-9),
                                 Units.inchesToMeters(9.25),
