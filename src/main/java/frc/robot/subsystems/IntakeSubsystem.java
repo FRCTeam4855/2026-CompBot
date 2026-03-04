@@ -17,6 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public final SparkMax m_intakeMotor, m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
+    public boolean intakeRunning = false;
 
     public IntakeSubsystem() {
         m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless); 
@@ -31,5 +32,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void positionIntake(double position) {
         anglePIDController.setSetpoint(position, ControlType.kDutyCycle);
+    }
+
+    public void toggleIntake() {
+        if (!intakeRunning) {
+            m_intakeMotor.set(0.1);
+            intakeRunning = true;
+        } else {
+            m_intakeMotor.set(0);
+            intakeRunning = false;
+        }
     }
 }

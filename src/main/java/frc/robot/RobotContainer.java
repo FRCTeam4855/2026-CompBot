@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.AimAtPointCommand;
 import frc.robot.commands.RotateForBumpCommand;
+import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
@@ -25,6 +29,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -43,6 +49,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   private final LightsSubsystem m_lights = new LightsSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
+  private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
   private final SendableChooser<Command> autoChooser;
   public final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   
@@ -56,6 +65,9 @@ public class RobotContainer {
 
   private final CommandJoystick m_rightDriveController =
       new CommandJoystick(OperatorConstants.kRotControllerPort);
+
+  private final GenericHID m_operatorBoard =
+      new GenericHID(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -150,6 +162,22 @@ public class RobotContainer {
     m_rightDriveController.button(6).whileTrue(NamedCommands.getCommand("Intake Representation"));
     m_rightDriveController.button(7).whileTrue(NamedCommands.getCommand("Launch Representation"));
     m_rightDriveController.button(11).whileTrue(NamedCommands.getCommand("Climb Representation"));
+
+    //Operator Buttons
+    new JoystickButton(m_operatorBoard, 1).onTrue(new InstantCommand(
+      () -> m_intakeSubsystem.toggleIntake()));
+
+    new JoystickButton(m_operatorBoard, 2).onTrue(new InstantCommand(
+      () -> m_intakeSubsystem.positionIntake(IntakeConstants.kIntakeRetractPosition)));
+
+    new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
+      () -> m_flywheelSubsystem.toggleFlywheel()));
+
+    new JoystickButton(m_operatorBoard, 7).onTrue(new InstantCommand(
+      () -> m_flywheelSubsystem.toggleIndexer()));
+
+    new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
+      () -> m_conveyorSubsystem.toggleSystem()));
   }
 
   /**

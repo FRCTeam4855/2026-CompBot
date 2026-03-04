@@ -22,6 +22,7 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kRotControllerPort = 1;
+    public static final int kOperatorControllerPort = 2;
     public static final double DEADBAND = 0.05;    //joystick deadband
   }
 
@@ -44,9 +45,9 @@ public final class Constants {
   }
 
   public static final class FlywheelConstants{
-    public static final int kFlywheelLCanId = -1;
-    public static final int kFlywheelMCanId = -1;
-    public static final int kFlywheelRCanId = -1;
+    public static final int kFlywheelLCanId = 14;
+    public static final int kFlywheelMCanId = 15;
+    public static final int kFlywheelRCanId = 16;
 
     public static final int kFlywheelCurrentLimit = 40;
     public static final double kFlywheelP = 1;
@@ -54,15 +55,20 @@ public final class Constants {
     public static final double kFlywheelD = 0;
 
     public static final int[] kFlywheelSpeeds = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240};
+
+    public static final int kIndexerCanId = 12;
+    public static final double kIndexerP = 1;
+    public static final double kIndexerI = 0;
+    public static final double kIndexerD = 0;
   }
 
   public static final class IntakeConstants {
-    public static final int kIntakeCanId = -1;
+    public static final int kIntakeCanId = 9;
     public static final double kIntakeP = 1;
     public static final double kIntakeI = 0;
     public static final double kIntakeD = 0;
 
-    public static final int kIntakeAngleCanId = -1;
+    public static final int kIntakeAngleCanId = 10;
     public static final double kIntakeAngleP = 1;
     public static final double kIntakeAngleI = 0;
     public static final double kIntakeAngleD = 0;
@@ -70,8 +76,20 @@ public final class Constants {
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
 
-    public static final double kIntakeRetractPosition = 1;
-    public static final double kIntakeExtendPosition = 0;
+    public static final double kIntakeRetractPosition = 0;
+    public static final double kIntakeExtendPosition = 1;
+  }
+
+  public static final class ConveyorConstants {
+    public static final int kConveyorCanId = 13;
+    public static final double kConveyorP = 1;
+    public static final double kConveyorI = 0;
+    public static final double kConveyorD = 0;
+
+    public static final int kElevatorCanId = 11;
+    public static final double kElevatorP = 1;
+    public static final double kElevatorI = 0;
+    public static final double kElevatorD = 0;
   }
 
   public static final class ClimberConstants {
