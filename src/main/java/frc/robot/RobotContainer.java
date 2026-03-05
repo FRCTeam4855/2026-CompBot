@@ -9,6 +9,7 @@ import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.AimAtPointCommand;
+import frc.robot.commands.FlywheelControlCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
@@ -53,7 +54,7 @@ public class RobotContainer {
   private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
   private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
   private final SendableChooser<Command> autoChooser;
-  public final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  public static final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
   
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
@@ -104,9 +105,9 @@ public class RobotContainer {
                                                             .scaleTranslation(SwerveConstants.kScaleTranslation)
                                                             .allianceRelativeControl(true);
 
-    SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_leftDriveController::getX,
-                                                                                               m_leftDriveController::getY)
-                                                           .headingWhile(true);
+    // SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(m_leftDriveController::getX,
+    //                                                                                            m_leftDriveController::getY)
+    //                                                        .headingWhile(true);
 
     drivebase.setDefaultCommand(
       drivebase.run(()-> {
@@ -165,19 +166,25 @@ public class RobotContainer {
 
     //Operator Buttons
     new JoystickButton(m_operatorBoard, 1).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.toggleIntake()));
+      () -> m_intakeSubsystem.runIntake(IntakeConstants.kIntakeSpeed)));
 
     new JoystickButton(m_operatorBoard, 2).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.positionIntake(IntakeConstants.kIntakeRetractPosition)));
+      () -> m_intakeSubsystem.runIntake(-IntakeConstants.kIntakeSpeed)));
+
+    new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
+      () -> m_intakeSubsystem.positionIntake()));
+
+    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
+      m_flywheelSubsystem));
 
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
-      () -> m_flywheelSubsystem.toggleFlywheel()));
+      () -> m_flywheelSubsystem.stopFlywheel()));
 
     new JoystickButton(m_operatorBoard, 7).onTrue(new InstantCommand(
-      () -> m_flywheelSubsystem.toggleIndexer()));
+      () -> m_conveyorSubsystem.toggleConveyor()));
 
-    new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
-      () -> m_conveyorSubsystem.toggleSystem()));
+    new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
+      () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
   }
 
   /**
@@ -187,10 +194,6 @@ public class RobotContainer {
   */
   private void toggleFieldOriented() {
     FieldOriented = !FieldOriented;
-  }
-
-  private void toggleSlowMode() {
-    SlowMode = !SlowMode;
   }
 
   /**

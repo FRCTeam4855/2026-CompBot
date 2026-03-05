@@ -17,7 +17,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public final SparkMax m_intakeMotor, m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
-    public boolean intakeRunning = false;
+    public boolean intakeRunning = false, intakeDeployed = false;
 
     public IntakeSubsystem() {
         m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless); 
@@ -30,17 +30,37 @@ public class IntakeSubsystem extends SubsystemBase {
         m_intakeAngleMotor.configure(IntakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
-    public void positionIntake(double position) {
-        anglePIDController.setSetpoint(position, ControlType.kDutyCycle);
+    public void positionIntake() {
+        if (intakeDeployed) {
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kDutyCycle);
+            intakeDeployed = false;
+        } else {
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kDutyCycle);
+            intakeDeployed = true;
+        }
     }
 
-    public void toggleIntake() {
-        if (!intakeRunning) {
-            m_intakeMotor.set(0.1);
-            intakeRunning = true;
-        } else {
+    public void runIntake(double speed) {
+        if (intakeRunning) {
             m_intakeMotor.set(0);
             intakeRunning = false;
+        } else {
+            m_intakeMotor.set(speed);
+            intakeRunning = true;
+        }
+    }
+
+    public void intakeSequence(double speed) {
+        if (intakeDeployed) {
+            m_intakeMotor.set(0);
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kDutyCycle);
+            intakeRunning = false;
+            intakeDeployed = false;
+        } else {
+            m_intakeMotor.set(speed);
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kDutyCycle);
+            intakeRunning = true;
+            intakeDeployed = true;
         }
     }
 }
