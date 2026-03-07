@@ -13,6 +13,7 @@ import frc.robot.commands.FlywheelControlCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -55,6 +56,7 @@ public class RobotContainer {
   private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
   private final SendableChooser<Command> autoChooser;
   public static final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
@@ -178,7 +180,7 @@ public class RobotContainer {
       m_flywheelSubsystem));
 
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
-      () -> m_flywheelSubsystem.stopFlywheel()));
+      () -> m_indexerSubsystem.toggleIndexer()));
 
     new JoystickButton(m_operatorBoard, 7).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleConveyor()));
