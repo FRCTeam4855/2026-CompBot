@@ -42,7 +42,7 @@ public class FlywheelSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         int speedIndex = (int) Math.round(swerve.getDistanceToHub() * 4);
-        goalFlywheelSpeed = swerve.getDistanceToHub() < 23 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[23];
+        goalFlywheelSpeed = speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[23];
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
     }
