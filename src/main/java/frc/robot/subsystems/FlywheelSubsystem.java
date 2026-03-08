@@ -6,6 +6,7 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.RobotContainer;
@@ -33,10 +34,9 @@ public class FlywheelSubsystem extends SubsystemBase {
         m_encoderM = m_flywheelM.getEncoder();
         m_encoderR = m_flywheelR.getEncoder();
 
-
         m_flywheelL.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         m_flywheelM.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_flywheelR.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_flywheelR.configure(FlywheelConfigs.flywheelConfigR, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     @Override

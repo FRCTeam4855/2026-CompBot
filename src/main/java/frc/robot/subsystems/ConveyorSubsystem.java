@@ -30,13 +30,14 @@ public class ConveyorSubsystem extends SubsystemBase {
 
     public void toggleConveyor() {
         if (elevatorRunning || conveyorRunning) {
-            m_conveyorController.setSetpoint(0.0, ControlType.kVelocity);
-            m_elevatorController.setSetpoint(0.0, ControlType.kVelocity);
+            m_conveyorSpark.set(0.0);
+            m_elevatorSpark.set(0.0);
             elevatorRunning = false;
             conveyorRunning = false;
         } else {
             m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
             m_elevatorController.setSetpoint(ConveyorConstants.kElevatorSpeed, ControlType.kVelocity);
+            //m_elevatorController.setSetpoint(0, ControlType.kVelocity); THIS LINE TURNS OFF ELEVATOR, ONLY USE IF NO WANT ELEVATOR 
             elevatorRunning = true;
             conveyorRunning = true;
         }

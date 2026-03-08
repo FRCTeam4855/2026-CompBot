@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FlywheelSubsystem;
 
 public class FlywheelControlCommand extends Command {
-    FlywheelSubsystem flywheel;
+    FlywheelSubsystem l_flywheel;
     public FlywheelControlCommand(FlywheelSubsystem flywheel) {
-            this.flywheel = flywheel;
+            this.l_flywheel = flywheel;
 
             addRequirements(flywheel);
     }
@@ -16,27 +16,31 @@ public class FlywheelControlCommand extends Command {
     @Override
     public void initialize() {
         System.out.println("FlywheelControlCommand initialized");
-        if (flywheel.flywheelRunning = true) {
-            flywheel.m_flywheelL.set(0);
-            flywheel.m_flywheelM.set(0);
-            flywheel.m_flywheelR.set(0);
-            flywheel.flywheelRunning = false;
+        if (l_flywheel.flywheelRunning == true) {
+            l_flywheel.m_flywheelL.set(0);
+            l_flywheel.m_flywheelM.set(0);
+            l_flywheel.m_flywheelR.set(0);
+            l_flywheel.flywheelRunning = false;
         } else {
-            flywheel.flywheelRunning = true;
+            l_flywheel.flywheelRunning = true;
         }
     }
 
     @Override
     public void execute() {
-        if (flywheel.flywheelRunning) {
-            flywheel.m_pidControllerL.setSetpoint(flywheel.goalFlywheelSpeed, ControlType.kVelocity);
-            flywheel.m_pidControllerM.setSetpoint(flywheel.goalFlywheelSpeed, ControlType.kVelocity);
-            flywheel.m_pidControllerR.setSetpoint(flywheel.goalFlywheelSpeed, ControlType.kVelocity);
+        System.out.println("Executing!");
+        if (l_flywheel.flywheelRunning == true) {
+            l_flywheel.m_pidControllerL.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
+            l_flywheel.m_pidControllerM.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
+            l_flywheel.m_pidControllerR.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
+            // l_flywheel.m_pidControllerL.setSetpoint(1000, ControlType.kVelocity);
+            // l_flywheel.m_pidControllerM.setSetpoint(1000, ControlType.kVelocity);
+            // l_flywheel.m_pidControllerR.setSetpoint(-1000, ControlType.kVelocity); MANUALLY RUN FLYWHEEL AT 3000 RPM
         }
     }
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }

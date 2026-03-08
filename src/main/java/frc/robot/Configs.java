@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import frc.robot.Constants.ClimberConstants;
@@ -11,36 +12,58 @@ import frc.robot.Constants.IntakeConstants;
 public final class Configs {
 
     public static final class IntakeConfigs {
-        public static final SparkMaxConfig intakeConfig = new SparkMaxConfig();
+        public static final SparkFlexConfig intakeConfig = new SparkFlexConfig();
         public static final SparkMaxConfig intakeAngleConfig = new SparkMaxConfig();
         static {
             intakeConfig
                 .idleMode(IdleMode.kBrake);
             intakeConfig.closedLoop
-                .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD);
+                .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD)
+                .feedForward.kV(0.00205);
 
             intakeAngleConfig
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
-                .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD);
+                .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
+                .feedForward.kV(0.6/3000);
             intakeAngleConfig.absoluteEncoder
                 .inverted(false);
         }
     }
 
     public static final class FlywheelConfigs {
-        public static final SparkMaxConfig flywheelConfig = new SparkMaxConfig();
+        public static final SparkFlexConfig flywheelConfig = new SparkFlexConfig();
+        public static final SparkFlexConfig flywheelConfigR = new SparkFlexConfig();
         public static final SparkMaxConfig indexerConfig = new SparkMaxConfig();
         static {
             flywheelConfig
-                .idleMode(IdleMode.kBrake);
+                .idleMode(IdleMode.kCoast);
             flywheelConfig.closedLoop
-                .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD);
+                .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
+                .outputRange(0, 1.0)
+                .feedForward.kV(0.04/2600);
+
+            flywheelConfigR
+                .idleMode(IdleMode.kCoast)
+                .inverted(true);
+            flywheelConfigR.closedLoop
+                .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
+                .outputRange(0, 1.0)
+                .feedForward.kV(0.04/2600);
 
             indexerConfig
                 .idleMode(IdleMode.kBrake);
             indexerConfig.closedLoop
-                .pid(FlywheelConstants.kIndexerP, FlywheelConstants.kIndexerI, FlywheelConstants.kIndexerD);
+                .pid(FlywheelConstants.kIndexerP, FlywheelConstants.kIndexerI, FlywheelConstants.kIndexerD)
+                .feedForward.kV(0.6/3000);
+                
+        }
+        public class flywheelConfig {
+
+            public void inverted(boolean b) {
+                // TODO Auto-generated method stub
+                throw new UnsupportedOperationException("Unimplemented method 'inverted'");
+            }
         }
     }
 
@@ -51,12 +74,14 @@ public final class Configs {
             conveyorConfig
                 .idleMode(IdleMode.kBrake);
             conveyorConfig.closedLoop 
-                .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD);
+                .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD)
+                .feedForward.kV(0.0023);
 
             elevatorConfig
                 .idleMode(IdleMode.kBrake);
             elevatorConfig.closedLoop
-                .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD);
+                .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)
+                .feedForward.kV(0.0022);
         }
     }
     

@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase {
             m_intakeMotor.set(0);
             intakeRunning = false;
         } else {
-            m_intakeMotor.set(speed);
+            intakePIDController.setSetpoint(speed, ControlType.kVelocity);
             intakeRunning = true;
         }
     }

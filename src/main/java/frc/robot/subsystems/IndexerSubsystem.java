@@ -28,7 +28,7 @@ public class IndexerSubsystem extends SubsystemBase {
             m_indexerController.setSetpoint(FlywheelConstants.kIndexerSpeed, ControlType.kVelocity);
             indexerRunning = true;
         } else {
-            m_indexerController.setSetpoint(0, ControlType.kVelocity);
+            m_indexer.set(0);
             indexerRunning = false;
         }
     }

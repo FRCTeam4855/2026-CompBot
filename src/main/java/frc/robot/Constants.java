@@ -50,51 +50,51 @@ public final class Constants {
     public static final int kFlywheelRCanId = 16;
 
     public static final int kFlywheelCurrentLimit = 40;
-    public static final double kFlywheelP = 1;
+    public static final double kFlywheelP = 0.001;
     public static final double kFlywheelI = 0;
-    public static final double kFlywheelD = 0;
+    public static final double kFlywheelD = 0.08;
 
     public static final int[] kFlywheelSpeeds = {3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 
                                                 4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700, 4800, 4900, 
                                                 5000, 5100, 5200, 5300};
 
     public static final int kIndexerCanId = 12;
-    public static final double kIndexerP = 1;
+    public static final double kIndexerP = 0.0002;
     public static final double kIndexerI = 0;
-    public static final double kIndexerD = 0;
+    public static final double kIndexerD = 0.05;
     public static final int kIndexerSpeed = 3000;
   }
 
   public static final class IntakeConstants {
     public static final int kIntakeCanId = 9;
-    public static final double kIntakeP = 1;
+    public static final double kIntakeP = 0.0002;
     public static final double kIntakeI = 0;
-    public static final double kIntakeD = 0;
+    public static final double kIntakeD = 0.0;
 
     public static final int kIntakeAngleCanId = 10;
-    public static final double kIntakeAngleP = 1;
+    public static final double kIntakeAngleP = 0.00001;
     public static final double kIntakeAngleI = 0;
-    public static final double kIntakeAngleD = 0;
+    public static final double kIntakeAngleD = 0.05;
 
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
 
-    public static final double kIntakeSpeed = 0.5;
+    public static final double kIntakeSpeed = 4000;
     public static final double kIntakeRetractPosition = 0;
     public static final double kIntakeExtendPosition = 1;
   }
 
   public static final class ConveyorConstants {
     public static final int kConveyorCanId = 13;
-    public static final double kConveyorP = 1;
+    public static final double kConveyorP = 0.0002;
     public static final double kConveyorI = 0;
-    public static final double kConveyorD = 0;
-    public static final int kConveyorSpeed = 2000;
+    public static final double kConveyorD = 0.05;
+    public static final int kConveyorSpeed = 3000;
 
     public static final int kElevatorCanId = 11;
-    public static final double kElevatorP = 1;
+    public static final double kElevatorP = 0.0002;
     public static final double kElevatorI = 0;
-    public static final double kElevatorD = 0;
+    public static final double kElevatorD = 0.05;
     public static final int kElevatorSpeed = 3000;
   }
 
