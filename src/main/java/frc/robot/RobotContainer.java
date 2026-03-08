@@ -185,6 +185,9 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 7).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleConveyor()));
 
+    new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
+      () -> m_conveyorSubsystem.toggleElevator()));
+
     new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
   }

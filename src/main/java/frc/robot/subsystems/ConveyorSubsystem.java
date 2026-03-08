@@ -29,17 +29,22 @@ public class ConveyorSubsystem extends SubsystemBase {
     }
 
     public void toggleConveyor() {
-        if (elevatorRunning || conveyorRunning) {
+        if (conveyorRunning) {
             m_conveyorSpark.set(0.0);
-            m_elevatorSpark.set(0.0);
-            elevatorRunning = false;
             conveyorRunning = false;
         } else {
-            //m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
-            m_elevatorController.setSetpoint(ConveyorConstants.kElevatorSpeed, ControlType.kVelocity);
-            //m_elevatorController.setSetpoint(0, ControlType.kVelocity); 
-            elevatorRunning = true;
+            m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
             conveyorRunning = true;
+        }
+    }
+
+    public void toggleElevator() {
+        if (elevatorRunning) {
+            m_elevatorSpark.set(0);
+            elevatorRunning = false;
+        } else {
+            m_elevatorController.setSetpoint(ConveyorConstants.kElevatorSpeed, ControlType.kVelocity);
+            elevatorRunning = true;
         }
     }
 }
