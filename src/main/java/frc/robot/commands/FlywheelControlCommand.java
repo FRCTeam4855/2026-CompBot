@@ -28,14 +28,14 @@ public class FlywheelControlCommand extends Command {
 
     @Override
     public void execute() {
-        System.out.println("Executing!");
+        System.out.printf("Executing! Speed %d\n", l_flywheel.goalFlywheelSpeed);
         if (l_flywheel.flywheelRunning == true) {
             l_flywheel.m_pidControllerL.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
             l_flywheel.m_pidControllerM.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
             l_flywheel.m_pidControllerR.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
-            // l_flywheel.m_pidControllerL.setSetpoint(1000, ControlType.kVelocity);
-            // l_flywheel.m_pidControllerM.setSetpoint(1000, ControlType.kVelocity);
-            // l_flywheel.m_pidControllerR.setSetpoint(-1000, ControlType.kVelocity); MANUALLY RUN FLYWHEEL AT 3000 RPM
+            // l_flywheel.m_pidControllerL.setSetpoint(2400, ControlType.kVelocity);
+            // l_flywheel.m_pidControllerM.setSetpoint(2400, ControlType.kVelocity);
+            // l_flywheel.m_pidControllerR.setSetpoint(2400, ControlType.kVelocity); //MANUALLY RUN FLYWHEEL AT 3000 RPM
         }
     }
 

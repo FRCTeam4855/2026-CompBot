@@ -52,23 +52,45 @@ public final class Constants {
     public static final int kFlywheelCurrentLimit = 40;
     public static final double kFlywheelP = 0.001;
     public static final double kFlywheelI = 0;
-    public static final double kFlywheelD = 0.08;
+    public static final double kFlywheelD = 0.04;
 
-    public static final int[] kFlywheelSpeeds = {3000, 3100, 3200, 3300, 3400, 3500, 3600, 3700, 3800, 3900, 
-                                                4000, 4100, 4200, 4300, 4400, 4500, 4600, 4700, 4800, 4900, 
-                                                5000, 5100, 5200, 5300};
-
+    public static final int[] kFlywheelSpeeds = { 0, // 0
+                                                  2000, // 0.25
+                                                  2100, // 0.5
+                                                  2200, // 0.75
+                                                  2300, // 1.0
+                                                  2400, // 1.25
+                                                  2500, // 1.5
+                                                  2600, // 1.75
+                                                  2700, // 2.0
+                                                  2800, // 2.25
+                                                  2900, // 2.5
+                                                  3000, // 2.75
+                                                  3100, // 3.0
+                                                  3200, // 3.25
+                                                  3300, // 3.5
+                                                  3400, // 3.75
+                                                  3500, // 4.0
+                                                  3600, // 4.25
+                                                  3700, // 4.5
+                                                  3800, // 4.75
+                                                  3900, // 5.0
+                                                  4000, // 5.25
+                                                  4100, // 5.5
+                                                  4200, // 5.75
+                                                  4300};// 6.0
+                                                  
     public static final int kIndexerCanId = 12;
     public static final double kIndexerP = 0.0002;
     public static final double kIndexerI = 0;
-    public static final double kIndexerD = 0.05;
+    public static final double kIndexerD = 0.015;
     public static final int kIndexerSpeed = 3000;
   }
 
   public static final class IntakeConstants {
     public static final int kIntakeCanId = 9;
     public static final double kIntakeP = 0.0002;
-    public static final double kIntakeI = 0;
+    public static final double kIntakeI = 0.0;
     public static final double kIntakeD = 0.0;
 
     public static final int kIntakeAngleCanId = 10;
@@ -94,7 +116,7 @@ public final class Constants {
     public static final int kElevatorCanId = 11;
     public static final double kElevatorP = 0.0002;
     public static final double kElevatorI = 0;
-    public static final double kElevatorD = 0.05;
+    public static final double kElevatorD = 0.0;
     public static final int kElevatorSpeed = 3000;
   }
 

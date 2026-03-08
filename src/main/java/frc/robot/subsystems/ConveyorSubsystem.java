@@ -35,9 +35,9 @@ public class ConveyorSubsystem extends SubsystemBase {
             elevatorRunning = false;
             conveyorRunning = false;
         } else {
-            m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
+            //m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
             m_elevatorController.setSetpoint(ConveyorConstants.kElevatorSpeed, ControlType.kVelocity);
-            //m_elevatorController.setSetpoint(0, ControlType.kVelocity); THIS LINE TURNS OFF ELEVATOR, ONLY USE IF NO WANT ELEVATOR 
+            //m_elevatorController.setSetpoint(0, ControlType.kVelocity); 
             elevatorRunning = true;
             conveyorRunning = true;
         }

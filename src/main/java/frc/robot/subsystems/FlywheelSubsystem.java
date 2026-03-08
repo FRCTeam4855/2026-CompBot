@@ -6,6 +6,7 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import frc.robot.Constants.FlywheelConstants;
@@ -34,15 +35,19 @@ public class FlywheelSubsystem extends SubsystemBase {
         m_encoderM = m_flywheelM.getEncoder();
         m_encoderR = m_flywheelR.getEncoder();
 
+        SparkBaseConfig flywheelRConfig = new SparkFlexConfig() // Creates a private Flywheel configuration
+            .apply(FlywheelConfigs.flywheelConfig)  // Applies all of the flywheelConfig config settings into the private config
+            .inverted(true);               // Adds the inverted configuration setting
+
         m_flywheelL.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         m_flywheelM.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_flywheelR.configure(FlywheelConfigs.flywheelConfigR, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_flywheelR.configure(flywheelRConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     @Override
     public void periodic() {
         int speedIndex = (int) Math.round(swerve.getDistanceToHub() * 4);
-        goalFlywheelSpeed = speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[23];
+        goalFlywheelSpeed = speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[24];
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
     }

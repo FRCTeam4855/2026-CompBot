@@ -41,29 +41,16 @@ public final class Configs {
             flywheelConfig.closedLoop
                 .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
                 .outputRange(0, 1.0)
-                .feedForward.kV(0.04/2600);
-
-            flywheelConfigR
-                .idleMode(IdleMode.kCoast)
-                .inverted(true);
-            flywheelConfigR.closedLoop
-                .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
-                .outputRange(0, 1.0)
-                .feedForward.kV(0.04/2600);
+                .feedForward
+                    .kS(.011)
+                    .kV(0.0018);
 
             indexerConfig
                 .idleMode(IdleMode.kBrake);
             indexerConfig.closedLoop
                 .pid(FlywheelConstants.kIndexerP, FlywheelConstants.kIndexerI, FlywheelConstants.kIndexerD)
-                .feedForward.kV(0.6/3000);
+                .feedForward.kV(0.0023);
                 
-        }
-        public class flywheelConfig {
-
-            public void inverted(boolean b) {
-                // TODO Auto-generated method stub
-                throw new UnsupportedOperationException("Unimplemented method 'inverted'");
-            }
         }
     }
 
@@ -75,13 +62,13 @@ public final class Configs {
                 .idleMode(IdleMode.kBrake);
             conveyorConfig.closedLoop 
                 .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD)
-                .feedForward.kV(0.0023);
+                .feedForward.kV(0.00223);
 
             elevatorConfig
                 .idleMode(IdleMode.kBrake);
             elevatorConfig.closedLoop
                 .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)
-                .feedForward.kV(0.0022);
+                .feedForward.kV(0.0024);
         }
     }
     
