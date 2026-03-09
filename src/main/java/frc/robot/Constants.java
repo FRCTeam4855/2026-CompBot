@@ -94,16 +94,17 @@ public final class Constants {
     public static final double kIntakeD = 0.0;
 
     public static final int kIntakeAngleCanId = 10;
-    public static final double kIntakeAngleP = 0.00001;
+    public static final double kIntakeAngleP = .05;
+    //public static final double kIntakeAngleP = 0.00001;
     public static final double kIntakeAngleI = 0;
-    public static final double kIntakeAngleD = 0.05;
+    public static final double kIntakeAngleD = 0;
 
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
 
-    public static final double kIntakeSpeed = 4000;
-    public static final double kIntakeRetractPosition = 0;
-    public static final double kIntakeExtendPosition = 1;
+    public static final double kIntakeSpeed = 5000;
+    public static final double kIntakeRetractPosition = .1;
+    public static final double kIntakeExtendPosition = 0;
   }
 
   public static final class ConveyorConstants {

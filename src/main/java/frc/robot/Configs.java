@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -25,9 +26,18 @@ public final class Configs {
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
                 .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
-                .feedForward.kV(0.6/3000);
+                .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+                .positionWrappingEnabled(true)
+                .positionWrappingInputRange(0, 1)
+                .outputRange(-0.5, 0.5)
+                .feedForward
+                .kS(0.02)
+                .kV(0)
+                //.kV(0.6/3000)
+                .kCos(.74);
             intakeAngleConfig.absoluteEncoder
-                .inverted(false);
+                .inverted(false)
+                .positionConversionFactor(360);
         }
     }
 

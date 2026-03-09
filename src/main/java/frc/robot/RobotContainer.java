@@ -18,6 +18,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
+import static edu.wpi.first.units.Units.Degrees;
 
 import java.io.File;
 import java.util.Optional;
@@ -74,6 +75,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    // m_intakeSubsystem.setDefaultCommand(m_intakeSubsystem.set(-0.1));
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
@@ -188,8 +191,12 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleElevator()));
 
-    new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
+    // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
+    //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
+
+    // new JoystickButton(m_operatorBoard, 15).onTrue(m_intakeSubsystem.setAngle(Degrees.of(45)));
+
+    // new JoystickButton(m_operatorBoard, 11).onTrue(m_intakeSubsystem.setAngle(Degrees.of(0)));
   }
 
   /**

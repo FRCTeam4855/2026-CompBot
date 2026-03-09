@@ -41,7 +41,7 @@ public class FlywheelSubsystem extends SubsystemBase {
 
         m_flywheelL.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         m_flywheelM.configure(FlywheelConfigs.flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_flywheelR.configure(flywheelRConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_flywheelR.configure(flywheelRConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
 
     @Override
