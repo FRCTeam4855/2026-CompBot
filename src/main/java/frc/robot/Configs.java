@@ -13,8 +13,8 @@ import frc.robot.Constants.IntakeConstants;
 public final class Configs {
 
     public static final class IntakeConfigs {
-        public static final SparkFlexConfig intakeConfig = new SparkFlexConfig();
-        public static final SparkMaxConfig intakeAngleConfig = new SparkMaxConfig();
+        public static final SparkMaxConfig intakeConfig = new SparkMaxConfig();
+        public static final SparkFlexConfig intakeAngleConfig = new SparkFlexConfig();
         static {
             intakeConfig
                 .idleMode(IdleMode.kBrake);
@@ -31,10 +31,12 @@ public final class Configs {
                 .positionWrappingInputRange(0, 1)
                 .outputRange(-0.5, 0.5)
                 .feedForward
-                .kS(0.02)
-                .kV(0)
-                //.kV(0.6/3000)
-                .kCos(.74);
+                    .kS(0.02)
+                    .kV(0)
+                    .kA(0)
+                    .kG(0)
+                    .kCos(.74)
+                    .kCosRatio(1/360);
             intakeAngleConfig.absoluteEncoder
                 .inverted(false)
                 .positionConversionFactor(360);
