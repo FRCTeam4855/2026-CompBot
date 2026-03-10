@@ -139,8 +139,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // arm.updateTelemetry();
-    SmartDashboard.putNumber("Absolute Encoder Position", m_encoder.getPosition());
-    SmartDashboard.putNumber("PID Setpoint", anglePIDController.getSetpoint());
   }
 
     public void positionIntake() {
@@ -165,11 +163,6 @@ public class IntakeSubsystem extends SubsystemBase {
             intakeRunning = true;
         }
     }
-
-    /*public void setDefaultCommand(Object setAngleSetpoint) {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Unimplemented method 'setDefaultCommand'");
-    }*/
 
     public void intakeSequence(double speed) {
         if (intakeDeployed) {
