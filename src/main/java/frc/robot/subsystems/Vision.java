@@ -257,7 +257,7 @@ public class Vision
     /**
      * Front Camera
      */
-    FRONT_CAM("front",
+    LEFT_CAM("left",
              new Rotation3d(0, 0, 0),
              new Translation3d(Units.inchesToMeters(9),
                                Units.inchesToMeters(.5),

@@ -35,11 +35,11 @@ public final class Configs {
                     .kV(0)
                     .kA(0)
                     .kG(0)
-                    .kCos(.74)
-                    .kCosRatio(1/360);
+                    .kCos(.525)
+                    .kCosRatio(1);
             intakeAngleConfig.absoluteEncoder
                 .inverted(false)
-                .positionConversionFactor(360);
+                .positionConversionFactor(1);
         }
     }
 

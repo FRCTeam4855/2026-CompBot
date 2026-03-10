@@ -139,13 +139,18 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // arm.updateTelemetry();
+    SmartDashboard.putNumber("Absolute Encoder Position", m_encoder.getPosition());
+    SmartDashboard.putNumber("PID Setpoint", anglePIDController.getSetpoint());
   }
 
     public void positionIntake() {
+        System.out.printf("Entered positionIntake\n");
         if (intakeDeployed) {
+            System.out.printf("Retracting Intake\n");
             anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
             intakeDeployed = false;
         } else {
+            System.out.printf("Extending Intake\n");
             anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
             intakeDeployed = true;
         }
@@ -161,10 +166,10 @@ public class IntakeSubsystem extends SubsystemBase {
         }
     }
 
-    public void setDefaultCommand(Object setAngleSetpoint) {
+    /*public void setDefaultCommand(Object setAngleSetpoint) {
       // TODO Auto-generated method stub
       throw new UnsupportedOperationException("Unimplemented method 'setDefaultCommand'");
-    }
+    }*/
 
     public void intakeSequence(double speed) {
         if (intakeDeployed) {

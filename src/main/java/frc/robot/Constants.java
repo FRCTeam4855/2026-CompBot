@@ -94,8 +94,7 @@ public final class Constants {
     public static final double kIntakeD = 0.0;
 
     public static final int kIntakeAngleCanId = 10;
-    public static final double kIntakeAngleP = 1;
-    //public static final double kIntakeAngleP = 0.00001;
+    public static final double kIntakeAngleP = 2;
     public static final double kIntakeAngleI = 0;
     public static final double kIntakeAngleD = 0;
 
@@ -103,7 +102,8 @@ public final class Constants {
     public static final int kIntakeAngleCurrentLimit = 20;
 
     public static final double kIntakeSpeed = 5000;
-    public static final double kIntakeRetractPosition = .1;
+    public static final double kIntakeRetractPosition = .195;
+    // Angle reletive to 1 revolution of the intake arm
     public static final double kIntakeExtendPosition = 0;
   }
 
