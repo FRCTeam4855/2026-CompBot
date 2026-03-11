@@ -56,29 +56,29 @@ public final class Constants {
 
     public static final int[] kFlywheelSpeeds = { 0, // 0
                                                   2000, // 0.25
-                                                  2100, // 0.5
-                                                  2200, // 0.75
-                                                  2300, // 1.0
+                                                  2000, // 0.5
+                                                  2000, // 0.75
+                                                  2000, // 1.0
                                                   2400, // 1.25
-                                                  2500, // 1.5
+                                                  2400, // 1.5
                                                   2600, // 1.75
                                                   2700, // 2.0
                                                   2800, // 2.25
-                                                  2900, // 2.5
-                                                  3000, // 2.75
-                                                  3100, // 3.0
-                                                  3200, // 3.25
-                                                  3300, // 3.5
-                                                  3400, // 3.75
-                                                  3500, // 4.0
-                                                  3600, // 4.25
-                                                  3700, // 4.5
-                                                  3800, // 4.75
-                                                  3900, // 5.0
-                                                  4000, // 5.25
-                                                  4100, // 5.5
-                                                  4200, // 5.75
-                                                  4300};// 6.0
+                                                  2950, // 2.5
+                                                  3400, // 2.75
+                                                  3500, // 3.0
+                                                  3700, // 3.25
+                                                  4000, // 3.5
+                                                  4100, // 3.75
+                                                  4200, // 4.0
+                                                  4300, // 4.25
+                                                  4400, // 4.5
+                                                  4500, // 4.75
+                                                  4600, // 5.0
+                                                  4700, // 5.25
+                                                  4800, // 5.5
+                                                  4900, // 5.75
+                                                  5000};// 6.0
                                                   
     public static final int kIndexerCanId = 12;
     public static final double kIndexerP = 0.0002;
@@ -102,9 +102,9 @@ public final class Constants {
     public static final int kIntakeAngleCurrentLimit = 20;
 
     public static final double kIntakeSpeed = 5000;
-    public static final double kIntakeRetractPosition = .195;
+    public static final double kIntakeRetractPosition = .190;
     // Angle reletive to 1 revolution of the intake arm
-    public static final double kIntakeExtendPosition = 0;
+    public static final double kIntakeExtendPosition = 0.0;
   }
 
   public static final class ConveyorConstants {

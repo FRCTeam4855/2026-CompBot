@@ -258,19 +258,19 @@ public class Vision
      * Front Camera
      */
     LEFT_CAM("left",
-             new Rotation3d(0, 0, 0),
-             new Translation3d(Units.inchesToMeters(9),
-                               Units.inchesToMeters(.5),
-                               Units.inchesToMeters(14)),
+             new Rotation3d(0, 0, Math.toRadians(90)),
+             new Translation3d(-0.248,
+                               0.273,
+                               0.593),
              VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0)),
     /**
      * Rear Camera
      */
     REAR_CAM("rear",
               new Rotation3d(0, 0, Math.toRadians(180)),
-              new Translation3d(Units.inchesToMeters(-9),
-                                Units.inchesToMeters(9.25),
-                                Units.inchesToMeters(14.5)),
+              new Translation3d(-0.292,
+                                0.165,
+                                0.453),
               VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0));
     /**
      * Latency alert to use when high latency is detected.

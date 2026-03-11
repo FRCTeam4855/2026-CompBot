@@ -49,6 +49,8 @@ public class FlywheelSubsystem extends SubsystemBase {
         int speedIndex = (int) Math.round(swerve.getDistanceToHub() * 4);
         goalFlywheelSpeed = speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[24];
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
+        SmartDashboard.putNumber("Speed Index", speedIndex);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
+        SmartDashboard.putNumber("Distance to Hub", swerve.getDistanceToHub());
     }
 }

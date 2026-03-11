@@ -18,7 +18,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import swervelib.SwerveInputStream;
-import static edu.wpi.first.units.Units.Degrees;
 
 import java.io.File;
 import java.util.Optional;
@@ -39,6 +38,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -85,17 +85,36 @@ public class RobotContainer {
     NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
     NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights).repeatedly());
     NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights).repeatedly());
-
     NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly()
                                                                 .alongWith(new InstantCommand(()-> System.out.println("Intaking!!!"))));
-
     NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights).repeatedly()
                                                                 .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
-
     NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
                                                                 .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
                             
     NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
+
+    NamedCommands.registerCommand("Intake Forward", new InstantCommand(() -> m_intakeSubsystem.intakeForward()));
+    NamedCommands.registerCommand("Intake Reverse", new InstantCommand(() -> m_intakeSubsystem.intakeReverse()));
+    NamedCommands.registerCommand("Intake Stop", new InstantCommand(() -> m_intakeSubsystem.intakeStop()));
+    NamedCommands.registerCommand("Intake Deploy Sequence", new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()));
+    NamedCommands.registerCommand("Intake Retract Sequence", new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()));
+
+    NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_conveyorSubsystem.startConveyor()));
+    NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor()));
+    NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleConveyor()));
+
+    NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_conveyorSubsystem.startElevator()));
+    NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_conveyorSubsystem.stopElevator()));
+    NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleElevator()));
+
+    NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_indexerSubsystem.startIndexer()));
+    NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
+    NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
+
+    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
     
     // Configure the trigger bindings
     configureBindings();
@@ -170,16 +189,17 @@ public class RobotContainer {
     m_rightDriveController.button(11).whileTrue(NamedCommands.getCommand("Climb Representation"));
 
     //Operator Buttons
+
     new JoystickButton(m_operatorBoard, 1).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.runIntake(IntakeConstants.kIntakeSpeed)));
+      () -> m_intakeSubsystem.intakeToggle(IntakeConstants.kIntakeSpeed)));
 
     new JoystickButton(m_operatorBoard, 2).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.runIntake(-IntakeConstants.kIntakeSpeed)));
+      () -> m_intakeSubsystem.intakeToggle(-IntakeConstants.kIntakeSpeed)));
 
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.positionIntake()));
 
-    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
+    new JoystickButton(m_operatorBoard, 5).toggleOnTrue(new FlywheelControlCommand(
       m_flywheelSubsystem));
 
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
@@ -190,6 +210,10 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleElevator()));
+
+    new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Conveyor Sequence"));
+
+    new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

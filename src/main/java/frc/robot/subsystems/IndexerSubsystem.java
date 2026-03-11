@@ -32,4 +32,14 @@ public class IndexerSubsystem extends SubsystemBase {
             indexerRunning = false;
         }
     }
+
+    public void startIndexer() {
+        m_indexerController.setSetpoint(FlywheelConstants.kIndexerSpeed, ControlType.kVelocity);
+        indexerRunning = true;
+    }
+
+    public void stopIndexer() {
+        m_indexer.set(0);
+        indexerRunning = false;
+    }
 }
