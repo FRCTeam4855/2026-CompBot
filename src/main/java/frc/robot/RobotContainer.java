@@ -17,6 +17,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem.FlywheelRequest;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -120,7 +121,7 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator())));
 
     NamedCommands.registerCommand("Launch Sequence", new InstantCommand(()-> m_indexerSubsystem.startIndexer())
-                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem)));
+                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT)));
     
     // Configure the trigger bindings
     configureBindings();
@@ -205,8 +206,8 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.positionIntake()));
 
-    new JoystickButton(m_operatorBoard, 5).toggleOnTrue(new FlywheelControlCommand(
-      m_flywheelSubsystem));
+    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
+      m_flywheelSubsystem, FlywheelRequest.TOGGLE));
 
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
       () -> m_indexerSubsystem.toggleIndexer()));

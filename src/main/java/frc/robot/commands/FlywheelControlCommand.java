@@ -1,45 +1,58 @@
 package frc.robot.commands;
 
-import com.revrobotics.spark.SparkBase.ControlType;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem.FlywheelRequest;
+import frc.robot.Constants.FlywheelConstants;
 
 public class FlywheelControlCommand extends Command {
-    FlywheelSubsystem l_flywheel;
-    public FlywheelControlCommand(FlywheelSubsystem flywheel) {
-            this.l_flywheel = flywheel;
-
-            addRequirements(l_flywheel);
+    FlywheelSubsystem flywheel;
+    FlywheelRequest request;
+    public FlywheelControlCommand(FlywheelSubsystem flywheel, FlywheelRequest request) {
+            this.flywheel = flywheel;
+            this.request = request;
+            addRequirements(flywheel);
     }
 
     @Override
     public void initialize() {
         System.out.println("FlywheelControlCommand initialized");
-            l_flywheel.flywheelRunning = !l_flywheel.flywheelRunning;
-    }
-
-    @Override
-    public void execute() {
-        //System.out.printf("Executing! Speed %d\n", l_flywheel.goalFlywheelSpeed);
-        if (l_flywheel.flywheelRunning == true) {
-            l_flywheel.m_pidControllerL.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
-            l_flywheel.m_pidControllerM.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
-            l_flywheel.m_pidControllerR.setSetpoint(l_flywheel.goalFlywheelSpeed, ControlType.kVelocity);
+        switch (request) {
+            case STOP:
+                flywheel.flywheelRunning = false;
+                break;
+            case START:
+            case START_WAIT:            
+                flywheel.flywheelRunning = true;
+                break;
+            case TOGGLE:
+                flywheel.flywheelRunning = !flywheel.flywheelRunning;
+                break;
+            default:
+                break;
         }
     }
 
     @Override
+    public void execute() {
+    }
+
+    @Override
     public boolean isFinished() {
-        return !l_flywheel.flywheelRunning;
+        switch (request) {
+            case START_WAIT:
+                return (flywheel.m_encoderL.getVelocity() >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance);
+            case START:
+            case TOGGLE:
+            case STOP:    
+            default:
+                return true;
+        }
     }
 
     @Override
     public void end(boolean interrupted) {
         System.out.println("Flywheel Control Command Finished");
-        l_flywheel.m_flywheelL.set(0);
-        l_flywheel.m_flywheelM.set(0);
-        l_flywheel.m_flywheelR.set(0);
-        l_flywheel.flywheelRunning = false;
+        flywheel.flywheelRunning = false;
     }
 }
