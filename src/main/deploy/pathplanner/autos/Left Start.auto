@@ -11,7 +11,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right Start to Outpost"
+                  "pathName": "Left Start"
                 }
               },
               {
@@ -24,28 +24,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 4.0
+            "pathName": "Depot"
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Outpost to Launch"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Conveyor Sequence"
-                }
-              }
-            ]
+            "pathName": "Depot to Launch"
           }
         },
         {

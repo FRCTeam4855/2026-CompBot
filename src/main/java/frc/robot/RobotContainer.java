@@ -104,17 +104,23 @@ public class RobotContainer {
     NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor()));
     NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleConveyor()));
 
-    NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_conveyorSubsystem.startElevator()));
-    NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_conveyorSubsystem.stopElevator()));
-    NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleElevator()));
+    NamedCommands.registerCommand("Elevator Start", new InstantCommand(() -> m_conveyorSubsystem.startElevator()));
+    NamedCommands.registerCommand("Elevator Stop", new InstantCommand(() -> m_conveyorSubsystem.stopElevator()));
+    NamedCommands.registerCommand("Elevator Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleElevator()));
 
-    NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_indexerSubsystem.startIndexer()));
-    NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
-    NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
+    NamedCommands.registerCommand("Indexer Start", new InstantCommand(() -> m_indexerSubsystem.startIndexer()));
+    NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
+    NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+    NamedCommands.registerCommand("Indexer Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
                                                    .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
+
+    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator())));
+
+    NamedCommands.registerCommand("Launch Sequence", new InstantCommand(()-> m_indexerSubsystem.startIndexer())
+                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem)));
     
     // Configure the trigger bindings
     configureBindings();
