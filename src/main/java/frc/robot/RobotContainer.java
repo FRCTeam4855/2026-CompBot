@@ -52,13 +52,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final LightsSubsystem m_lights = new LightsSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
-  private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
+  private final LightsSubsystem m_lights = LightsSubsystem.getInstance();
+  private final IntakeSubsystem m_intakeSubsystem = IntakeSubsystem.getInstance();
+  private final ConveyorSubsystem m_conveyorSubsystem = ConveyorSubsystem.getInstance();
+  private final FlywheelSubsystem m_flywheelSubsystem =  FlywheelSubsystem.getInstance();
   private final SendableChooser<Command> autoChooser;
-  public static final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
-  private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
+  public static final SwerveSubsystem drivebase = SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve"));
+  private final IndexerSubsystem m_indexerSubsystem = IndexerSubsystem.getInstance();
   
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;

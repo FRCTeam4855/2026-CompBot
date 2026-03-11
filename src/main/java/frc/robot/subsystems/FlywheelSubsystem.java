@@ -12,11 +12,12 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Configs.FlywheelConfigs;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkBase.ControlType;
 
-public class FlywheelSubsystem extends SubsystemBase {
+public class FlywheelSubsystem extends Subsystem {
     
     public final SparkFlex m_flywheelL, m_flywheelM, m_flywheelR;
     public final SparkClosedLoopController m_pidControllerL, m_pidControllerM, m_pidControllerR;
@@ -27,6 +28,29 @@ public class FlywheelSubsystem extends SubsystemBase {
     private SwerveSubsystem swerve = RobotContainer.drivebase;
     public enum FlywheelRequest {
         STOP, START, START_WAIT, TOGGLE
+    }   
+    
+    private static FlywheelSubsystem mInstance;
+    public static FlywheelSubsystem getInstance() {
+      if (mInstance == null) {
+        mInstance = new FlywheelSubsystem();
+      }
+      return mInstance;
+    }
+
+    @Override
+    public void robotInit() {
+        DataLogManager.log("FlywheelSubsystem in robotInit");
+    }
+
+    @Override
+    public void teleopInit() {
+        DataLogManager.log("FlywheelSubsystem in teleopInit");
+    }
+
+    @Override
+    public void autonomousInit() {
+        DataLogManager.log("FlywheelSubsystem in autonomousInit");
     }
 
     public FlywheelSubsystem() {

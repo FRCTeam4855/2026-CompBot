@@ -25,6 +25,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -60,8 +61,30 @@ import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 import swervelib.SwerveModule;
 
-public class SwerveSubsystem extends SubsystemBase
-{
+public class SwerveSubsystem extends Subsystem {
+  private static SwerveSubsystem mInstance;
+  public static SwerveSubsystem getInstance(File directory) {
+    if (mInstance == null) {
+      mInstance = new SwerveSubsystem(directory);
+    }
+    return mInstance;
+  }
+
+  @Override
+  public void robotInit() {
+    DataLogManager.log("SwerveSubsystem in robotInit");
+  }
+
+  @Override
+  public void teleopInit() {
+    DataLogManager.log("SwerveSubsystem in teleopInit");
+    getSwerveDrive().zeroGyro(); // Zero the gyro at the start of teleop for consistency. Remove if you want to use the gyro for field-oriented control in autonomous.
+  }
+
+  @Override
+  public void autonomousInit() {
+    DataLogManager.log("SwerveSubsystem in autonomousInit");
+  }
   /**
    * Swerve drive object.
    */

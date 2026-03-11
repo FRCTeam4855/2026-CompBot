@@ -1,11 +1,36 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LightsConstants;
 
-public class LightsSubsystem extends SubsystemBase {
+
+public class LightsSubsystem extends Subsystem {
+
+    private static LightsSubsystem mInstance;
+    public static LightsSubsystem getInstance() {
+      if (mInstance == null) {
+        mInstance = new LightsSubsystem();
+      }
+      return mInstance;
+    }
+
+    @Override
+    public void robotInit() {
+        DataLogManager.log("LightsSubsystem in robotInit");
+    }
+
+    @Override
+    public void teleopInit() {
+        DataLogManager.log("LightsSubsystem in teleopInit");
+    }
+
+    @Override
+    public void autonomousInit() {
+        DataLogManager.log("LightsSubsystem in autonomousInit");
+    }
 
     public final Spark m_Blinkin; // 4855
 
