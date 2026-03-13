@@ -12,7 +12,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.robot.Configs.IntakeConfigs;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class IntakeSubsystem extends Subsystem {
 

@@ -49,10 +49,4 @@ public class FlywheelControlCommand extends Command {
                 return true;
         }
     }
-
-    @Override
-    public void end(boolean interrupted) {
-        System.out.println("Flywheel Control Command Finished");
-        flywheel.flywheelRunning = false;
-    }
 }

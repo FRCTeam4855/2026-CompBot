@@ -8,7 +8,6 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Configs.FlywheelConfigs;
 import frc.robot.Constants.FlywheelConstants;
 

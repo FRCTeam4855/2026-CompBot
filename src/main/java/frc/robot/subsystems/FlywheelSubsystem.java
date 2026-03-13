@@ -14,7 +14,6 @@ import frc.robot.RobotContainer;
 import frc.robot.Configs.FlywheelConfigs;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 public class FlywheelSubsystem extends Subsystem {
