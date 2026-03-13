@@ -4,13 +4,32 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pathplanner.lib.commands.FollowPathCommand;
+
+import java.io.File;
+import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
+//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.subsystems.ConveyorSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LightsSubsystem;
+import frc.robot.subsystems.SensorSubsystem;
+import frc.robot.subsystems.PowerSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import frc.robot.subsystems.ClimberSubsystem;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -24,6 +43,7 @@ public class Robot extends TimedRobot {
   public static boolean blueAlliance = true;
 
   private final RobotContainer m_robotContainer;
+  List<Subsystem> m_allSubsystems = new ArrayList<>();
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -34,15 +54,37 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
   }
+
     @Override
   public void robotInit(){
+    DataLogManager.start();
+    DriverStation.startDataLog(DataLogManager.getLog());
+    
+    FollowPathCommand.warmupCommand().schedule();
+
+    //m_allSubsystems.add(ClimberSubsystem.getInstance());
+    m_allSubsystems.add(ConveyorSubsystem.getInstance());
+    m_allSubsystems.add(FlywheelSubsystem.getInstance());
+    m_allSubsystems.add(IndexerSubsystem.getInstance());
+    m_allSubsystems.add(IntakeSubsystem.getInstance());
+    m_allSubsystems.add(LightsSubsystem.getInstance());
+    m_allSubsystems.add(SensorSubsystem.getInstance());
+    m_allSubsystems.add(SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve")));
+    m_allSubsystems.add(PowerSubsystem.getInstance());
+
+    m_allSubsystems.forEach(subsystem -> {
+      if (subsystem instanceof frc.robot.subsystems.Subsystem) {
+        ((frc.robot.subsystems.Subsystem) subsystem).robotInit();
+      }});
+    }
+
     // Optional<Alliance> ally = DriverStation.getAlliance();
     // if (ally.isPresent()) {
     //   if (ally.get() == Alliance.Red) {
     //     blueAlliance = false;
     //   }
     // }
-  }
+
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
    * that you want ran during disabled, autonomous, teleoperated and test.
@@ -74,6 +116,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    m_allSubsystems.forEach(subsystem -> subsystem.autonomousInit());
+
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -88,7 +132,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    new InstantCommand(() -> RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
+    m_allSubsystems.forEach(subsystem -> subsystem.teleopInit());
+
+    //new InstantCommand(() -> RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove

@@ -11,15 +11,38 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Configs.IntakeConfigs;
 import frc.robot.Constants.IntakeConstants;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DataLogManager;
 
-public class IntakeSubsystem extends SubsystemBase {
+public class IntakeSubsystem extends Subsystem {
 
     public final SparkMax m_intakeMotor;
     public final SparkFlex m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
     public boolean intakeRunning = false, intakeDeployed = false;
+
+    private static IntakeSubsystem mInstance;
+    public static IntakeSubsystem getInstance() {
+      if (mInstance == null) {
+        mInstance = new IntakeSubsystem();
+      }
+      return mInstance;
+    }
+
+    @Override
+    public void robotInit() {
+        DataLogManager.log("IntakeSubsystem in robotInit");
+    }
+
+    @Override
+    public void teleopInit() {
+        DataLogManager.log("IntakeSubsystem in teleopInit");
+    }
+
+    @Override
+    public void autonomousInit() {
+        DataLogManager.log("IntakeSubsystem in autonomousInit");
+    }
 
     public IntakeSubsystem() {
         m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless); 

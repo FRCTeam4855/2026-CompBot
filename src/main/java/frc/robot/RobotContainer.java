@@ -17,6 +17,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.FlywheelSubsystem.FlywheelRequest;
 import swervelib.SwerveInputStream;
 
 import java.io.File;
@@ -38,7 +39,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+//import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -51,13 +52,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final LightsSubsystem m_lights = new LightsSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ConveyorSubsystem m_conveyorSubsystem = new ConveyorSubsystem();
-  private final FlywheelSubsystem m_flywheelSubsystem = new FlywheelSubsystem();
+  private final LightsSubsystem m_lights = LightsSubsystem.getInstance();
+  private final IntakeSubsystem m_intakeSubsystem = IntakeSubsystem.getInstance();
+  private final ConveyorSubsystem m_conveyorSubsystem = ConveyorSubsystem.getInstance();
+  private final FlywheelSubsystem m_flywheelSubsystem =  FlywheelSubsystem.getInstance();
   private final SendableChooser<Command> autoChooser;
-  public static final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
-  private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
+  public static final SwerveSubsystem drivebase = SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve"));
+  private final IndexerSubsystem m_indexerSubsystem = IndexerSubsystem.getInstance();
   
   public static boolean FieldOriented = true;
   public static boolean SlowMode = false;
@@ -120,7 +121,7 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator())));
 
     NamedCommands.registerCommand("Launch Sequence", new InstantCommand(()-> m_indexerSubsystem.startIndexer())
-                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem)));
+                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT)));
     
     // Configure the trigger bindings
     configureBindings();
@@ -205,8 +206,8 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.positionIntake()));
 
-    new JoystickButton(m_operatorBoard, 5).toggleOnTrue(new FlywheelControlCommand(
-      m_flywheelSubsystem));
+    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
+      m_flywheelSubsystem, FlywheelRequest.TOGGLE));
 
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
       () -> m_indexerSubsystem.toggleIndexer()));

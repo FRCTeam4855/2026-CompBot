@@ -7,16 +7,41 @@ import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.DataLogManager;
+//import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Configs.ConveyorConfigs;
 import frc.robot.Constants.ConveyorConstants;
 
-public class ConveyorSubsystem extends SubsystemBase {
+public class ConveyorSubsystem extends Subsystem {
     
     public final SparkMax m_elevatorSpark, m_conveyorSpark;
     public final SparkClosedLoopController m_elevatorController, m_conveyorController;
     public boolean elevatorRunning = false, conveyorRunning = false;
 
+    private static ConveyorSubsystem mInstance;
+    public static ConveyorSubsystem getInstance() {
+      if (mInstance == null) {
+        mInstance = new ConveyorSubsystem();
+      }
+      return mInstance;
+    }
+
+    @Override
+    public void robotInit() {
+        DataLogManager.log("ConveyorSubsystem in robotInit");
+    }
+
+    @Override
+    public void teleopInit() {
+        DataLogManager.log("ConveyorSubsystem in teleopInit");
+    }
+
+    @Override
+    public void autonomousInit() {
+        DataLogManager.log("ConveyorSubsystem in autonomousInit");
+    }
+
+    
     public ConveyorSubsystem() {
         m_elevatorSpark = new SparkMax(ConveyorConstants.kElevatorCanId, MotorType.kBrushless);
         m_conveyorSpark = new SparkMax(ConveyorConstants.kConveyorCanId, MotorType.kBrushless);

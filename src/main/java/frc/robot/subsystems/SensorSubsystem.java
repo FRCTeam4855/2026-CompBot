@@ -1,13 +1,11 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SensorSubsystem extends SubsystemBase {
-
-    private static final SensorSubsystem instance = new SensorSubsystem();
+public class SensorSubsystem extends Subsystem {
 
     private static DigitalInput sensor1 = new DigitalInput(0);
     private static DigitalInput sensor2 = new DigitalInput(1);
@@ -16,8 +14,27 @@ public class SensorSubsystem extends SubsystemBase {
     public SensorSubsystem() {
     }
 
+    private static SensorSubsystem mInstance;
     public static SensorSubsystem getInstance() {
-        return instance;
+      if (mInstance == null) {
+        mInstance = new SensorSubsystem();
+      }
+      return mInstance;
+    }
+
+    @Override
+    public void robotInit() {
+        DataLogManager.log("SensorSubsystem in robotInit");
+    }
+
+    @Override
+    public void teleopInit() {
+        DataLogManager.log("SensorSubsystem in teleopInit");
+    }
+
+    @Override
+    public void autonomousInit() {
+        DataLogManager.log("SensorSubsystem in autonomousInit");
     }
 
     @Override
@@ -40,14 +57,14 @@ public class SensorSubsystem extends SubsystemBase {
     }
 
     public static boolean getSensor1() {
-        return instance.getSensor1Value();
+        return mInstance.getSensor1Value();
     }
 
     public static boolean getSensor2() {
-        return instance.getSensor2Value();
+        return mInstance.getSensor2Value();
     }
 
     public static double getUltrasonic() {
-        return instance.getUltrasonicValue();
+        return mInstance.getUltrasonicValue();
     }
 }

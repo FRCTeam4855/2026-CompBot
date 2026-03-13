@@ -8,6 +8,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import swervelib.math.Matter;
 
 /**
@@ -54,6 +55,8 @@ public final class Constants {
     public static final double kFlywheelI = 0;
     public static final double kFlywheelD = 0.04;
 
+    public static final double kFlywheelTolerance = 0.9; // The percentage of the goal flywheel speed that is considered "up to speed" for the START_WAIT flywheel request
+
     public static final int[] kFlywheelSpeeds = { 0, // 0
                                                   2000, // 0.25
                                                   2000, // 0.5
@@ -84,7 +87,7 @@ public final class Constants {
     public static final double kIndexerP = 0.0002;
     public static final double kIndexerI = 0;
     public static final double kIndexerD = 0.015;
-    public static final int kIndexerSpeed = 3000;
+    public static final int kIndexerSpeed = 3000;    
   }
 
   public static final class IntakeConstants {
@@ -234,5 +237,10 @@ public final class Constants {
     public final static double GRAY = .95;
     public final static double DARK_GRAY = .97;
     public final static double BLACK = .99;
+  }
+
+  public static final class PowerSubsystemConstants {
+    public static final int kPDP_CAN_ID = 17;
+    public static final ModuleType kPDP_ModuleType = ModuleType.kRev;
   }
 }
