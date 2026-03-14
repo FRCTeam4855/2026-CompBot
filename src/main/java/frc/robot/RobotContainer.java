@@ -39,7 +39,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-//import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -118,7 +117,12 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
 
     NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator())));
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
+
+    NamedCommands.registerCommand("Stop All", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
+                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer())));
 
     NamedCommands.registerCommand("Launch Sequence", new InstantCommand(()-> m_indexerSubsystem.startIndexer())
                                                     .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT)));
@@ -221,6 +225,8 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Conveyor Sequence"));
 
     new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
+
+    new JoystickButton(m_operatorBoard, 22).onTrue(NamedCommands.getCommand("Stop All"));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
