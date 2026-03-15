@@ -83,7 +83,7 @@ public final class Constants {
                                                   4900, // 5.75
                                                   5000};// 6.0
 
-    public static final int kFlywheelTestOverrideSpeed = 0;
+    public static final int kFlywheelTestOverrideSpeed = 1000;
     public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
   }
 
@@ -126,7 +126,8 @@ public final class Constants {
     public static final double kElevatorP = 0.0002;
     public static final double kElevatorI = 0;
     public static final double kElevatorD = 0.0;
-    public static final int kElevatorSpeed = 3000;
+    public static final int kElevatorLaunchSpeed = 3000;
+    public static final int kElevatorIntakeSpeed = 2000;
   }
 
   public static final class ClimberConstants {

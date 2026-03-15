@@ -105,7 +105,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Conveyor Stop", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor()));
     NamedCommands.registerCommand("Conveyor Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleConveyor()));
 
-    NamedCommands.registerCommand("Elevator Start", new InstantCommand(() -> m_conveyorSubsystem.startElevator()));
+    NamedCommands.registerCommand("Elevator Start", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake()));
     NamedCommands.registerCommand("Elevator Stop", new InstantCommand(() -> m_conveyorSubsystem.stopElevator()));
     NamedCommands.registerCommand("Elevator Toggle", new InstantCommand(() -> m_conveyorSubsystem.toggleElevator()));
 
@@ -113,12 +113,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Indexer Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+    NamedCommands.registerCommand("Intake Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake()))
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
 
-    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+    NamedCommands.registerCommand("Launch Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorLaunch()))
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
 
     //NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
@@ -132,7 +132,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
-                                                    NamedCommands.getCommand("Conveyor Sequence"))));
+                                                    NamedCommands.getCommand("Launch Conveyor Sequence"))));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
@@ -232,7 +232,7 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleElevator()));
 
-    new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Conveyor Sequence"));
+    new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Intake Conveyor Sequence"));
 
     new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
 

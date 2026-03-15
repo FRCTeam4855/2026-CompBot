@@ -83,12 +83,17 @@ public class ConveyorSubsystem extends Subsystem {
         if (elevatorRunning) {
             stopElevator();
         } else {
-            startElevator();
+            startElevatorIntake();
         }
     }
 
-    public void startElevator() {
-        m_elevatorController.setSetpoint(ConveyorConstants.kElevatorSpeed, ControlType.kVelocity);
+    public void startElevatorLaunch() {
+        m_elevatorController.setSetpoint(ConveyorConstants.kElevatorLaunchSpeed, ControlType.kVelocity);
+        elevatorRunning = true;
+    }
+
+    public void startElevatorIntake() {
+        m_elevatorController.setSetpoint(ConveyorConstants.kElevatorIntakeSpeed, ControlType.kVelocity);
         elevatorRunning = true;
     }
 
