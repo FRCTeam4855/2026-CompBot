@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 0.5443035714285711,
-        "y": 4.925803571428571
+        "y": 7.015142857142857
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.386517857142857,
-        "y": 5.3469107142857135
+        "x": 0.5443035714285713,
+        "y": 6.765142857142857
       },
       "isLocked": false,
-      "linkedName": "Depot Right"
+      "linkedName": "Depot Left"
     },
     {
       "anchor": {
-        "x": 2.7840085592011405,
-        "y": 4.00265335235378
+        "x": 0.5443035714285711,
+        "y": 4.925803571428571
       },
       "prevControl": {
-        "x": 2.9089821428571425,
-        "y": 5.265928571428572
+        "x": 0.5443035714285711,
+        "y": 5.175803571428571
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Launch"
+      "linkedName": "Depot Right"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "Left Start + Depot + Left Bump",

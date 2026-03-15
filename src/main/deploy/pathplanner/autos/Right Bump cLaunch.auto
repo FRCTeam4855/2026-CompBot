@@ -5,13 +5,19 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Right Start Bump"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right Start to Outpost"
+                  "pathName": "Over Bump to Intake Pose Right"
                 }
               },
               {
@@ -24,9 +30,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 4.0
+            "pathName": "Intake Pose Right to rMiddle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Middle to Bump"
           }
         },
         {
@@ -34,43 +46,43 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Outpost to Launch"
+                  "name": "Intake Stop"
                 }
               },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Neutral over rBump"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
                 "type": "named",
                 "data": {
                   "name": "Conveyor Sequence"
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Bump to cLaunch"
+                }
               }
             ]
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 5.0
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Launch Sequence"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "setX"
-                }
-              }
-            ]
+            "name": "Launch Sequence"
           }
         }
       ]

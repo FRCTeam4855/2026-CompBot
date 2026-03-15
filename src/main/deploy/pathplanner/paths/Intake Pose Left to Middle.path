@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5443035714285711,
-        "y": 4.925803571428571
+        "x": 7.739514978601996,
+        "y": 5.943452211126962
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.386517857142857,
-        "y": 5.3469107142857135
+        "x": 7.739514978601996,
+        "y": 5.641099227717114
       },
       "isLocked": false,
-      "linkedName": "Depot Right"
+      "linkedName": "Intake Pose Left"
     },
     {
       "anchor": {
-        "x": 2.7840085592011405,
-        "y": 4.00265335235378
+        "x": 7.739514978601996,
+        "y": 4.597831669036494
       },
       "prevControl": {
-        "x": 2.9089821428571425,
-        "y": 5.265928571428572
+        "x": 7.739514978601996,
+        "y": 4.847831669036493
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Launch"
+      "linkedName": "Left Middle"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.0,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "Left Start + Depot + Left Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

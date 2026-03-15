@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5443035714285711,
-        "y": 4.925803571428571
+        "x": 6.122182596291013,
+        "y": 5.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.386517857142857,
-        "y": 5.3469107142857135
+        "x": 6.366474024663688,
+        "y": 5.55311965760091
       },
       "isLocked": false,
-      "linkedName": "Depot Right"
+      "linkedName": "Over Left Bump"
     },
     {
       "anchor": {
-        "x": 2.7840085592011405,
-        "y": 4.00265335235378
+        "x": 7.739514978601996,
+        "y": 5.943452211126962
       },
       "prevControl": {
-        "x": 2.9089821428571425,
-        "y": 5.265928571428572
+        "x": 7.37195292746636,
+        "y": 5.833846436680543
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Launch"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.12314960629921567,
+      "rotationDegrees": 0.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +53,7 @@
   "folder": "Left Start + Depot + Left Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -45.0
   },
   "useDefaultConstraints": true
 }
