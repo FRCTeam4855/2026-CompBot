@@ -82,7 +82,12 @@ public final class Constants {
                                                   4800, // 5.5
                                                   4900, // 5.75
                                                   5000};// 6.0
-                                                  
+
+    public static final int kFlywheelTestOverrideSpeed = 0;
+    public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
+  }
+
+  public static final class IndexerConstants {
     public static final int kIndexerCanId = 12;
     public static final double kIndexerP = 0.0002;
     public static final double kIndexerI = 0;

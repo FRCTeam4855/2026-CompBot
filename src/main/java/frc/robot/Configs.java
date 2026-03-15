@@ -8,6 +8,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FlywheelConstants;
+import frc.robot.Constants.IndexerConstants;
 import frc.robot.Constants.IntakeConstants;
 
 public final class Configs {
@@ -46,7 +47,6 @@ public final class Configs {
     public static final class FlywheelConfigs {
         public static final SparkFlexConfig flywheelConfig = new SparkFlexConfig();
         public static final SparkFlexConfig flywheelConfigR = new SparkFlexConfig();
-        public static final SparkMaxConfig indexerConfig = new SparkMaxConfig();
         static {
             flywheelConfig
                 .idleMode(IdleMode.kCoast);
@@ -56,11 +56,16 @@ public final class Configs {
                 .feedForward
                     .kS(.011)
                     .kV(0.0018);
+        }
+    }
 
+    public static final class IndexerConfigs {
+        public static final SparkMaxConfig indexerConfig = new SparkMaxConfig();
+        static {
             indexerConfig
                 .idleMode(IdleMode.kBrake);
             indexerConfig.closedLoop
-                .pid(FlywheelConstants.kIndexerP, FlywheelConstants.kIndexerI, FlywheelConstants.kIndexerD)
+                .pid(IndexerConstants.kIndexerP, IndexerConstants.kIndexerI, IndexerConstants.kIndexerD)
                 .feedForward.kV(0.0023);
                 
         }

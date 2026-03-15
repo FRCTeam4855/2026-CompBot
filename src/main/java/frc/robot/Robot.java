@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
     m_allSubsystems.add(IndexerSubsystem.getInstance());
     m_allSubsystems.add(IntakeSubsystem.getInstance());
     m_allSubsystems.add(LightsSubsystem.getInstance());
-    m_allSubsystems.add(SensorSubsystem.getInstance());
+    //m_allSubsystems.add(SensorSubsystem.getInstance());
     m_allSubsystems.add(SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve")));
     m_allSubsystems.add(PowerSubsystem.getInstance());
 

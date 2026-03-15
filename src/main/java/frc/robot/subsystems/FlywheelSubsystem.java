@@ -21,8 +21,8 @@ public class FlywheelSubsystem extends Subsystem {
     public final SparkFlex m_flywheelL, m_flywheelM, m_flywheelR;
     public final SparkClosedLoopController m_pidControllerL, m_pidControllerM, m_pidControllerR;
     public final RelativeEncoder m_encoderL, m_encoderM, m_encoderR;
-    public boolean flywheelRunning = false;
-    public int goalFlywheelSpeed = 0;
+    public boolean flywheelRunning = false, flywheelUpToSpeed = false;
+    public int goalFlywheelSpeed = 0, flywheelAdjustment = 0;
     private int lastFlywheelSpeed = 0;
     private SwerveSubsystem swerve = RobotContainer.drivebase;
     public enum FlywheelRequest {
@@ -78,17 +78,23 @@ public class FlywheelSubsystem extends Subsystem {
     @Override
     public void periodic() {
         int speedIndex = (int) Math.round(swerve.getDistanceToHub() * 4);
-        goalFlywheelSpeed = speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[24];
+        goalFlywheelSpeed = (speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[24]) + flywheelAdjustment;
+        if(FlywheelConstants.kFlywheelTestOverrideSpeed > 0) {
+            goalFlywheelSpeed = FlywheelConstants.kFlywheelTestOverrideSpeed;
+        }
+
 
         if(flywheelRunning) {
             if(goalFlywheelSpeed != lastFlywheelSpeed) { // Only update the flywheel speed if it has changed to avoid unnecessary CAN traffic
                 setFlywheelSpeed(goalFlywheelSpeed);
                 lastFlywheelSpeed = goalFlywheelSpeed;
             }
+            flywheelUpToSpeed = (m_encoderL.getVelocity() >= goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance);
         } else {
             if(lastFlywheelSpeed != 0) { // Only stop the flywheel if it was previously running to avoid unnecessary CAN traffic
                 setFlywheelSpeed(0);
                 lastFlywheelSpeed = 0;
+                flywheelUpToSpeed = false;
             }
         }
 
@@ -108,5 +114,13 @@ public class FlywheelSubsystem extends Subsystem {
             m_pidControllerM.setSetpoint(speed, ControlType.kVelocity);
             m_pidControllerR.setSetpoint(speed, ControlType.kVelocity);
         }
+    }
+
+    public void incrementFlywheelSpeed(int adjustment) {
+        flywheelAdjustment += adjustment;
+    }
+
+    public void decrementFlywheelSpeed(int adjustment) {
+        flywheelAdjustment -= adjustment;
     }
 }

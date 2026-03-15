@@ -41,7 +41,14 @@ public class FlywheelControlCommand extends Command {
     public boolean isFinished() {
         switch (request) {
             case START_WAIT:
-                return (flywheel.m_encoderL.getVelocity() >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance);
+                {
+                    if (flywheel.m_encoderL.getVelocity() >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance) {
+                        flywheel.flywheelUpToSpeed = true;
+                        return true;
+                    } else {                        
+                        return false;
+                    }
+                }
             case START:
             case TOGGLE:
             case STOP:    

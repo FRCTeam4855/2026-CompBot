@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -112,20 +113,29 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Indexer Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+    NamedCommands.registerCommand("Indexer Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
-                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
 
-    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+    NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
-                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
+
+    //NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
+    //                                               .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+    //                                               .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
 
     NamedCommands.registerCommand("Stop All", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
-                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer())));
+                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer()))
+                                                   .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
 
-    NamedCommands.registerCommand("Launch Sequence", new InstantCommand(()-> m_indexerSubsystem.startIndexer())
-                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT)));
+    NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
+                                                    new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
+                                                    NamedCommands.getCommand("Conveyor Sequence"))));
+                                                    //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
+                                                    //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
+                                                    //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
     
     // Configure the trigger bindings
     configureBindings();
@@ -226,7 +236,15 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
 
+    new JoystickButton(m_operatorBoard, 21).onTrue(NamedCommands.getCommand("Launch Sequence"));
+
     new JoystickButton(m_operatorBoard, 22).onTrue(NamedCommands.getCommand("Stop All"));
+
+    new JoystickButton(m_operatorBoard, 23).onTrue(new InstantCommand(
+      () -> m_flywheelSubsystem.incrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
+
+    new JoystickButton(m_operatorBoard, 24).onTrue(new InstantCommand(
+      () -> m_flywheelSubsystem.decrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

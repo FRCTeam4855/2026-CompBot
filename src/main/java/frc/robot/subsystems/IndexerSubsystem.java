@@ -8,14 +8,17 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DataLogManager;
-import frc.robot.Configs.FlywheelConfigs;
-import frc.robot.Constants.FlywheelConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Configs.IndexerConfigs;
+import frc.robot.Constants.IndexerConstants;;
 
 public class IndexerSubsystem extends Subsystem {
 
     public final SparkMax m_indexer;
     public final SparkClosedLoopController m_indexerController;
     public boolean indexerRunning = false;
+    private FlywheelSubsystem m_flywheelSubsystem;
+    private ConveyorSubsystem m_conveyorSubsystem;
 
     private static IndexerSubsystem mInstance;
     public static IndexerSubsystem getInstance() {
@@ -41,14 +44,17 @@ public class IndexerSubsystem extends Subsystem {
     }
 
     public IndexerSubsystem() {
-        m_indexer = new SparkMax(FlywheelConstants.kIndexerCanId, MotorType.kBrushless);
+        m_indexer = new SparkMax(IndexerConstants.kIndexerCanId, MotorType.kBrushless);
         m_indexerController = m_indexer.getClosedLoopController();
-        m_indexer.configure(FlywheelConfigs.indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_indexer.configure(IndexerConfigs.indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+        m_flywheelSubsystem = FlywheelSubsystem.getInstance();
+        m_conveyorSubsystem = ConveyorSubsystem.getInstance();
     }
 
     public void toggleIndexer() {
         if (!indexerRunning) {
-            m_indexerController.setSetpoint(FlywheelConstants.kIndexerSpeed, ControlType.kVelocity);
+            m_indexerController.setSetpoint(IndexerConstants.kIndexerSpeed, ControlType.kVelocity);
             indexerRunning = true;
         } else {
             m_indexer.set(0);
@@ -57,12 +63,20 @@ public class IndexerSubsystem extends Subsystem {
     }
 
     public void startIndexer() {
-        m_indexerController.setSetpoint(FlywheelConstants.kIndexerSpeed, ControlType.kVelocity);
+        m_indexerController.setSetpoint(IndexerConstants.kIndexerSpeed, ControlType.kVelocity);
         indexerRunning = true;
     }
 
     public void stopIndexer() {
         m_indexer.set(0);
         indexerRunning = false;
+    }
+    
+    @Override
+    public void periodic() {        
+        // This method will be called once per scheduler run
+        if(m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed) {
+            stopIndexer();
+        }
     }
 }
