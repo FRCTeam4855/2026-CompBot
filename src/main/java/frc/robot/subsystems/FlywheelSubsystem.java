@@ -90,7 +90,8 @@ public class FlywheelSubsystem extends Subsystem {
                 setFlywheelSpeed(goalFlywheelSpeed);
                 lastFlywheelSpeed = goalFlywheelSpeed;
             }
-            flywheelUpToSpeed = (m_encoderL.getVelocity() >= goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance);
+            // Use the average of all three encoders to determine whether the flywheel is up to speed to get a more accurate reading and reduce the impact of any one encoder having a bad reading
+            flywheelUpToSpeed = (((m_encoderL.getVelocity() + m_encoderM.getVelocity() + m_encoderR.getVelocity()) / 3.0) >= goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance);
         } else {
             if(lastFlywheelSpeed != 0) { // Only stop the flywheel if it was previously running to avoid unnecessary CAN traffic
                 setFlywheelSpeed(0);

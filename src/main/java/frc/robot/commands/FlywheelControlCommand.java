@@ -42,7 +42,7 @@ public class FlywheelControlCommand extends Command {
         switch (request) {
             case START_WAIT:
                 {
-                    if (flywheel.m_encoderL.getVelocity() >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance) {
+                    if (((flywheel.m_encoderL.getVelocity() + flywheel.m_encoderM.getVelocity() + flywheel.m_encoderR.getVelocity()) / 3.0) >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance) {
                         flywheel.flywheelUpToSpeed = true;
                         return true;
                     } else {                        
