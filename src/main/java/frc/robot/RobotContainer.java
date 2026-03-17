@@ -80,8 +80,6 @@ public class RobotContainer {
   public RobotContainer() {
 
     // m_intakeSubsystem.setDefaultCommand(m_intakeSubsystem.set(-0.1));
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
 
     //register named commands
     NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
@@ -140,7 +138,11 @@ public class RobotContainer {
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
 
     NamedCommands.registerCommand("Aim At Hub", new AimAtPointCommand(drivebase, m_leftDriveController));
-    
+
+    // Build auto chooser AFTER registering named commands
+    autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", autoChooser);
+
     // Configure the trigger bindings
     configureBindings();
 

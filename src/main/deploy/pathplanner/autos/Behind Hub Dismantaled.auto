@@ -11,9 +11,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "Backup"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Aim At Hub"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.25
+                }
+              }
+            ]
           }
         },
         {
@@ -39,6 +52,12 @@
           "type": "named",
           "data": {
             "name": "Stop All"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Start to Outpost"
           }
         }
       ]

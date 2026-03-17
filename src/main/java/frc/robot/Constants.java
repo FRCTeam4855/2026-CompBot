@@ -107,7 +107,7 @@ public final class Constants {
                                                   4950, // 5.875
                                                   5000};// 6.0
 
-    public static final int kFlywheelTestOverrideSpeed = 2000;
+    public static final int kFlywheelTestOverrideSpeed = 0;
     public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
   }
 

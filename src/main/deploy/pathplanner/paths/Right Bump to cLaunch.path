@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.7840085592011405,
-        "y": 4.00265335235378
+        "x": 2.55,
+        "y": 4.0
       },
       "prevControl": {
-        "x": 2.8739140548046893,
-        "y": 3.7693788319700055
+        "x": 2.6399054956035486,
+        "y": 3.766725479616225
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,8 +47,8 @@
   "reversed": false,
   "folder": "Right Start + Outpost + Right Bump",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 130.0
+    "velocity": 450.0,
+    "rotation": 45.0
   },
   "useDefaultConstraints": true
 }
