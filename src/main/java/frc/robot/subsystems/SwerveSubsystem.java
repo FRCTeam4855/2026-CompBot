@@ -100,6 +100,11 @@ public class SwerveSubsystem extends Subsystem {
   private       Vision      vision;
 
   /**
+   * Cached distance to hub, calculated in periodic to avoid redundant calculations.
+   */
+  private double cachedDistanceToHub = 0.0;
+
+  /**
    * Initialize {@link SwerveDrive} with the directory provided.
    *
    * @param directory Directory of swerve drive config files.
@@ -171,9 +176,15 @@ public class SwerveSubsystem extends Subsystem {
     if (visionDriveTest)
     {
       swerveDrive.updateOdometry();
-      vision.updatePoseEstimation(swerveDrive);      
+      vision.updatePoseEstimation(swerveDrive);
     }
-    SmartDashboard.putNumber("Distance to Hub", getDistanceToHub());
+    // Cache the distance to hub calculation
+    if (isRedAlliance()) {
+      cachedDistanceToHub = PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kRedHubPose);
+    } else {
+      cachedDistanceToHub = PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kBlueHubPose);
+    }
+    SmartDashboard.putNumber("Distance to Hub", cachedDistanceToHub);
     SmartDashboard.putBoolean("Field Oriented", RobotContainer.FieldOriented);
     SmartDashboard.putNumber("Robot Pose X", getPose().getX());
     SmartDashboard.putNumber("Robot Pose Y", getPose().getY());
@@ -670,8 +681,8 @@ System.out.println("driveToPose command started");
    */
   public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double headingX, double headingY)
   {
-    double scaledX = 0.4 * xInput + 0.6 * Math.pow(xInput, 3);
-    double scaledY = 0.4 * yInput + 0.6 * Math.pow(yInput, 3);
+    double scaledX = 0.4 * xInput + 0.6 * xInput * xInput * xInput;
+    double scaledY = 0.4 * yInput + 0.6 * yInput * yInput * yInput;
     return swerveDrive.swerveController.getTargetSpeeds(scaledX * SwerveConstants.kScaleTranslation,
                                                         scaledY * SwerveConstants.kScaleTranslation,
                                                         headingX,
@@ -795,6 +806,16 @@ public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d an
   }
 
   /**
+   * Get the cached distance to hub from the most recent periodic calculation.
+   * This avoids redundant distance calculations.
+   *
+   * @return Distance to hub in meters
+   */
+  public double getCachedDistanceToHub() {
+    return cachedDistanceToHub;
+  }
+
+  /**
    * Example command factory method.
    *
    * @return a command
@@ -811,7 +832,7 @@ public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d an
   public Command strafeLeft() {
     return run( () -> {
       for (SwerveModule module : swerveDrive.getModules()) {
-        module.setDesiredState(new SwerveModuleState(0.5, Rotation2d.fromDegrees(90)), false, true);
+        module.setDesiredState(new SwerveModuleState(0.75, Rotation2d.fromDegrees(90)), false, true);
       }
     });
   }
@@ -819,7 +840,7 @@ public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d an
   public Command strafeRight() {
     return run( () -> {
       for (SwerveModule module : swerveDrive.getModules()) {
-        module.setDesiredState(new SwerveModuleState(-0.5, Rotation2d.fromDegrees(90)), false, true);
+        module.setDesiredState(new SwerveModuleState(-0.75, Rotation2d.fromDegrees(90)), false, true);
       }
     });
   }
@@ -827,7 +848,7 @@ public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d an
   public Command forward() {
     return run( () -> {
       for (SwerveModule module : swerveDrive.getModules()) {
-        module.setDesiredState(new SwerveModuleState(0.5, Rotation2d.fromDegrees(0)), false, true);
+        module.setDesiredState(new SwerveModuleState(0.75, Rotation2d.fromDegrees(0)), false, true);
       }
     });
   }
@@ -835,7 +856,7 @@ public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d an
    public Command backward() {
     return run( () -> {
       for (SwerveModule module : swerveDrive.getModules()) {
-        module.setDesiredState(new SwerveModuleState(0.5, Rotation2d.fromDegrees(180)), false, true);
+        module.setDesiredState(new SwerveModuleState(0.75, Rotation2d.fromDegrees(180)), false, true);
       }
     });
   } 

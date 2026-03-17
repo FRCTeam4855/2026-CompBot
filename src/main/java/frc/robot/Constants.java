@@ -28,8 +28,8 @@ public final class Constants {
   }
 
   public static class SwerveConstants {
-      public static final double ROBOT_MASS = (50); 
-      public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
+      //public static final double ROBOT_MASS = (60.55); 
+      //public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
       public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
       public static final double MAX_SPEED  = 4.3;
       public static final double kSpeedMultiplierDefault = 1.0;   
@@ -57,33 +57,57 @@ public final class Constants {
 
     public static final double kFlywheelTolerance = 0.9; // The percentage of the goal flywheel speed that is considered "up to speed" for the START_WAIT flywheel request
 
-    public static final int[] kFlywheelSpeeds = { 0, // 0
+    public static final int[] kFlywheelSpeeds = { 0,    // 0
+                                                  2000, // 0.125
                                                   2000, // 0.25
+                                                  2000, // 0.375
                                                   2000, // 0.5
+                                                  2000, // 0.625
                                                   2000, // 0.75
+                                                  2000, // 0.875
                                                   2000, // 1.0
+                                                  2400, // 1.125
                                                   2400, // 1.25
+                                                  2400, // 1.375
                                                   2400, // 1.5
+                                                  2500, // 1.625
                                                   2600, // 1.75
+                                                  2650, // 1.875
                                                   2700, // 2.0
+                                                  2750, // 2.125
                                                   2800, // 2.25
+                                                  2850, // 2.375
                                                   2950, // 2.5
+                                                  3200, // 2.625
                                                   3400, // 2.75
+                                                  3450, // 2.875
                                                   3500, // 3.0
+                                                  3600, // 3.125
                                                   3700, // 3.25
+                                                  3850, // 3.375
                                                   4000, // 3.5
+                                                  4050, // 3.625
                                                   4100, // 3.75
+                                                  4150, // 3.875
                                                   4200, // 4.0
+                                                  4250, // 4.125
                                                   4300, // 4.25
+                                                  4350, // 4.375
                                                   4400, // 4.5
+                                                  4450, // 4.625
                                                   4500, // 4.75
+                                                  4550, // 4.875
                                                   4600, // 5.0
+                                                  4650, // 5.125
                                                   4700, // 5.25
+                                                  4750, // 5.375
                                                   4800, // 5.5
+                                                  4850, // 5.625
                                                   4900, // 5.75
+                                                  4950, // 5.875
                                                   5000};// 6.0
 
-    public static final int kFlywheelTestOverrideSpeed = 1000;
+    public static final int kFlywheelTestOverrideSpeed = 2000;
     public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
   }
 
@@ -102,7 +126,7 @@ public final class Constants {
     public static final double kIntakeD = 0.0;
 
     public static final int kIntakeAngleCanId = 10;
-    public static final double kIntakeAngleP = 2;
+    public static final double kIntakeAngleP = 2.0; //Was 2
     public static final double kIntakeAngleI = 0;
     public static final double kIntakeAngleD = 0;
 
@@ -110,9 +134,10 @@ public final class Constants {
     public static final int kIntakeAngleCurrentLimit = 20;
 
     public static final double kIntakeSpeed = 5000;
-    public static final double kIntakeRetractPosition = .190;
+    public static final double kIntakeRetractPosition = .185;
     // Angle reletive to 1 revolution of the intake arm
-    public static final double kIntakeExtendPosition = 0.0;
+    public static final double kIntakeAgitatePosition = 0.05;
+    public static final double kIntakeExtendPosition = -0.02;
   }
 
   public static final class ConveyorConstants {

@@ -18,12 +18,14 @@ public final class Configs {
         public static final SparkFlexConfig intakeAngleConfig = new SparkFlexConfig();
         static {
             intakeConfig
+                .smartCurrentLimit(40)
                 .idleMode(IdleMode.kBrake);
             intakeConfig.closedLoop
                 .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD)
                 .feedForward.kV(0.00205);
 
             intakeAngleConfig
+                //.smartCurrentLimit(40)
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
                 .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
@@ -33,11 +35,15 @@ public final class Configs {
                 .outputRange(-0.5, 0.5)
                 .feedForward
                     .kS(0.02)
-                    .kV(0)
-                    .kA(0)
+                    .kV(0.0) //0.5
+                    .kA(0.0) //0.05
                     .kG(0)
                     .kCos(.525)
                     .kCosRatio(1);
+            // intakeAngleConfig.closedLoop.maxMotion
+            //     .cruiseVelocity(15)
+            //     .maxAcceleration(5)
+            //     .allowedProfileError(1);
             intakeAngleConfig.absoluteEncoder
                 .inverted(false)
                 .positionConversionFactor(1);
@@ -49,6 +55,7 @@ public final class Configs {
         public static final SparkFlexConfig flywheelConfigR = new SparkFlexConfig();
         static {
             flywheelConfig
+                .smartCurrentLimit(40)
                 .idleMode(IdleMode.kCoast);
             flywheelConfig.closedLoop
                 .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
@@ -63,6 +70,7 @@ public final class Configs {
         public static final SparkMaxConfig indexerConfig = new SparkMaxConfig();
         static {
             indexerConfig
+                .smartCurrentLimit(40)
                 .idleMode(IdleMode.kBrake);
             indexerConfig.closedLoop
                 .pid(IndexerConstants.kIndexerP, IndexerConstants.kIndexerI, IndexerConstants.kIndexerD)
@@ -76,12 +84,14 @@ public final class Configs {
         public static final SparkMaxConfig elevatorConfig = new SparkMaxConfig();
         static {
             conveyorConfig
+                .smartCurrentLimit(40)
                 .idleMode(IdleMode.kBrake);
             conveyorConfig.closedLoop 
                 .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD)
                 .feedForward.kV(0.00223);
 
             elevatorConfig
+                //.smartCurrentLimit(40)
                 .idleMode(IdleMode.kBrake);
             elevatorConfig.closedLoop
                 .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)

@@ -24,7 +24,6 @@ import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LightsSubsystem;
-import frc.robot.subsystems.SensorSubsystem;
 import frc.robot.subsystems.PowerSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Subsystem;
@@ -77,13 +76,6 @@ public class Robot extends TimedRobot {
         ((frc.robot.subsystems.Subsystem) subsystem).robotInit();
       }});
     }
-
-    // Optional<Alliance> ally = DriverStation.getAlliance();
-    // if (ally.isPresent()) {
-    //   if (ally.get() == Alliance.Red) {
-    //     blueAlliance = false;
-    //   }
-    // }
 
   /**
    * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics

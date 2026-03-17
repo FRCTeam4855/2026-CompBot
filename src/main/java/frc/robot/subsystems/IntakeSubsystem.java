@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.robot.Configs.IntakeConfigs;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeSubsystem extends Subsystem {
 
@@ -57,7 +58,8 @@ public class IntakeSubsystem extends Subsystem {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
+    SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
     // arm.updateTelemetry();
   }
 

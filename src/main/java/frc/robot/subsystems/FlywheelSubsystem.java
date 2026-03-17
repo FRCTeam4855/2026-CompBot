@@ -75,14 +75,15 @@ public class FlywheelSubsystem extends Subsystem {
         lastFlywheelSpeed = 0;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void periodic() {
-        int speedIndex = (int) Math.round(swerve.getDistanceToHub() * 4);
-        goalFlywheelSpeed = (speedIndex < 24 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[24]) + flywheelAdjustment;
+        double distanceToHub = swerve.getCachedDistanceToHub();
+        int speedIndex = (int) Math.round(distanceToHub * 8);
+        goalFlywheelSpeed = (speedIndex < 47 ? FlywheelConstants.kFlywheelSpeeds[speedIndex] : FlywheelConstants.kFlywheelSpeeds[47]) + flywheelAdjustment;
         if(FlywheelConstants.kFlywheelTestOverrideSpeed > 0) {
             goalFlywheelSpeed = FlywheelConstants.kFlywheelTestOverrideSpeed;
         }
-
 
         if(flywheelRunning) {
             if(goalFlywheelSpeed != lastFlywheelSpeed) { // Only update the flywheel speed if it has changed to avoid unnecessary CAN traffic
@@ -101,7 +102,7 @@ public class FlywheelSubsystem extends Subsystem {
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Speed Index", speedIndex);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
-        SmartDashboard.putNumber("Distance to Hub", swerve.getDistanceToHub());
+        SmartDashboard.putNumber("Distance to Hub", distanceToHub);
     }
 
     private void setFlywheelSpeed(int speed) {

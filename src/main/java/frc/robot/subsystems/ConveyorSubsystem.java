@@ -22,7 +22,6 @@ public class ConveyorSubsystem extends Subsystem {
     public boolean m_BallDetected;
     private FlywheelSubsystem m_flywheelSubsystem;
 
-
     private static ConveyorSubsystem mInstance;
     public static ConveyorSubsystem getInstance() {
       if (mInstance == null) {
@@ -74,6 +73,7 @@ public class ConveyorSubsystem extends Subsystem {
         conveyorRunning = true;
     }
 
+
     public void stopConveyor() {
         m_conveyorSpark.set(0.0);
         conveyorRunning = false;
@@ -85,6 +85,11 @@ public class ConveyorSubsystem extends Subsystem {
         } else {
             startElevatorIntake();
         }
+    }
+
+    public void reverseElevator() {
+        m_elevatorController.setSetpoint(-ConveyorConstants.kElevatorIntakeSpeed, ControlType.kVelocity);
+        elevatorRunning = true;
     }
 
     public void startElevatorLaunch() {

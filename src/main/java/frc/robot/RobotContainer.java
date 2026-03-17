@@ -10,6 +10,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.AimAtPointCommand;
 import frc.robot.commands.FlywheelControlCommand;
+import frc.robot.commands.IntakeAgitateCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
@@ -33,6 +34,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -136,15 +138,21 @@ public class RobotContainer {
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
+
+    NamedCommands.registerCommand("Aim At Hub", new AimAtPointCommand(drivebase, m_leftDriveController));
     
     // Configure the trigger bindings
     configureBindings();
 
-    SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(), 
-                                                                () -> (0.4 * m_leftDriveController.getY() + 0.6 * 
-                                                                      Math.pow(m_leftDriveController.getY(), 3)) * -speedMultiplier,
-                                                                () -> (0.4 * m_leftDriveController.getX() + 0.6 *
-                                                                      Math.pow(m_leftDriveController.getX(), 3)) * -speedMultiplier)
+    SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
+                                                                () -> {
+                                                                  double yInput = m_leftDriveController.getY();
+                                                                  return (0.4 * yInput + 0.6 * yInput * yInput * yInput) * -speedMultiplier;
+                                                                },
+                                                                () -> {
+                                                                  double xInput = m_leftDriveController.getX();
+                                                                  return (0.4 * xInput + 0.6 * xInput * xInput * xInput) * -speedMultiplier;
+                                                                })
                                                             .withControllerRotationAxis(() -> -m_rightDriveController.getX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(SwerveConstants.kScaleTranslation)
@@ -199,16 +207,6 @@ public class RobotContainer {
 
     m_rightDriveController.button(1).whileTrue(new RotateForBumpCommand(drivebase, m_leftDriveController));
 
-    //light commands
-    m_leftDriveController.button(6).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights));
-    m_leftDriveController.button(7).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights));
-    m_leftDriveController.button(11).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights));
-    m_leftDriveController.button(10).whileTrue(new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights));
-
-    m_rightDriveController.button(6).whileTrue(NamedCommands.getCommand("Intake Representation"));
-    m_rightDriveController.button(7).whileTrue(NamedCommands.getCommand("Launch Representation"));
-    m_rightDriveController.button(11).whileTrue(NamedCommands.getCommand("Climb Representation"));
-
     //Operator Buttons
 
     new JoystickButton(m_operatorBoard, 1).onTrue(new InstantCommand(
@@ -232,6 +230,11 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleElevator()));
 
+    new JoystickButton(m_operatorBoard, 14).onTrue(new InstantCommand(
+      () -> m_conveyorSubsystem.reverseElevator()));
+
+    new JoystickButton(m_operatorBoard, 16).whileTrue(new IntakeAgitateCommand(m_intakeSubsystem));
+
     new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Intake Conveyor Sequence"));
 
     new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
@@ -240,10 +243,10 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 22).onTrue(NamedCommands.getCommand("Stop All"));
 
-    new JoystickButton(m_operatorBoard, 23).onTrue(new InstantCommand(
+    new JoystickButton(m_operatorBoard, 19).onTrue(new InstantCommand(
       () -> m_flywheelSubsystem.incrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
 
-    new JoystickButton(m_operatorBoard, 24).onTrue(new InstantCommand(
+    new JoystickButton(m_operatorBoard, 20).onTrue(new InstantCommand(
       () -> m_flywheelSubsystem.decrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
