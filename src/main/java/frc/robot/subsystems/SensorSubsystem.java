@@ -15,11 +15,12 @@ public class SensorSubsystem extends Subsystem {
     }
 
     private static SensorSubsystem mInstance;
+
     public static SensorSubsystem getInstance() {
-      if (mInstance == null) {
-        mInstance = new SensorSubsystem();
-      }
-      return mInstance;
+        if (mInstance == null) {
+            mInstance = new SensorSubsystem();
+        }
+        return mInstance;
     }
 
     @Override

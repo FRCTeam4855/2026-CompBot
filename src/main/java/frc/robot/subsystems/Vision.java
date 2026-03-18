@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import static edu.wpi.first.units.Units.Microseconds;
-import static edu.wpi.first.units.Units.Seconds;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
@@ -15,7 +12,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
-import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -261,6 +257,16 @@ public class Vision
                                0.273,
                                0.593),
              VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0)),
+
+    /**
+     * Right Camera
+     */
+    RIGHT_CAM("right",
+              new Rotation3d(0, 0, Math.toRadians(-90)),
+              new Translation3d(-0.248,
+                                -0.273,
+                                0.593),
+              VecBuilder.fill(4, 4, 8), VecBuilder.fill(3, 3, 1.0)),
     /**
      * Rear Camera
      */
@@ -309,7 +315,7 @@ public class Vision
     /**
      * Last read from the camera timestamp to prevent lag due to slow data fetches.
      */
-    private       double                       lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
+    //private       double                       lastReadTimestamp = Microseconds.of(NetworkTablesJNI.now()).in(Seconds);
 
     /**
      * Construct a Photon Camera class with help. Standard deviations are fake values, experiment and determine

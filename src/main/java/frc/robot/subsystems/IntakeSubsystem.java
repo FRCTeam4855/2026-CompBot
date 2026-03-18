@@ -23,11 +23,12 @@ public class IntakeSubsystem extends Subsystem {
     public boolean intakeRunning = false, intakeDeployed = false;
 
     private static IntakeSubsystem mInstance;
+
     public static IntakeSubsystem getInstance() {
-      if (mInstance == null) {
-        mInstance = new IntakeSubsystem();
-      }
-      return mInstance;
+        if (mInstance == null) {
+            mInstance = new IntakeSubsystem();
+        }
+        return mInstance;
     }
 
     @Override
@@ -46,21 +47,23 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public IntakeSubsystem() {
-        m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless); 
+        m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
         m_intakeAngleMotor = new SparkFlex(IntakeConstants.kIntakeAngleCanId, MotorType.kBrushless);
         intakePIDController = m_intakeMotor.getClosedLoopController();
         anglePIDController = m_intakeAngleMotor.getClosedLoopController();
         m_encoder = m_intakeAngleMotor.getAbsoluteEncoder();
 
-        m_intakeMotor.configure(IntakeConfigs.intakeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_intakeAngleMotor.configure(IntakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_intakeMotor.configure(IntakeConfigs.intakeConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
+        m_intakeAngleMotor.configure(IntakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
     }
 
-  @Override
-  public void periodic() {
-    SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
-    SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
-  }
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
+        SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
+    }
 
     public void positionIntake() {
         System.out.printf("Entered positionIntake\n");
@@ -86,8 +89,8 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void intakeStop() {
-            m_intakeMotor.set(0);
-            intakeRunning = false;
+        m_intakeMotor.set(0);
+        intakeRunning = false;
     }
 
     public void intakeForward() {
@@ -101,16 +104,16 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void intakeDeploySequence() {
-            intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
-            anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
-            intakeRunning = true;
-            intakeDeployed = true;
+        intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
+        anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+        intakeRunning = true;
+        intakeDeployed = true;
     }
 
     public void intakeRetractSequence() {
-            m_intakeMotor.set(0);
-            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
-            intakeRunning = false;
-            intakeDeployed = false;
+        m_intakeMotor.set(0);
+        anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
+        intakeRunning = false;
+        intakeDeployed = false;
     }
 }

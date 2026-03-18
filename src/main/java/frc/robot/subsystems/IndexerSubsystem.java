@@ -20,11 +20,12 @@ public class IndexerSubsystem extends Subsystem {
     private ConveyorSubsystem m_conveyorSubsystem;
 
     private static IndexerSubsystem mInstance;
+
     public static IndexerSubsystem getInstance() {
-      if (mInstance == null) {
-        mInstance = new IndexerSubsystem();
-      }
-      return mInstance;
+        if (mInstance == null) {
+            mInstance = new IndexerSubsystem();
+        }
+        return mInstance;
     }
 
     @Override
@@ -45,7 +46,8 @@ public class IndexerSubsystem extends Subsystem {
     public IndexerSubsystem() {
         m_indexer = new SparkMax(IndexerConstants.kIndexerCanId, MotorType.kBrushless);
         m_indexerController = m_indexer.getClosedLoopController();
-        m_indexer.configure(IndexerConfigs.indexerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_indexer.configure(IndexerConfigs.indexerConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
 
         m_flywheelSubsystem = FlywheelSubsystem.getInstance();
         m_conveyorSubsystem = ConveyorSubsystem.getInstance();
@@ -70,10 +72,11 @@ public class IndexerSubsystem extends Subsystem {
         m_indexer.set(0);
         indexerRunning = false;
     }
-    
+
     @Override
-    public void periodic() {        
-        if(m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed) {
+    public void periodic() {
+        if (m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed
+                && !m_flywheelSubsystem.launchMode) {
             stopIndexer();
         }
     }

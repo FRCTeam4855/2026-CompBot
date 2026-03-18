@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeAgitateCommand extends Command { 
+public class IntakeAgitateCommand extends Command {
     private IntakeSubsystem intake;
     private Timer timer;
 
@@ -15,6 +15,7 @@ public class IntakeAgitateCommand extends Command {
         this.intake = intake;
         timer = new Timer();
     }
+
     @Override
     public void initialize() {
         System.out.println("IntakeAgitateCommand initialized");
@@ -26,7 +27,7 @@ public class IntakeAgitateCommand extends Command {
 
     @Override
     public void execute() {
-        if (timer.hasElapsed(2.0)){
+        if (timer.hasElapsed(2.0)) {
             intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
             timer.reset();
         } else {

@@ -8,10 +8,11 @@ import frc.robot.Constants.FlywheelConstants;
 public class FlywheelControlCommand extends Command {
     FlywheelSubsystem flywheel;
     FlywheelRequest request;
+
     public FlywheelControlCommand(FlywheelSubsystem flywheel, FlywheelRequest request) {
-            this.flywheel = flywheel;
-            this.request = request;
-            addRequirements(flywheel);
+        this.flywheel = flywheel;
+        this.request = request;
+        addRequirements(flywheel);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class FlywheelControlCommand extends Command {
                 flywheel.flywheelRunning = false;
                 break;
             case START:
-            case START_WAIT:            
+            case START_WAIT:
                 flywheel.flywheelRunning = true;
                 break;
             case TOGGLE:
@@ -40,18 +41,20 @@ public class FlywheelControlCommand extends Command {
     @Override
     public boolean isFinished() {
         switch (request) {
-            case START_WAIT:
-                {
-                    if (((flywheel.m_encoderL.getVelocity() + flywheel.m_encoderM.getVelocity() + flywheel.m_encoderR.getVelocity()) / 3.0) >= flywheel.goalFlywheelSpeed * FlywheelConstants.kFlywheelTolerance) {
-                        flywheel.flywheelUpToSpeed = true;
-                        return true;
-                    } else {                        
-                        return false;
-                    }
+            case START_WAIT: {
+                if (((flywheel.m_encoderL.getVelocity() + flywheel.m_encoderM.getVelocity()
+                        + flywheel.m_encoderR.getVelocity()) / 3.0) >= flywheel.goalFlywheelSpeed
+                                * FlywheelConstants.kFlywheelTolerance) {
+                    flywheel.flywheelUpToSpeed = true;
+                    flywheel.launchMode = true;
+                    return true;
+                } else {
+                    return false;
                 }
+            }
             case START:
             case TOGGLE:
-            case STOP:    
+            case STOP:
             default:
                 return true;
         }

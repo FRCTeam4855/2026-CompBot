@@ -10,7 +10,8 @@ public class RotateForBumpCommand extends Command {
     SwerveSubsystem drive;
     CommandJoystick leftJoystick;
     private double target;
-    private Rotation2d targetRotation; 
+    private Rotation2d targetRotation;
+
     public RotateForBumpCommand(SwerveSubsystem drive, CommandJoystick leftJoystick) {
         this.leftJoystick = leftJoystick;
         this.drive = drive;
@@ -31,8 +32,8 @@ public class RotateForBumpCommand extends Command {
         double joystickY = leftJoystick.getY();
         double joystickX = leftJoystick.getX();
         drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
-                                                        joystickX,
-                                                        targetRotation));
+                joystickX,
+                targetRotation));
     }
 
     @Override

@@ -14,7 +14,7 @@ import frc.robot.Configs.ConveyorConfigs;
 import frc.robot.Constants.ConveyorConstants;
 
 public class ConveyorSubsystem extends Subsystem {
-    
+
     public final SparkMax m_elevatorSpark, m_conveyorSpark;
     public final SparkClosedLoopController m_elevatorController, m_conveyorController;
     public boolean elevatorRunning = false, conveyorRunning = false;
@@ -23,11 +23,12 @@ public class ConveyorSubsystem extends Subsystem {
     private FlywheelSubsystem m_flywheelSubsystem;
 
     private static ConveyorSubsystem mInstance;
+
     public static ConveyorSubsystem getInstance() {
-      if (mInstance == null) {
-        mInstance = new ConveyorSubsystem();
-      }
-      return mInstance;
+        if (mInstance == null) {
+            mInstance = new ConveyorSubsystem();
+        }
+        return mInstance;
     }
 
     @Override
@@ -45,7 +46,6 @@ public class ConveyorSubsystem extends Subsystem {
         DataLogManager.log("ConveyorSubsystem in autonomousInit");
     }
 
-    
     public ConveyorSubsystem() {
         m_elevatorSpark = new SparkMax(ConveyorConstants.kElevatorCanId, MotorType.kBrushless);
         m_conveyorSpark = new SparkMax(ConveyorConstants.kConveyorCanId, MotorType.kBrushless);
@@ -53,8 +53,10 @@ public class ConveyorSubsystem extends Subsystem {
         m_elevatorController = m_elevatorSpark.getClosedLoopController();
         m_conveyorController = m_conveyorSpark.getClosedLoopController();
 
-        m_elevatorSpark.configure(ConveyorConfigs.elevatorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        m_conveyorSpark.configure(ConveyorConfigs.conveyorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        m_elevatorSpark.configure(ConveyorConfigs.elevatorConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
+        m_conveyorSpark.configure(ConveyorConfigs.conveyorConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
 
         m_BallSensor = new DigitalInput(0);
         m_flywheelSubsystem = FlywheelSubsystem.getInstance();
@@ -72,7 +74,6 @@ public class ConveyorSubsystem extends Subsystem {
         m_conveyorController.setSetpoint(ConveyorConstants.kConveyorSpeed, ControlType.kVelocity);
         conveyorRunning = true;
     }
-
 
     public void stopConveyor() {
         m_conveyorSpark.set(0.0);
@@ -106,12 +107,12 @@ public class ConveyorSubsystem extends Subsystem {
         m_elevatorSpark.set(0);
         elevatorRunning = false;
     }
-    
+
     @Override
-    public void periodic() {            
+    public void periodic() {
         m_BallDetected = !m_BallSensor.get();
         SmartDashboard.putBoolean("Ball Sensor", m_BallDetected);
-        if(m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed) {
+        if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !m_flywheelSubsystem.launchMode) {
             stopElevator();
             stopConveyor();
         }

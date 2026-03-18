@@ -8,7 +8,7 @@ import frc.robot.subsystems.SensorSubsystem;
 public class DriveWithSensorCommand extends Command {
     SwerveSubsystem drive;
     ChassisSpeeds speed;
-    
+
     public DriveWithSensorCommand(SwerveSubsystem drive, ChassisSpeeds speed) {
         this.drive = drive;
         this.speed = speed;
@@ -27,7 +27,7 @@ public class DriveWithSensorCommand extends Command {
 
     @Override
     public boolean isFinished() {
-        if(SensorSubsystem.getSensor1() && !SensorSubsystem.getSensor2()) {
+        if (SensorSubsystem.getSensor1() && !SensorSubsystem.getSensor2()) {
             return true;
         } else {
             return false;

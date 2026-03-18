@@ -5,15 +5,15 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.Constants.LightsConstants;
 
-
 public class LightsSubsystem extends Subsystem {
 
     private static LightsSubsystem mInstance;
+
     public static LightsSubsystem getInstance() {
-      if (mInstance == null) {
-        mInstance = new LightsSubsystem();
-      }
-      return mInstance;
+        if (mInstance == null) {
+            mInstance = new LightsSubsystem();
+        }
+        return mInstance;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class LightsSubsystem extends Subsystem {
     public void periodic() {
         String gameData;
         gameData = DriverStation.getGameSpecificMessage();
-        if (gameData.length() > 0) { //Code to check which hub is inactive first, will need timer
+        if (gameData.length() > 0) { // Code to check which hub is inactive first, will need timer
             switch (gameData.charAt(0)) {
                 case 'B':
                     // Blue case code

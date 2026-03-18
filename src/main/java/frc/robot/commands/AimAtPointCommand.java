@@ -9,7 +9,7 @@ import frc.robot.Constants.PoseConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class AimAtPointCommand extends Command {
-    
+
     SwerveSubsystem drive;
     CommandJoystick leftJoystick;
 
@@ -28,12 +28,13 @@ public class AimAtPointCommand extends Command {
     public void execute() {
         double joystickY = leftJoystick.getY();
         double joystickX = leftJoystick.getX();
-        Rotation2d targetYaw = drive.isRedAlliance() ? PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kRedHubPose) :
-                                                        PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kBlueHubPose);
+        Rotation2d targetYaw = drive.isRedAlliance()
+                ? PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kRedHubPose)
+                : PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kBlueHubPose);
         Rotation2d absoluteTargetYaw = targetYaw.plus(drive.getPose().getRotation());
         drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
-                                joystickX,
-                                absoluteTargetYaw));
+                joystickX,
+                absoluteTargetYaw));
     }
 
     @Override

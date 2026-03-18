@@ -92,12 +92,12 @@ public class SwerveSubsystem extends Subsystem {
   /**
    * Whether to apply chassis velocity correction.
    */
-  private boolean chassisVelocityCorrection = true; // This should be true for most cases, but can be disabled for testing or if it causes issues with your particular hardware.
+  //private boolean chassisVelocityCorrection = true; // This should be true for most cases, but can be disabled for testing or if it causes issues with your particular hardware.
 
   /**
    * Enable vision odometry updates while driving.
    */
-  private final boolean     visionDriveTest = true;//VERY IMPORTANT VARIABLE
+  private final boolean     visionDriveTest = true; //VERY IMPORTANT VARIABLE
  
   /**
    * PhotonVision class to keep an accurate odometry.

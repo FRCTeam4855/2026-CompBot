@@ -34,7 +34,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -42,6 +41,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -92,7 +92,7 @@ public class RobotContainer {
                                                                 .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
     NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
                                                                 .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
-                            
+
     NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
 
     NamedCommands.registerCommand("Intake Forward", new InstantCommand(() -> m_intakeSubsystem.intakeForward()));
@@ -121,18 +121,17 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorLaunch()))
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
 
-    //NamedCommands.registerCommand("Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startConveyor())
-    //                                               .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
-    //                                               .alongWith(new InstantCommand(() -> m_indexerSubsystem.startIndexer())));
-
     NamedCommands.registerCommand("Stop All", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
                                                    .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer()))
+                                                   .alongWith(new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()))
                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
 
     NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
-                                                    NamedCommands.getCommand("Launch Conveyor Sequence"))));
+                                                    NamedCommands.getCommand("Launch Conveyor Sequence"),
+                                                    new WaitCommand(3.0),
+                                                    new IntakeAgitateCommand(m_intakeSubsystem))));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
