@@ -65,6 +65,7 @@ public class SwerveSubsystem extends Subsystem {
   public static SwerveSubsystem getInstance(File directory) {
     if (mInstance == null) {
       mInstance = new SwerveSubsystem(directory);
+      mInstance.swerveDrive.setChassisDiscretization(true, 0.02);
     }
     return mInstance;
   }
@@ -89,6 +90,11 @@ public class SwerveSubsystem extends Subsystem {
    */
   private final SwerveDrive swerveDrive;
   
+  /**
+   * Whether to apply chassis velocity correction.
+   */
+  private boolean chassisVelocityCorrection = true; // This should be true for most cases, but can be disabled for testing or if it causes issues with your particular hardware.
+
   /**
    * Enable vision odometry updates while driving.
    */
