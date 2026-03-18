@@ -23,7 +23,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.25
+                  "waitTime": 0.1
                 }
               }
             ]
@@ -42,7 +42,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 5.0
+                  "waitTime": 3.0
                 }
               }
             ]
@@ -57,7 +57,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Right Start to Outpost"
+            "pathName": "Right Start Bump"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Bump to Left Bump"
           }
         }
       ]

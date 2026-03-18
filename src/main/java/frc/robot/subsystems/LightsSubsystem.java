@@ -31,7 +31,7 @@ public class LightsSubsystem extends Subsystem {
         DataLogManager.log("LightsSubsystem in autonomousInit");
     }
 
-    public final Spark m_Blinkin; // 4855
+    public final Spark m_Blinkin;
 
     public LightsSubsystem() {
         m_Blinkin = new Spark(4);

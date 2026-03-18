@@ -73,7 +73,6 @@ public class IndexerSubsystem extends Subsystem {
     
     @Override
     public void periodic() {        
-        // This method will be called once per scheduler run
         if(m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed) {
             stopIndexer();
         }

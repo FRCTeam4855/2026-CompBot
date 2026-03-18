@@ -108,8 +108,7 @@ public class ConveyorSubsystem extends Subsystem {
     }
     
     @Override
-    public void periodic() {        
-        // This method will be called once per scheduler run        
+    public void periodic() {            
         m_BallDetected = !m_BallSensor.get();
         SmartDashboard.putBoolean("Ball Sensor", m_BallDetected);
         if(m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed) {

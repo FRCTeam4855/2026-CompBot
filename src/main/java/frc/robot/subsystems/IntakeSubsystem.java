@@ -60,7 +60,6 @@ public class IntakeSubsystem extends Subsystem {
   public void periodic() {
     SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
     SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
-    // arm.updateTelemetry();
   }
 
     public void positionIntake() {

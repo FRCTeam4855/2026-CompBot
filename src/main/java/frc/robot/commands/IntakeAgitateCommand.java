@@ -45,7 +45,6 @@ public class IntakeAgitateCommand extends Command {
     public void end(boolean interrupted) {
         intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
         intake.intakeDeployed = false;
-        intake.intakeStop();
         System.out.println("IntakeAgitateCommand finished");
     }
 }
