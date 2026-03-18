@@ -59,12 +59,6 @@
           "data": {
             "pathName": "Right Start Bump"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Right Bump to Left Bump"
-          }
         }
       ]
     }

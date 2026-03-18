@@ -65,7 +65,6 @@ public class SwerveSubsystem extends Subsystem {
   public static SwerveSubsystem getInstance(File directory) {
     if (mInstance == null) {
       mInstance = new SwerveSubsystem(directory);
-      mInstance.swerveDrive.setChassisDiscretization(true, 0.02);
     }
     return mInstance;
   }
