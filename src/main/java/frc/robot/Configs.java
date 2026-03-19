@@ -18,34 +18,35 @@ public final class Configs {
         public static final SparkFlexConfig intakeAngleConfig = new SparkFlexConfig();
         static {
             intakeConfig
-                    .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kBrake);
+                // .smartCurrentLimit(40)
+                .idleMode(IdleMode.kBrake);
             intakeConfig.closedLoop
-                    .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD).feedForward
-                    .kV(0.00205);
+                .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD)
+                .feedForward.kV(0.00205);
 
             intakeAngleConfig
-                    // .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kBrake);
+                //.smartCurrentLimit(40)
+                .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
-                    .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
-                    .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-                    .positionWrappingEnabled(true)
-                    .positionWrappingInputRange(0, 1)
-                    .outputRange(-0.5, 0.5).feedForward
+                .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
+                .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+                .positionWrappingEnabled(true)
+                .positionWrappingInputRange(0, 1)
+                .outputRange(-0.5, 0.5)
+                .feedForward
                     .kS(0.02)
-                    .kV(0.0) // 0.5
-                    .kA(0.0) // 0.05
+                    .kV(0.0) //0.5
+                    .kA(0.0) //0.05
                     .kG(0)
                     .kCos(.525)
                     .kCosRatio(1);
             // intakeAngleConfig.closedLoop.maxMotion
-            // .cruiseVelocity(15)
-            // .maxAcceleration(5)
-            // .allowedProfileError(1);
+            //     .cruiseVelocity(15)
+            //     .maxAcceleration(5)
+            //     .allowedProfileError(1);
             intakeAngleConfig.absoluteEncoder
-                    .inverted(false)
-                    .positionConversionFactor(1);
+                .inverted(false)
+                .positionConversionFactor(1);
         }
     }
 
@@ -54,11 +55,12 @@ public final class Configs {
         public static final SparkFlexConfig flywheelConfigR = new SparkFlexConfig();
         static {
             flywheelConfig
-                    .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kCoast);
+                .smartCurrentLimit(40)
+                .idleMode(IdleMode.kCoast);
             flywheelConfig.closedLoop
-                    .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
-                    .outputRange(0, 1.0).feedForward
+                .pid(FlywheelConstants.kFlywheelP, FlywheelConstants.kFlywheelI, FlywheelConstants.kFlywheelD)
+                .outputRange(0, 1.0)
+                .feedForward
                     .kS(.011)
                     .kV(0.0018);
         }
@@ -68,12 +70,12 @@ public final class Configs {
         public static final SparkMaxConfig indexerConfig = new SparkMaxConfig();
         static {
             indexerConfig
-                    .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kBrake);
+                .smartCurrentLimit(40)
+                .idleMode(IdleMode.kBrake);
             indexerConfig.closedLoop
-                    .pid(IndexerConstants.kIndexerP, IndexerConstants.kIndexerI, IndexerConstants.kIndexerD).feedForward
-                    .kV(0.0023);
-
+                .pid(IndexerConstants.kIndexerP, IndexerConstants.kIndexerI, IndexerConstants.kIndexerD)
+                .feedForward.kV(0.0023);
+                
         }
     }
 
@@ -82,31 +84,30 @@ public final class Configs {
         public static final SparkMaxConfig elevatorConfig = new SparkMaxConfig();
         static {
             conveyorConfig
-                    .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kBrake);
-            conveyorConfig.closedLoop
-                    .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI,
-                            ConveyorConstants.kConveyorD).feedForward
-                    .kV(0.00223);
+                .smartCurrentLimit(40)
+                .idleMode(IdleMode.kBrake);
+            conveyorConfig.closedLoop 
+                .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD)
+                .feedForward.kV(0.00223);
 
             elevatorConfig
-                    // .smartCurrentLimit(40)
-                    .idleMode(IdleMode.kBrake);
+                //.smartCurrentLimit(40)
+                .idleMode(IdleMode.kBrake);
             elevatorConfig.closedLoop
-                    .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI,
-                            ConveyorConstants.kElevatorD).feedForward
-                    .kV(0.0024);
+                .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)
+                .feedForward.kV(0.0024);
         }
     }
+    
 
     public static final class ClimberConfigs {
         public static final SparkMaxConfig climberConfig = new SparkMaxConfig();
         static {
             climberConfig
-                    .idleMode(IdleMode.kBrake)
-                    .smartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
+                .idleMode(IdleMode.kBrake)
+                .smartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
             climberConfig.closedLoop
-                    .pid(ClimberConstants.kClimberP, ClimberConstants.kClimberI, ClimberConstants.kClimberD);
+                .pid(ClimberConstants.kClimberP, ClimberConstants.kClimberI, ClimberConstants.kClimberD);
         }
     }
 }

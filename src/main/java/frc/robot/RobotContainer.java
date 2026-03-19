@@ -142,6 +142,8 @@ public class RobotContainer {
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
 
+    SmartDashboard.putNumber("Match Time", DriverStation.getMatchTime());
+
     // Configure the trigger bindings
     configureBindings();
 
