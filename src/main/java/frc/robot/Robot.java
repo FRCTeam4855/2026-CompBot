@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 //import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -97,6 +98,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Driver Y", m_leftDriveController.getY());
     SmartDashboard.putNumber("Driver X", m_leftDriveController.getX());
 
+    double maxTime = 25.0;
+    Timer loopTimer = new Timer();
+        if (loopTimer.hasElapsed(maxTime)) {
+      loopTimer.reset();
+    }
+    SmartDashboard.putNumber("Shifts", loopTimer.get());
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -105,6 +112,7 @@ public class Robot extends TimedRobot {
     // robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
