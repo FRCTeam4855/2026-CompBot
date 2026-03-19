@@ -46,6 +46,14 @@ public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer;
   List<Subsystem> m_allSubsystems = new ArrayList<>();
 
+  private final double maxTime = 25.0;
+  private final Timer loopTimer = new Timer();
+
+  private final double delayTime = 10.0;
+  private final Timer delayTimer = new Timer();
+
+  private boolean active = false;
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any
@@ -97,13 +105,6 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Driver Y", m_leftDriveController.getY());
     SmartDashboard.putNumber("Driver X", m_leftDriveController.getX());
-
-    double maxTime = 25.0;
-    Timer loopTimer = new Timer();
-        if (loopTimer.hasElapsed(maxTime)) {
-      loopTimer.reset();
-    }
-    SmartDashboard.putNumber("Shifts", loopTimer.get());
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -148,6 +149,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_allSubsystems.forEach(subsystem -> subsystem.teleopInit());
+    SmartDashboard.putNumber("Transition Shift", delayTimer.get());
+    SmartDashboard.putNumber("Shifts", loopTimer.get());
 
     // new InstantCommand(() ->
     // RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
@@ -163,6 +166,20 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+
+      if (delayTimer.hasElapsed(delayTime)) {
+      delayTimer.stop();
+    }
+
+      if (delayTimer.hasElapsed(delayTime)) {
+      loopTimer.start();
+    }
+
+      if (loopTimer.hasElapsed(maxTime)) {
+      loopTimer.reset();
+      active =! active;
+
+    }
   }
 
   @Override
