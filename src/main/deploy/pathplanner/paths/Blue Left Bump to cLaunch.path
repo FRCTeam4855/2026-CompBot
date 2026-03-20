@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.55,
-        "y": 4.0
+        "x": 2.75,
+        "y": 3.795634807417975
       },
       "prevControl": {
-        "x": 2.647256585968196,
-        "y": 4.315827150715644
+        "x": 2.847256585968196,
+        "y": 4.111461958133619
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Left Start + Depot + Left Bump",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 130.0

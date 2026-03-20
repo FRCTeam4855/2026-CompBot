@@ -21,7 +21,7 @@ public class FlywheelSubsystem extends Subsystem {
     public final SparkFlex m_flywheelL, m_flywheelM, m_flywheelR;
     public final SparkClosedLoopController m_pidControllerL, m_pidControllerM, m_pidControllerR;
     public final RelativeEncoder m_encoderL, m_encoderM, m_encoderR;
-    public boolean flywheelRunning = false, flywheelUpToSpeed = false;
+    public boolean flywheelRunning = false, flywheelUpToSpeed = false, delieverSpeed = false;
     public int goalFlywheelSpeed = 0, flywheelAdjustment = 0;
     private int lastFlywheelSpeed = 0;
     private SwerveSubsystem swerve = RobotContainer.drivebase;
@@ -89,6 +89,8 @@ public class FlywheelSubsystem extends Subsystem {
                 : FlywheelConstants.kFlywheelSpeeds[47]) + flywheelAdjustment;
         if (FlywheelConstants.kFlywheelTestOverrideSpeed > 0) {
             goalFlywheelSpeed = FlywheelConstants.kFlywheelTestOverrideSpeed;
+        } else if (delieverSpeed) {
+            goalFlywheelSpeed = FlywheelConstants.kFlywheelDelieverSpeed;
         }
 
         if (flywheelRunning) {
@@ -127,6 +129,10 @@ public class FlywheelSubsystem extends Subsystem {
             m_pidControllerM.setSetpoint(speed, ControlType.kVelocity);
             m_pidControllerR.setSetpoint(speed, ControlType.kVelocity);
         }
+    }
+
+    public void toggleDelieverSpeed() {
+        delieverSpeed = !delieverSpeed;
     }
 
     public void incrementFlywheelSpeed(int adjustment) {

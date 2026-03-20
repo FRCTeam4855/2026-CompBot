@@ -21,7 +21,7 @@ public class ConveyorSubsystem extends Subsystem {
     private final DigitalInput m_BallSensor;
     public boolean m_BallDetected;
     private FlywheelSubsystem m_flywheelSubsystem;
-    private boolean launchInProgress = false;
+    public boolean launchInProgress = false;
 
     private static ConveyorSubsystem mInstance;
 
@@ -119,10 +119,6 @@ public class ConveyorSubsystem extends Subsystem {
         if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !launchInProgress) {
             stopElevator();
             stopConveyor();
-        }
-
-        if (!m_BallDetected) {
-            launchInProgress = false;
         }
     }
 }

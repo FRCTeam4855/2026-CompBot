@@ -75,7 +75,7 @@ public class IndexerSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        if (m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !indexerRunning) {
+        if (m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !m_conveyorSubsystem.launchInProgress) {
             stopIndexer();
         }
     }

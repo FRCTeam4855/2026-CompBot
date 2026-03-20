@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.55,
-        "y": 4.0
+        "x": 2.75,
+        "y": 3.795634807417975
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3073940691870525,
-        "y": 4.3490450727251595
+        "x": 2.5073940691870527,
+        "y": 4.144679880143134
       },
       "isLocked": false,
       "linkedName": "Center Launch"
@@ -45,7 +45,7 @@
     "rotation": 130.0
   },
   "reversed": false,
-  "folder": "Right Start + Outpost + Right Bump",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

@@ -3,36 +3,36 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.7414693295292434,
-        "y": 2.5
+        "x": 6.980530120481928,
+        "y": 7.0729036144578314
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.4501754359050985,
-        "y": 2.4797054801169063
+        "x": 7.788075163220633,
+        "y": 7.297026173145524
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Prep for lIntakePose"
     },
     {
       "anchor": {
-        "x": 6.600912981455064,
-        "y": 1.3631669044222543
+        "x": 7.767325301204821,
+        "y": 7.269602409638554
       },
       "prevControl": {
-        "x": 6.523281027104138,
-        "y": 2.967560627674751
+        "x": 6.7974437524463145,
+        "y": 7.151597361693243
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Over right bump"
+      "linkedName": "Intake Pose Left"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.6860229574611749,
+      "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 2.0,
@@ -56,13 +56,13 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 54.30994017498601
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Right Start + Outpost + Right Bump",
+  "folder": "Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 45.0
+    "rotation": -57.14427804956704
   },
   "useDefaultConstraints": true
 }

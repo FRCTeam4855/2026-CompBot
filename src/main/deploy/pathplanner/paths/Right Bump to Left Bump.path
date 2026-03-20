@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.43271041369472,
-        "y": 1.583124108416548
+        "x": 6.600912981455064,
+        "y": 1.3631669044222543
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.43271041369472,
-        "y": 1.833124108416548
+        "x": 6.600912981455064,
+        "y": 1.6131669044222543
       },
       "isLocked": false,
       "linkedName": "Over right bump"
@@ -57,7 +57,7 @@
   "folder": "Right Start + Outpost + Right Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 45.0
+    "rotation": 54.30994017498601
   },
   "useDefaultConstraints": false
 }

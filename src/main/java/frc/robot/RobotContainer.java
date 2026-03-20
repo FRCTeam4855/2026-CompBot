@@ -98,7 +98,9 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake Forward", new InstantCommand(() -> m_intakeSubsystem.intakeForward()));
     NamedCommands.registerCommand("Intake Reverse", new InstantCommand(() -> m_intakeSubsystem.intakeReverse()));
     NamedCommands.registerCommand("Intake Stop", new InstantCommand(() -> m_intakeSubsystem.intakeStop()));
-    NamedCommands.registerCommand("Intake Deploy Sequence", new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()));
+    NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()),
+                                                      new WaitCommand(3.0), 
+                                                      NamedCommands.getCommand("Intake Conveyor Sequence")));
     NamedCommands.registerCommand("Intake Retract Sequence", new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()));
 
     NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_conveyorSubsystem.startConveyor()));
@@ -113,8 +115,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Intake Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake()))
+    NamedCommands.registerCommand("Intake Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
 
     NamedCommands.registerCommand("Launch Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
@@ -130,7 +131,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
                                                     NamedCommands.getCommand("Launch Conveyor Sequence"),
-                                                    new WaitCommand(1.75),
+                                                    new WaitCommand(1.25),
                                                     new IntakeAgitateCommand(m_intakeSubsystem))));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
@@ -193,7 +194,6 @@ public class RobotContainer {
   private void configureBindings() {
 
       //drivebase commands
-    //m_leftDriveController.button(1).onChange(Commands.runOnce(() -> toggleSlowMode()));
     m_leftDriveController.button(1).whileTrue(new AimAtPointCommand(drivebase, m_leftDriveController));
     m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
 
@@ -235,6 +235,9 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 14).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.reverseElevator()));
+
+    new JoystickButton(m_operatorBoard, 15).onChange(new InstantCommand(
+      () -> m_flywheelSubsystem.toggleDelieverSpeed()));
 
     new JoystickButton(m_operatorBoard, 16).whileTrue(new IntakeAgitateCommand(m_intakeSubsystem));
 

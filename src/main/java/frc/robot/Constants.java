@@ -38,7 +38,7 @@ public final class Constants {
   }
 
   public static final class PoseConstants {
-    public static final Pose2d kBlueHubPose = new Pose2d(4.6256,4.0345, new Rotation2d(0)); //x = 4.6256 y = 4.0345
+    public static final Pose2d kBlueHubPose = new Pose2d(4.6256,4.0345, new Rotation2d(0));
     public static final Pose2d kRedHubPose = new Pose2d(11.9408,4.0345, new Rotation2d(0));
   }
 
@@ -103,7 +103,7 @@ public final class Constants {
                                                   4900, // 5.75
                                                   4950, // 5.875
                                                   5000};// 6.0
-
+    public static final int kFlywheelDelieverSpeed = 4000;
     public static final int kFlywheelTestOverrideSpeed = 0;
     public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
   }

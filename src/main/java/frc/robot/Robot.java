@@ -6,7 +6,6 @@ package frc.robot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.Attributes.Name;
 
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
@@ -19,8 +18,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-//import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.units.Units;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
@@ -104,10 +103,16 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Driver Y", m_leftDriveController.getY());
     SmartDashboard.putNumber("Driver X", m_leftDriveController.getX());
-    SmartDashboard.putNumber("Transition Shift", delayTimer.get());
-    SmartDashboard.putNumber("Hub Shifts", loopTimer.get());
-    SmartDashboard.putBoolean("Hub Active", active);
-
+    // SmartDashboard.putNumber("Transition Shift", delayTimer.get());
+    // SmartDashboard.putNumber("Hub Shifts", loopTimer.get());
+    // HubTracker.timeRemainingInCurrentShift().ifPresent(time -> 
+    // SmartDashboard.putNumber("Time Left in Shift", time.in(Units.Seconds))); 
+    //SmartDashboard.putBoolean("Hub Active", active);
+    SmartDashboard.putNumber("Time Left in Shift", 
+    HubTracker.timeRemainingInCurrentShift()
+    .map(time -> time.in(Units.Seconds))
+    .orElse(0.0)
+);
       if (delayTimer.hasElapsed(delayTime)) {
       loopTimer.start();
       }
@@ -163,8 +168,6 @@ public class Robot extends TimedRobot {
     //Schedule the "Stop All" named command to run when the robot enters teleop, which will stop all motors and reset any necessary subsystem states. This is important to prevent unexpected behavior from subsystems that were running during autonomous.
     NamedCommands.getCommand("Stop All").schedule();
     
-    // new InstantCommand(() ->
-    // RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
