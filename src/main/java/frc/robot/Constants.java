@@ -130,10 +130,10 @@ public final class Constants {
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
 
-    public static final double kIntakeSpeed = 4000;
+    public static final double kIntakeSpeed = 5000;
     public static final double kIntakeRetractPosition = .185;
     // Angle reletive to 1 revolution of the intake arm
-    public static final double kIntakeAgitatePosition = 0.05;
+    public static final double kIntakeAgitatePosition = 0.12;
     public static final double kIntakeExtendPosition = -0.03;
   }
 

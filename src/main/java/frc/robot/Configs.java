@@ -18,14 +18,14 @@ public final class Configs {
         public static final SparkFlexConfig intakeAngleConfig = new SparkFlexConfig();
         static {
             intakeConfig
-                // .smartCurrentLimit(40)
+                .smartCurrentLimit(55)
                 .idleMode(IdleMode.kBrake);
             intakeConfig.closedLoop
                 .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD)
                 .feedForward.kV(0.00205);
 
             intakeAngleConfig
-                //.smartCurrentLimit(40)
+                .smartCurrentLimit(55)
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
                 .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
@@ -91,7 +91,7 @@ public final class Configs {
                 .feedForward.kV(0.00223);
 
             elevatorConfig
-                //.smartCurrentLimit(40)
+                .smartCurrentLimit(80)
                 .idleMode(IdleMode.kBrake);
             elevatorConfig.closedLoop
                 .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)

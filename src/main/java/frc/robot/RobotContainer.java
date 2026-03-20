@@ -130,7 +130,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
                                                     NamedCommands.getCommand("Launch Conveyor Sequence"),
-                                                    new WaitCommand(3.0),
+                                                    new WaitCommand(1.75),
                                                     new IntakeAgitateCommand(m_intakeSubsystem))));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))

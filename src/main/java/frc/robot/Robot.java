@@ -60,9 +60,6 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   public Robot() {
-    // Instantiate our RobotContainer. This will perform all our button bindings,
-    // and put our
-    // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
   }
 
@@ -105,6 +102,14 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Driver Y", m_leftDriveController.getY());
     SmartDashboard.putNumber("Driver X", m_leftDriveController.getX());
+    SmartDashboard.putNumber("Transition Shift", delayTimer.get());
+    SmartDashboard.putNumber("Hub Shifts", loopTimer.get());
+    SmartDashboard.putBoolean("Hub Active", active);
+
+      if (delayTimer.hasElapsed(delayTime)) {
+      loopTimer.start();
+      }
+    
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
@@ -149,8 +154,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     m_allSubsystems.forEach(subsystem -> subsystem.teleopInit());
-    SmartDashboard.putNumber("Transition Shift", delayTimer.get());
-    SmartDashboard.putNumber("Shifts", loopTimer.get());
+
+    delayTimer.start();
 
     // new InstantCommand(() ->
     // RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
@@ -169,16 +174,11 @@ public class Robot extends TimedRobot {
 
       if (delayTimer.hasElapsed(delayTime)) {
       delayTimer.stop();
-    }
-
-      if (delayTimer.hasElapsed(delayTime)) {
-      loopTimer.start();
-    }
+      }
 
       if (loopTimer.hasElapsed(maxTime)) {
       loopTimer.reset();
       active =! active;
-
     }
   }
 
