@@ -50,7 +50,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Left",
+  "folder": "Left Start + Depot + Left Bump",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 130.0

@@ -3,9 +3,9 @@
   "robotLength": 0.889,
   "holonomicMode": true,
   "pathFolders": [
-    "Left",
+    "Left Start + Depot + Left Bump",
     "Meter Tests",
-    "Right"
+    "Right Start + Outpost + Right Bump"
   ],
   "autoFolders": [
     "Meter Tests",

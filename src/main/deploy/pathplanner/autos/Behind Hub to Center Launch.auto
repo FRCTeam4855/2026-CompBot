@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Intake Retract Sequence"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
@@ -57,7 +51,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "USE Left Start Bump"
+            "pathName": "Right Start Bump"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake Deploy Sequence"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Bump to Left Bump"
           }
         },
         {
@@ -65,15 +71,15 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "USE Over Bump to Intake Pose Left"
+                  "name": "Intake Stop"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Intake Deploy Sequence"
+                  "pathName": " Left over Bump"
                 }
               }
             ]
@@ -82,19 +88,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Intake Pose Left to lMiddle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake Stop"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Left Middle to Over lBump"
+            "pathName": "Blue Left Bump to cLaunch"
           }
         },
         {
@@ -129,7 +123,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.0
+                  "waitTime": 4.0
                 }
               }
             ]
@@ -139,6 +133,6 @@
     }
   },
   "resetOdom": false,
-  "folder": "Left",
+  "folder": null,
   "choreoAuto": false
 }

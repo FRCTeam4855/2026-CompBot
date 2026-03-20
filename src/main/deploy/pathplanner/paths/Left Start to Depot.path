@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.804208273894435,
-        "y": 4.533138373751783
+        "x": 2.5511126961483592,
+        "y": 7.015142857142857
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.876602409638554,
-        "y": 5.849000000000001
+        "x": 2.2954461809758944,
+        "y": 6.970833548276034
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Left Start"
     },
     {
       "anchor": {
-        "x": 3.4050641940085593,
-        "y": 5.5
+        "x": 0.5443035714285711,
+        "y": 7.015142857142857
       },
       "prevControl": {
-        "x": 6.48878313253012,
-        "y": 5.521168674698795
+        "x": 0.7923629267901867,
+        "y": 7.046232344394655
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Depot Left"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5373134328358171,
-      "rotationDegrees": -45.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -47,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Left",
+  "folder": "Left Start + Depot + Left Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

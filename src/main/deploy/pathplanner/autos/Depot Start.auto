@@ -5,34 +5,46 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Intake Retract Sequence"
-          }
-        },
-        {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Aim At Hub"
+                  "pathName": "Left Start to Depot"
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 0.1
+                  "name": "Intake Deploy Sequence"
                 }
               }
             ]
           }
         },
         {
-          "type": "race",
+          "type": "path",
+          "data": {
+            "pathName": "Depot Intake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Depot to Launch"
+          }
+        },
+        {
+          "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 5.0
+                }
+              },
               {
                 "type": "named",
                 "data": {
@@ -40,24 +52,18 @@
                 }
               },
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 3.0
+                  "name": "setX"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop All"
           }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": null,
+  "folder": "Left",
   "choreoAuto": false
 }

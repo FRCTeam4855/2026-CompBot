@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.739514978601996,
-        "y": 7.5996005706134095
+        "y": 5.943452211126962
       },
       "prevControl": null,
       "nextControl": {
         "x": 7.739514978601996,
-        "y": 7.297247587203562
+        "y": 5.641099227717114
       },
       "isLocked": false,
       "linkedName": "Intake Pose Left"
@@ -50,10 +50,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Left",
+  "folder": "Left Start + Depot + Left Bump",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

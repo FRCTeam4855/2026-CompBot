@@ -1,0 +1,94 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Start Bump"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Over Bump to Intake Pose Right"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Deploy Sequence"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Intake Pose Right to rMiddle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right Middle to Over rBump"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Stop"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Neutral over rBump"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Conveyor Sequence"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Bump to cLaunch"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Launch Sequence"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": false,
+  "folder": "Right",
+  "choreoAuto": false
+}
