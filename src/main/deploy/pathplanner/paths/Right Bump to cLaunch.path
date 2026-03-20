@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Right Start + Outpost + Right Bump",
+  "folder": "Right",
   "idealStartingState": {
     "velocity": 450.0,
     "rotation": 45.0

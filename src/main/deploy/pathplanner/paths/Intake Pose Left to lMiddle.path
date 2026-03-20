@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5443035714285711,
-        "y": 7.015142857142857
+        "x": 7.739514978601996,
+        "y": 7.5996005706134095
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.5443035714285713,
-        "y": 6.765142857142857
+        "x": 7.744439581546524,
+        "y": 7.854717661496618
       },
       "isLocked": false,
-      "linkedName": "Depot Left"
+      "linkedName": "Intake Pose Left"
     },
     {
       "anchor": {
-        "x": 0.5443035714285711,
-        "y": 4.925803571428571
+        "x": 7.739514978601996,
+        "y": 4.597831669036494
       },
       "prevControl": {
-        "x": 0.5443035714285711,
-        "y": 5.175803571428571
+        "x": 7.735571025901036,
+        "y": 4.037961861704456
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Depot Right"
+      "linkedName": "Left Middle"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Left Start + Depot + Left Bump",
+  "folder": "Left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0

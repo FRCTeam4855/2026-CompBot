@@ -7,6 +7,7 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
 import java.io.File;
