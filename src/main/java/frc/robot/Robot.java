@@ -6,7 +6,9 @@ package frc.robot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes.Name;
 
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
 import java.io.File;
@@ -155,8 +157,12 @@ public class Robot extends TimedRobot {
   public void teleopInit() {
     m_allSubsystems.forEach(subsystem -> subsystem.teleopInit());
 
+
     delayTimer.start();
 
+    //Schedule the "Stop All" named command to run when the robot enters teleop, which will stop all motors and reset any necessary subsystem states. This is important to prevent unexpected behavior from subsystems that were running during autonomous.
+    NamedCommands.getCommand("Stop All").schedule();
+    
     // new InstantCommand(() ->
     // RobotContainer.drivebase.getSwerveDrive().zeroGyro()).schedule();
     // This makes sure that the autonomous stops running when
