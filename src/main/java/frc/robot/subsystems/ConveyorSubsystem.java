@@ -21,6 +21,7 @@ public class ConveyorSubsystem extends Subsystem {
     private final DigitalInput m_BallSensor;
     public boolean m_BallDetected;
     private FlywheelSubsystem m_flywheelSubsystem;
+    private boolean launchInProgress = false;
 
     private static ConveyorSubsystem mInstance;
 
@@ -96,6 +97,7 @@ public class ConveyorSubsystem extends Subsystem {
     public void startElevatorLaunch() {
         m_elevatorController.setSetpoint(ConveyorConstants.kElevatorLaunchSpeed, ControlType.kVelocity);
         elevatorRunning = true;
+        launchInProgress = true;
     }
 
     public void startElevatorIntake() {
@@ -106,15 +108,21 @@ public class ConveyorSubsystem extends Subsystem {
     public void stopElevator() {
         m_elevatorSpark.set(0);
         elevatorRunning = false;
+        launchInProgress = false;
     }
 
     @Override
     public void periodic() {
         m_BallDetected = !m_BallSensor.get();
         SmartDashboard.putBoolean("Ball Sensor", m_BallDetected);
-        if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !m_flywheelSubsystem.launchMode) {
+
+        if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !launchInProgress) {
             stopElevator();
             stopConveyor();
+        }
+
+        if (!m_BallDetected) {
+            launchInProgress = false;
         }
     }
 }

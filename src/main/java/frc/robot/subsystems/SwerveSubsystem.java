@@ -34,6 +34,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.HubTracker;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.PoseConstants;
@@ -186,8 +187,10 @@ public class SwerveSubsystem extends Subsystem {
     // Cache the distance to hub calculation
     if (isRedAlliance()) {
       cachedDistanceToHub = PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kRedHubPose);
+      SmartDashboard.putBoolean("Hub Active?", HubTracker.isActive(Alliance.Red));
     } else {
       cachedDistanceToHub = PhotonUtils.getDistanceToPose(getPose(), PoseConstants.kBlueHubPose);
+      SmartDashboard.putBoolean("Hub Active?", HubTracker.isActive(Alliance.Blue));
     }
     SmartDashboard.putNumber("Distance to Hub", cachedDistanceToHub);
     SmartDashboard.putBoolean("Field Oriented", RobotContainer.FieldOriented);

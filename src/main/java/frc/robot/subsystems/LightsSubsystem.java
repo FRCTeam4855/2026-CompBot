@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.Constants.LightsConstants;
 
@@ -40,23 +39,7 @@ public class LightsSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        String gameData;
-        gameData = DriverStation.getGameSpecificMessage();
-        if (gameData.length() > 0) { // Code to check which hub is inactive first, will need timer
-            switch (gameData.charAt(0)) {
-                case 'B':
-                    // Blue case code
-                    break;
-                case 'R':
-                    // Red case code
-                    break;
-                default:
-                    // This is corrupt data
-                    break;
-            }
-        } else {
-            // Code for no data received yet
-        }
+        
     }
 
     public void setLEDs(double color) {

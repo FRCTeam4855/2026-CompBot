@@ -46,7 +46,6 @@ public class FlywheelControlCommand extends Command {
                         + flywheel.m_encoderR.getVelocity()) / 3.0) >= flywheel.goalFlywheelSpeed
                                 * FlywheelConstants.kFlywheelTolerance) {
                     flywheel.flywheelUpToSpeed = true;
-                    flywheel.launchMode = true;
                     return true;
                 } else {
                     return false;
