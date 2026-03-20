@@ -17,25 +17,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Aim At Hub"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.1
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
                   "name": "Launch Sequence"
                 }
               },
@@ -55,41 +36,28 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Right Start Bump"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Right Start Bump"
+                  "pathName": "Over Bump to Intake Pose Right"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake Deploy Sequence"
-                      }
-                    }
-                  ]
+                  "name": "Intake Deploy Sequence"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Over Bump to Intake Pose Right"
           }
         },
         {
@@ -111,6 +79,12 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "race",
           "data": {
             "commands": [
@@ -123,7 +97,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 0.25
                 }
               }
             ]
@@ -142,7 +116,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.0
+                  "waitTime": 5.0
                 }
               }
             ]
@@ -152,6 +126,6 @@
     }
   },
   "resetOdom": false,
-  "folder": null,
+  "folder": "Right",
   "choreoAuto": false
 }
