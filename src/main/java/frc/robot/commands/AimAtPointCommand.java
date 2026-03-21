@@ -32,9 +32,15 @@ public class AimAtPointCommand extends Command {
                 ? PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kRedHubPose)
                 : PhotonUtils.getYawToPose(drive.getPose(), PoseConstants.kBlueHubPose);
         Rotation2d absoluteTargetYaw = targetYaw.plus(drive.getPose().getRotation());
-        drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
+        if (drive.isRedAlliance()) {
+            drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
+                joystickX,
+                absoluteTargetYaw.minus(Rotation2d.fromDegrees(180))));
+        } else {
+            drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
                 joystickX,
                 absoluteTargetYaw));
+        }
     }
 
     @Override

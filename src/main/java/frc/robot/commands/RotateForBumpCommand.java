@@ -31,9 +31,15 @@ public class RotateForBumpCommand extends Command {
     public void execute() {
         double joystickY = leftJoystick.getY();
         double joystickX = leftJoystick.getX();
-        drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
+        if (drive.isRedAlliance()) {
+            drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
+                joystickX,
+                targetRotation.minus(Rotation2d.fromDegrees(180))));
+        } else {
+            drive.driveFieldOriented(drive.getTargetSpeeds(joystickY,
                 joystickX,
                 targetRotation));
+        }
     }
 
     @Override

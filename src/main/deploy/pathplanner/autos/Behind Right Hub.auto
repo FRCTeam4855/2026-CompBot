@@ -17,25 +17,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Aim At Hub"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.1
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
                   "name": "Launch Sequence"
                 }
               },
@@ -110,7 +91,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 0.1
+                  "waitTime": 0.75
                 }
               }
             ]
@@ -129,7 +110,7 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 3.0
+                  "waitTime": 8.0
                 }
               }
             ]
