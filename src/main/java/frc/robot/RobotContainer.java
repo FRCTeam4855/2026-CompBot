@@ -98,9 +98,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake Forward", new InstantCommand(() -> m_intakeSubsystem.intakeForward()));
     NamedCommands.registerCommand("Intake Reverse", new InstantCommand(() -> m_intakeSubsystem.intakeReverse()));
     NamedCommands.registerCommand("Intake Stop", new InstantCommand(() -> m_intakeSubsystem.intakeStop()));
-    NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()),
-                                                      new WaitCommand(3.0), 
-                                                      NamedCommands.getCommand("Intake Conveyor Sequence")));
+
     NamedCommands.registerCommand("Intake Retract Sequence", new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()));
 
     NamedCommands.registerCommand("Conveyor Start", new InstantCommand(() -> m_conveyorSubsystem.startConveyor()));
@@ -115,8 +113,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Intake Conveyor Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
+    NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
+
+    NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()),
+                                                      new WaitCommand(3.0), 
+                                                      NamedCommands.getCommand("Load Elevator Sequence")));
 
     NamedCommands.registerCommand("Launch Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorLaunch()))
@@ -128,11 +130,11 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()))
                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
 
-    NamedCommands.registerCommand("Launch Sequence", (new SequentialCommandGroup(
+    NamedCommands.registerCommand("Launch Sequence", new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
                                                     NamedCommands.getCommand("Launch Conveyor Sequence"),
                                                     new WaitCommand(1.25),
-                                                    new IntakeAgitateCommand(m_intakeSubsystem))));
+                                                    new IntakeAgitateCommand(m_intakeSubsystem)));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
@@ -241,7 +243,7 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 16).whileTrue(new IntakeAgitateCommand(m_intakeSubsystem));
 
-    new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Intake Conveyor Sequence"));
+    new JoystickButton(m_operatorBoard, 17).onTrue(NamedCommands.getCommand("Load Elevator Sequence"));
 
     new JoystickButton(m_operatorBoard, 18).onTrue(NamedCommands.getCommand("Intake Deploy Sequence"));
 

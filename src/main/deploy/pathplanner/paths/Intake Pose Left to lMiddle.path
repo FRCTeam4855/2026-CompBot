@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.772249904149349,
-        "y": 7.524719500521763
+        "x": 7.756047513992535,
+        "y": 7.749593919496205
       },
       "isLocked": false,
       "linkedName": "Intake Pose Left"
@@ -20,8 +20,8 @@
         "y": 4.597831669036494
       },
       "prevControl": {
-        "x": 7.735571025901036,
-        "y": 4.037961861704456
+        "x": 7.750841804567231,
+        "y": 4.348088394825649
       },
       "nextControl": null,
       "isLocked": false,
@@ -37,7 +37,7 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
+      "minWaypointRelativePos": 0.39646946564885294,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.980530120481928,
-        "y": 7.0729036144578314
+        "x": 6.937318116975749,
+        "y": 7.250256776034237
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.788075163220633,
-        "y": 7.297026173145524
+        "x": 7.696089044465891,
+        "y": 7.2596970848219415
       },
       "isLocked": false,
       "linkedName": "Prep for lIntakePose"
@@ -20,8 +20,8 @@
         "y": 7.269602409638554
       },
       "prevControl": {
-        "x": 6.7974437524463145,
-        "y": 7.151597361693243
+        "x": 6.637072781309325,
+        "y": 7.370976562741174
       },
       "nextControl": null,
       "isLocked": false,
@@ -59,10 +59,10 @@
     "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Left",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -57.14427804956704
+    "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true
 }
