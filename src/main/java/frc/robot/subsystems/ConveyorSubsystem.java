@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
@@ -10,6 +11,9 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Configs.ConveyorConfigs;
 import frc.robot.Constants.ConveyorConstants;
 
@@ -17,11 +21,10 @@ public class ConveyorSubsystem extends Subsystem {
 
     public final SparkMax m_elevatorSpark, m_conveyorSpark;
     public final SparkClosedLoopController m_elevatorController, m_conveyorController;
-    public boolean elevatorRunning = false, conveyorRunning = false;
+    public final RelativeEncoder m_elevatorEncoder;
+    public boolean m_BallDetected, elevatorRunning = false, conveyorRunning = false, launchInProgress = false;
     private final DigitalInput m_BallSensor;
-    public boolean m_BallDetected;
     private FlywheelSubsystem m_flywheelSubsystem;
-    public boolean launchInProgress = false;
 
     private static ConveyorSubsystem mInstance;
 
@@ -53,6 +56,8 @@ public class ConveyorSubsystem extends Subsystem {
 
         m_elevatorController = m_elevatorSpark.getClosedLoopController();
         m_conveyorController = m_conveyorSpark.getClosedLoopController();
+
+        m_elevatorEncoder = m_elevatorSpark.getEncoder();
 
         m_elevatorSpark.configure(ConveyorConfigs.elevatorConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
@@ -116,9 +121,20 @@ public class ConveyorSubsystem extends Subsystem {
         m_BallDetected = !m_BallSensor.get();
         SmartDashboard.putBoolean("Ball Sensor", m_BallDetected);
 
+        if(checkStall()) {
+            new SequentialCommandGroup(new WaitCommand(2),
+            checkStall() ? new InstantCommand(() -> reverseElevator()) : new InstantCommand(), 
+            new WaitCommand(0.5), 
+            elevatorRunning ? new InstantCommand(() -> startElevatorIntake()) : new InstantCommand());
+        }
+
         if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !launchInProgress) {
             stopElevator();
             stopConveyor();
         }
+    }
+
+    public boolean checkStall() {
+        return elevatorRunning && m_elevatorSpark.getOutputCurrent() > 50 && !m_elevatorController.isAtSetpoint() && m_elevatorEncoder.getVelocity() < ConveyorConstants.kElevatorIntakeSpeed / 2;
     }
 }

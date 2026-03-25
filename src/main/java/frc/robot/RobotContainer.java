@@ -221,7 +221,7 @@ public class RobotContainer {
       () -> m_intakeSubsystem.intakeToggle(-IntakeConstants.kIntakeSpeed)));
 
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.positionIntake()));
+      () -> m_intakeSubsystem.toggleIntakePosition()));
 
     new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
       m_flywheelSubsystem, FlywheelRequest.TOGGLE));
@@ -229,7 +229,7 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
       () -> m_indexerSubsystem.toggleIndexer()));
 
-    new JoystickButton(m_operatorBoard, 7).onTrue(new InstantCommand(
+    new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleConveyor()));
 
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
