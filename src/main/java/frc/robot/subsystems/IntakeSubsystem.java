@@ -23,7 +23,7 @@ public class IntakeSubsystem extends Subsystem {
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
     private Timer timer;
-    public boolean intakeRunning = false, intakeDeployed = false;
+    public boolean intakeRunning = false, intakeDeployed = false, clearingBlock = false;
 
     private static IntakeSubsystem mInstance;
 
@@ -69,14 +69,21 @@ public class IntakeSubsystem extends Subsystem {
         SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
         
         if (isBlocked()) {
-            timer.start();
+            if (!clearingBlock) {
+            clearingBlock = true;
+            timer.start(); 
+            }
             if (timer.hasElapsed(1)) {
                 if (isBlocked()) {
                     setIntakePosition(IntakeConstants.kIntakeAgitatePosition);
                     if (timer.hasElapsed(1.5)) {
                         setIntakePosition(IntakeConstants.kIntakeExtendPosition);
+                        clearingBlock = false;
                         timer.reset();
                     }
+                } else {
+                    clearingBlock = false;
+                    timer.reset();
                 }
             }
         }
