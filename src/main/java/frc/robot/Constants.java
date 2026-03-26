@@ -52,60 +52,60 @@ public final class Constants {
     public static final double kFlywheelI = 0;
     public static final double kFlywheelD = 0.04;
 
-    public static final double kFlywheelTolerance = 0.9; // The percentage of the goal flywheel speed that is considered "up to speed" for the START_WAIT flywheel request
+    public static final double kFlywheelTolerance = 0.95; // The percentage of the goal flywheel speed that is considered "up to speed" for the START_WAIT flywheel request
 
-    public static final int[] kFlywheelSpeeds = { 0,    // 0
-                                                  2000, // 0.125
-                                                  2000, // 0.25
-                                                  2000, // 0.375
-                                                  2000, // 0.5
-                                                  2000, // 0.625
-                                                  2000, // 0.75
-                                                  2000, // 0.875
-                                                  2000, // 1.0
-                                                  2500, // 1.125
-                                                  2500, // 1.25
-                                                  2500, // 1.375
-                                                  2500, // 1.5
-                                                  2600, // 1.625
-                                                  2700, // 1.75
-                                                  2750, // 1.875
-                                                  2800, // 2.0
-                                                  2850, // 2.125
-                                                  2900, // 2.25
-                                                  2950, // 2.375
-                                                  3050, // 2.5
-                                                  3300, // 2.625
-                                                  3500, // 2.75
-                                                  3550, // 2.875
-                                                  3600, // 3.0
-                                                  3700, // 3.125
-                                                  3800, // 3.25
-                                                  3950, // 3.375
-                                                  4100, // 3.5
-                                                  4150, // 3.625
-                                                  4200, // 3.75
-                                                  4250, // 3.875
-                                                  4300, // 4.0
-                                                  4350, // 4.125
-                                                  4400, // 4.25
-                                                  4450, // 4.375
-                                                  4500, // 4.5
-                                                  4550, // 4.625
-                                                  4600, // 4.75
-                                                  4650, // 4.875
-                                                  4700, // 5.0
-                                                  4750, // 5.125
-                                                  4800, // 5.25
-                                                  4850, // 5.375
-                                                  4900, // 5.5
-                                                  4950, // 5.625
-                                                  5000, // 5.75
-                                                  5050, // 5.875
-                                                  5100};// 6.0
+    public static final int[] kFlywheelSpeeds = { 0,    // 0     0
+                                                  2000, // 0.125 1
+                                                  2000, // 0.25  2
+                                                  2000, // 0.375 3
+                                                  2000, // 0.5   4
+                                                  2000, // 0.625 5
+                                                  2000, // 0.75  6
+                                                  2000, // 0.875 7
+                                                  2000, // 1.0   8
+                                                  2300, // 1.125 9
+                                                  2300, // 1.25  10
+                                                  2300, // 1.375 11
+                                                  2300, // 1.5   12
+                                                  2400, // 1.625 13
+                                                  2450, // 1.75  14
+                                                  2500, // 1.875 15
+                                                  2550, // 2.0   16
+                                                  2600, // 2.125 17
+                                                  2650, // 2.25  18
+                                                  2700, // 2.375 19
+                                                  2750, // 2.5   20
+                                                  2850, // 2.625 21
+                                                  2900, // 2.75  22
+                                                  2950, // 2.875 23
+                                                  3000, // 3.0   24
+                                                  3100, // 3.125 25
+                                                  3150, // 3.25  26
+                                                  3200, // 3.375 27
+                                                  3250, // 3.5   28
+                                                  3300, // 3.625 29
+                                                  3350, // 3.75  30
+                                                  3425, // 3.875 31
+                                                  3500, // 4.0   32
+                                                  3675, // 4.125 33
+                                                  3800, // 4.25  34
+                                                  3900, // 4.375 35
+                                                  4000, // 4.5   36
+                                                  4100, // 4.625 37
+                                                  4200, // 4.75  38
+                                                  4300, // 4.875 39
+                                                  4400, // 5.0   40
+                                                  4500, // 5.125 41
+                                                  4600, // 5.25  42
+                                                  4700, // 5.375 43
+                                                  4800, // 5.5   44
+                                                  4900, // 5.625 45
+                                                  5000, // 5.75  46
+                                                  5100, // 5.875 47
+                                                  5200};// 6.0   48
     public static final int kFlywheelDelieverSpeed = 4000;
     public static final int kFlywheelTestOverrideSpeed = 0;
-    public static final int kFlywheelOverrideAdjustment = 50; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
+    public static final int kFlywheelOverrideAdjustment = 25; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
   }
 
   public static final class IndexerConstants {

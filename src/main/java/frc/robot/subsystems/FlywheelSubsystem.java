@@ -10,6 +10,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import frc.robot.Constants.FlywheelConstants;
+import frc.robot.HubTracker;
 import frc.robot.RobotContainer;
 import frc.robot.Configs.FlywheelConfigs;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -113,10 +114,12 @@ public class FlywheelSubsystem extends Subsystem {
             }
         }
 
+        if (HubTracker.isActiveNext()) {}
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Speed Index", speedIndex);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
         SmartDashboard.putNumber("Distance to Hub", distanceToHub);
+        SmartDashboard.putNumber("Flywheel Adjustment", flywheelAdjustment);
     }
 
     private void setFlywheelSpeed(int speed) {
