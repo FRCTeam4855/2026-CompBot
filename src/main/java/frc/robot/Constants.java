@@ -160,18 +160,6 @@ public final class Constants {
     public static final int kElevatorIntakeSpeed = 2000;
   }
 
-  public static final class ClimberConstants {
-    public static final int kClimberCanId = -1;
-    public static final double kClimberP = 1;
-    public static final double kClimberI = 0;
-    public static final double kClimberD = 0;
-
-    public static final int kClimberCurrentLimit = 40;
-
-    public static final double kClimberExtendPosition = 1;
-    public static final double kClibmerRetractPosition = 0;
-  }
-
   public static final class LightsConstants {
     public final static double RAINBOW_RAINBOWPALETTE = -.99;
     public final static double RAINBOW_PARTYPALETTE = -.97;

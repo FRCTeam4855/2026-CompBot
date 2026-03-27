@@ -14,6 +14,7 @@ public class IntakeAgitateCommand extends Command {
     public IntakeAgitateCommand(IntakeSubsystem intake) {
         this.intake = intake;
         timer = new Timer();
+        addRequirements(intake);
     }
 
     @Override

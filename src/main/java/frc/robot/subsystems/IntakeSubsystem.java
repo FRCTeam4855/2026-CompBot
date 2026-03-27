@@ -14,6 +14,7 @@ import frc.robot.Constants;
 import frc.robot.Configs.intakeConfigs;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeSubsystem extends Subsystem {
@@ -23,7 +24,8 @@ public class IntakeSubsystem extends Subsystem {
     public final SparkFlex m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
-    public boolean intakeRunning = false, intakeDeployed = false;
+    private Timer timer;
+    public boolean intakeRunning = false, intakeDeployed = false, clearingBlock = false;
     private SparkFlexConfig updatedIntakeAngleConfig = new SparkFlexConfig();
 
     private static IntakeSubsystem mInstance;
@@ -62,6 +64,7 @@ public class IntakeSubsystem extends Subsystem {
                 PersistMode.kPersistParameters);
         m_intakeFollowerMotor.configure(intakeConfigs.intakeFollowerConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
+        timer = new Timer();
         m_intakeAngleMotor.configure(intakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
         if (Constants.IntakeConstants.kIntakeDebug) {
@@ -80,9 +83,34 @@ public class IntakeSubsystem extends Subsystem {
     public void periodic() {
         SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
         SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
+
+        if (isBlocked() || clearingBlock) {
+            if (!clearingBlock) {
+                clearingBlock = true;
+                timer.reset();
+                timer.start();
+            } 
+            if (timer.hasElapsed(1)) {
+                if (isBlocked() || anglePIDController.getSetpoint() == IntakeConstants.kIntakeAgitatePosition) {
+                    if (anglePIDController.getSetpoint() != IntakeConstants.kIntakeAgitatePosition)
+                        setIntakePosition(IntakeConstants.kIntakeAgitatePosition);
+                    if (timer.hasElapsed(1.5)) {
+                        setIntakePosition(IntakeConstants.kIntakeExtendPosition);
+                        clearingBlock = false;
+                        timer.stop();
+                    }
+                } else {
+                    clearingBlock = false;
+                    timer.stop();
+                }
+            }
+        }
     }
 
-    public void positionIntake() {
+    public boolean isBlocked() {
+        return anglePIDController.getSetpoint() == IntakeConstants.kIntakeExtendPosition && Math.abs(anglePIDController.getSetpoint() - m_encoder.getPosition()) > 0.1;
+    }
+    public void toggleIntakePosition() {
         System.out.printf("Entered positionIntake\n");
         if (intakeDeployed) {
             System.out.printf("Retracting Intake\n");
@@ -123,6 +151,10 @@ public class IntakeSubsystem extends Subsystem {
         }
     }
 
+    public void setIntakePosition(double position) {
+        anglePIDController.setSetpoint(position, ControlType.kPosition);
+    }
+
     public void intakeToggle(double speed) {
         if (intakeRunning) {
             m_intakeLeaderMotor.set(0);
@@ -150,14 +182,14 @@ public class IntakeSubsystem extends Subsystem {
 
     public void intakeDeploySequence() {
         intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
-        anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+        setIntakePosition(IntakeConstants.kIntakeExtendPosition);
         intakeRunning = true;
         intakeDeployed = true;
     }
 
     public void intakeRetractSequence() {
-        m_intakeLeaderMotor.set(0);
-        anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
+        m_intakeMotor.set(0);
+        setIntakePosition(IntakeConstants.kIntakeRetractPosition);
         intakeRunning = false;
         intakeDeployed = false;
     }
