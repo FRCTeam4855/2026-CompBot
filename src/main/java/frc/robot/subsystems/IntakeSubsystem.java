@@ -67,7 +67,7 @@ public class IntakeSubsystem extends Subsystem {
         timer = new Timer();
         m_intakeAngleMotor.configure(intakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
-        if (Constants.IntakeConstants.kIntakeDebug) {
+        if (IntakeConstants.kIntakeDebug) {
             SmartDashboard.putNumber("Intake arm P", IntakeConstants.kIntakeAngleP);
             SmartDashboard.putNumber("Intake arm I", IntakeConstants.kIntakeAngleI);
             SmartDashboard.putNumber("Intake arm D", IntakeConstants.kIntakeAngleD);
@@ -76,6 +76,7 @@ public class IntakeSubsystem extends Subsystem {
             SmartDashboard.putNumber("Intake arm FF A", IntakeConstants.kIntakeAngleFFA);
             SmartDashboard.putNumber("Intake arm FF G", IntakeConstants.kIntakeAngleFFG);
             SmartDashboard.putNumber("Intake arm FF Cos", IntakeConstants.kIntakeAngleFFCos);
+            SmartDashboard.putNumber("Intake speed", IntakeConstants.kIntakeSpeed);
         }
     }
 
@@ -83,7 +84,7 @@ public class IntakeSubsystem extends Subsystem {
     public void periodic() {
         SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
         SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
-
+        SmartDashboard.putBoolean("Intake Blocked", isBlocked());
         if (isBlocked() || clearingBlock) {
             if (!clearingBlock) {
                 clearingBlock = true;
@@ -155,12 +156,12 @@ public class IntakeSubsystem extends Subsystem {
         anglePIDController.setSetpoint(position, ControlType.kPosition);
     }
 
-    public void intakeToggle(double speed) {
+    public void intakeToggle() {
         if (intakeRunning) {
-            m_intakeLeaderMotor.set(0);
+            intakeStop();
             intakeRunning = false;
         } else {
-            intakePIDController.setSetpoint(speed, ControlType.kVelocity);
+            intakeForward();
             intakeRunning = true;
         }
     }
@@ -171,9 +172,15 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void intakeForward() {
-        intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
+        intakePIDController.setSetpoint(IntakeConstants.kIntakeDebug ? SmartDashboard.getNumber("Intake Speed", IntakeConstants.kIntakeSpeed)
+            : IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
         intakeRunning = true;
     }
+
+    // public void intakeForward() {
+    //     intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
+    //     intakeRunning = true;
+    // }
 
     public void intakeReverse() {
         intakePIDController.setSetpoint(-IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
@@ -188,7 +195,7 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void intakeRetractSequence() {
-        m_intakeMotor.set(0);
+        m_intakeLeaderMotor.set(0);
         setIntakePosition(IntakeConstants.kIntakeRetractPosition);
         intakeRunning = false;
         intakeDeployed = false;

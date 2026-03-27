@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
@@ -133,7 +132,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Launch Sequence", new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
                                                     NamedCommands.getCommand("Launch Conveyor Sequence"),
-                                                    new WaitCommand(1.25),
+                                                    new WaitCommand(1),
                                                     new IntakeAgitateCommand(m_intakeSubsystem)));
                                                     //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
                                                     //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
@@ -215,10 +214,10 @@ public class RobotContainer {
     //Operator Buttons
 
     new JoystickButton(m_operatorBoard, 1).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.intakeToggle(IntakeConstants.kIntakeSpeed)));
+      () -> m_intakeSubsystem.intakeToggle()));
 
     new JoystickButton(m_operatorBoard, 2).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.intakeToggle(-IntakeConstants.kIntakeSpeed)));
+      () -> m_intakeSubsystem.intakeReverse()));
 
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.toggleIntakePosition()));
@@ -260,7 +259,7 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 20).onTrue(new InstantCommand(
       () -> m_flywheelSubsystem.decrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
 
-    new JoystickButton(m_operatorBoard, 23).onChange(new InstantCommand(
+    new JoystickButton(m_operatorBoard, 12).onChange(new InstantCommand(
       () -> m_flywheelSubsystem.toggleOverride()));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(

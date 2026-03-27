@@ -3,39 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.739514978601996,
-        "y": 7.198502139800285
+        "x": 6.665606276747502,
+        "y": 2.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.72823719138971,
-        "y": 7.678493649657936
+        "x": 7.700699001426534,
+        "y": 2.126547788873039
       },
       "isLocked": false,
-      "linkedName": "Intake Pose Left"
+      "linkedName": "Outside Balls R"
     },
     {
       "anchor": {
-        "x": 7.739514978601996,
-        "y": 4.597831669036494
+        "x": 7.756397590361445,
+        "y": 3.4886144578313254
       },
       "prevControl": {
-        "x": 7.750841804567231,
-        "y": 4.348088394825649
+        "x": 7.843024251069899,
+        "y": 2.721726105563481
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Left Middle"
+      "linkedName": "Right Middle"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.0,
+      "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.75,
+        "maxVelocity": 0.4,
         "maxAcceleration": 8.6,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -55,14 +55,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -90.0
+    "velocity": 0.0,
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Right Start + Outpost + Right Bump",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": -90.0
+    "velocity": 0,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

@@ -9,7 +9,6 @@ import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.commands.IntakeAgitateCommand;
 
 public final class Configs {
 

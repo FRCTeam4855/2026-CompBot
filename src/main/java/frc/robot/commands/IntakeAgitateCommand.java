@@ -28,11 +28,11 @@ public class IntakeAgitateCommand extends Command {
 
     @Override
     public void execute() {
-        if (timer.hasElapsed(2.0)) {
+        if (timer.hasElapsed(1.0)) {
             intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
             timer.reset();
         } else {
-            if (timer.hasElapsed(1.0)) {
+            if (timer.hasElapsed(0.5)) {
                 intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
             }
         }
