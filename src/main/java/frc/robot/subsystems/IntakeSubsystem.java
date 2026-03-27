@@ -5,11 +5,13 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import frc.robot.Configs.IntakeConfigs;
+import frc.robot.Constants;
+import frc.robot.Configs.intakeConfigs;
 import frc.robot.Constants.IntakeConstants;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
@@ -17,12 +19,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeSubsystem extends Subsystem {
 
-    public final SparkMax m_intakeMotor;
+    public final SparkMax m_intakeLeaderMotor;
+    public final SparkMax m_intakeFollowerMotor;
     public final SparkFlex m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
     private Timer timer;
     public boolean intakeRunning = false, intakeDeployed = false, clearingBlock = false;
+    private SparkFlexConfig updatedIntakeAngleConfig = new SparkFlexConfig();
 
     private static IntakeSubsystem mInstance;
 
@@ -49,17 +53,30 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public IntakeSubsystem() {
-        m_intakeMotor = new SparkMax(IntakeConstants.kIntakeCanId, MotorType.kBrushless);
+        m_intakeLeaderMotor = new SparkMax(IntakeConstants.kIntakeLeaderCanid, MotorType.kBrushless);
+        m_intakeFollowerMotor = new SparkMax(IntakeConstants.kIntakeFollowerCanid, MotorType.kBrushless);
         m_intakeAngleMotor = new SparkFlex(IntakeConstants.kIntakeAngleCanId, MotorType.kBrushless);
-        intakePIDController = m_intakeMotor.getClosedLoopController();
+        intakePIDController = m_intakeLeaderMotor.getClosedLoopController();
         anglePIDController = m_intakeAngleMotor.getClosedLoopController();
         m_encoder = m_intakeAngleMotor.getAbsoluteEncoder();
 
-        m_intakeMotor.configure(IntakeConfigs.intakeConfig, ResetMode.kResetSafeParameters,
+        m_intakeLeaderMotor.configure(intakeConfigs.intakeLeaderConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
-        m_intakeAngleMotor.configure(IntakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
+        m_intakeFollowerMotor.configure(intakeConfigs.intakeFollowerConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
         timer = new Timer();
+        m_intakeAngleMotor.configure(intakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
+                PersistMode.kPersistParameters);
+        if (Constants.IntakeConstants.kIntakeDebug) {
+            SmartDashboard.putNumber("Intake arm P", IntakeConstants.kIntakeAngleP);
+            SmartDashboard.putNumber("Intake arm I", IntakeConstants.kIntakeAngleI);
+            SmartDashboard.putNumber("Intake arm D", IntakeConstants.kIntakeAngleD);
+            SmartDashboard.putNumber("Intake arm FF S", IntakeConstants.kIntakeAngleFFS);
+            SmartDashboard.putNumber("Intake arm FF V", IntakeConstants.kIntakeAngleFFV);
+            SmartDashboard.putNumber("Intake arm FF A", IntakeConstants.kIntakeAngleFFA);
+            SmartDashboard.putNumber("Intake arm FF G", IntakeConstants.kIntakeAngleFFG);
+            SmartDashboard.putNumber("Intake arm FF Cos", IntakeConstants.kIntakeAngleFFCos);
+        }
     }
 
     @Override
@@ -97,11 +114,39 @@ public class IntakeSubsystem extends Subsystem {
         System.out.printf("Entered positionIntake\n");
         if (intakeDeployed) {
             System.out.printf("Retracting Intake\n");
-            setIntakePosition(IntakeConstants.kIntakeRetractPosition);
+
+            if (Constants.IntakeConstants.kIntakeDebug) {
+                updatedIntakeAngleConfig.closedLoop
+                    .pid(SmartDashboard.getNumber("Intake arm P", IntakeConstants.kIntakeAngleP), SmartDashboard.getNumber("Intake arm I", IntakeConstants.kIntakeAngleI),            SmartDashboard.getNumber("Intake arm D", IntakeConstants.kIntakeAngleD))
+                    .feedForward
+                        .kS(SmartDashboard.getNumber("Intake arm FF S", IntakeConstants.kIntakeAngleFFS))
+                        .kV(SmartDashboard.getNumber("Intake arm FF V", IntakeConstants.kIntakeAngleFFV))
+                        .kA(SmartDashboard.getNumber("Intake arm FF A", IntakeConstants.kIntakeAngleFFA))
+                        .kG(SmartDashboard.getNumber("Intake arm FF G", IntakeConstants.kIntakeAngleFFG))
+                        .kCos(SmartDashboard.getNumber("Intake arm FF Cos", IntakeConstants.kIntakeAngleFFCos));
+
+                m_intakeAngleMotor.configure(updatedIntakeAngleConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+            }
+
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
             intakeDeployed = false;
         } else {
             System.out.printf("Extending Intake\n");
-            setIntakePosition(IntakeConstants.kIntakeExtendPosition);
+            
+            if (Constants.IntakeConstants.kIntakeDebug) {
+                updatedIntakeAngleConfig.closedLoop
+                    .pid(SmartDashboard.getNumber("Intake arm P", IntakeConstants.kIntakeP), SmartDashboard.getNumber("Intake arm I", IntakeConstants.kIntakeI),            SmartDashboard.getNumber("Intake arm D", IntakeConstants.kIntakeD))
+                    .feedForward
+                        .kS(SmartDashboard.getNumber("Intake arm FF S", IntakeConstants.kIntakeAngleFFS))
+                        .kV(SmartDashboard.getNumber("Intake arm FF V", IntakeConstants.kIntakeAngleFFV))
+                        .kA(SmartDashboard.getNumber("Intake arm FF A", IntakeConstants.kIntakeAngleFFA))
+                        .kG(SmartDashboard.getNumber("Intake arm FF G", IntakeConstants.kIntakeAngleFFG))
+                        .kCos(SmartDashboard.getNumber("Intake arm FF Cos", IntakeConstants.kIntakeAngleFFCos));
+
+                m_intakeAngleMotor.configure(updatedIntakeAngleConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+            }
+
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
             intakeDeployed = true;
         }
     }
@@ -112,7 +157,7 @@ public class IntakeSubsystem extends Subsystem {
 
     public void intakeToggle(double speed) {
         if (intakeRunning) {
-            m_intakeMotor.set(0);
+            m_intakeLeaderMotor.set(0);
             intakeRunning = false;
         } else {
             intakePIDController.setSetpoint(speed, ControlType.kVelocity);
@@ -121,7 +166,7 @@ public class IntakeSubsystem extends Subsystem {
     }
 
     public void intakeStop() {
-        m_intakeMotor.set(0);
+        m_intakeLeaderMotor.set(0);
         intakeRunning = false;
     }
 

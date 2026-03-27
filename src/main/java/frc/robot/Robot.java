@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
     m_allSubsystems.add(IntakeSubsystem.getInstance());
     m_allSubsystems.add(LightsSubsystem.getInstance());
     m_allSubsystems.add(SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve")));
-    m_allSubsystems.add(PowerSubsystem.getInstance());
+    //m_allSubsystems.add(PowerSubsystem.getInstance());
 
     m_allSubsystems.forEach(subsystem -> {
       if (subsystem instanceof frc.robot.subsystems.Subsystem) {
