@@ -117,13 +117,21 @@ public final class Constants {
   }
 
   public static final class IntakeConstants {
-    public static final int kIntakeCanId = 9;
+    public static final Boolean kIntakeDebug = false;
+    public static final int kIntakeLeaderCanid = 9;
+    public static final int kIntakeFollowerCanid = 18;
     public static final double kIntakeP = 0.0002;
     public static final double kIntakeI = 0.0;
     public static final double kIntakeD = 0.0;
+    public static final double kIntakeAngleFFS = 0.02;
+    public static final double kIntakeAngleFFV = 0.0;
+    public static final double kIntakeAngleFFA = 0.0;
+    public static final double kIntakeAngleFFG = 0;
+    public static final double kIntakeAngleFFCos = 0.9;
+    
 
     public static final int kIntakeAngleCanId = 10;
-    public static final double kIntakeAngleP = 2.1;
+    public static final double kIntakeAngleP = 1.4;
     public static final double kIntakeAngleI = 0;
     public static final double kIntakeAngleD = 0;
 
@@ -131,10 +139,10 @@ public final class Constants {
     public static final int kIntakeAngleCurrentLimit = 20;
 
     public static final double kIntakeSpeed = 5000;
-    public static final double kIntakeRetractPosition = .185;
+    public static final double kIntakeRetractPosition = .175;
     // Angle reletive to 1 revolution of the intake arm
     public static final double kIntakeAgitatePosition = 0.12;
-    public static final double kIntakeExtendPosition = -0.03;
+    public static final double kIntakeExtendPosition = 0; //-0.03
   }
 
   public static final class ConveyorConstants {

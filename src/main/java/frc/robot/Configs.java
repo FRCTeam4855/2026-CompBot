@@ -10,22 +10,30 @@ import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.IndexerConstants;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.commands.IntakeAgitateCommand;
 
 public final class Configs {
 
-    public static final class IntakeConfigs {
-        public static final SparkMaxConfig intakeConfig = new SparkMaxConfig();
+    public static final class intakeConfigs {
+        public static final SparkMaxConfig intakeLeaderConfig = new SparkMaxConfig();
+        public static final SparkMaxConfig intakeFollowerConfig = new SparkMaxConfig();
+        private static final SparkMaxConfig globalConfig = new SparkMaxConfig();
         public static final SparkFlexConfig intakeAngleConfig = new SparkFlexConfig();
         static {
-            intakeConfig
+            globalConfig
                 .smartCurrentLimit(55)
-                .idleMode(IdleMode.kBrake);
-            intakeConfig.closedLoop
+                .idleMode(IdleMode.kCoast);
+            intakeLeaderConfig
+                //.smartCurrentLimit(55)
+                //.idleMode(IdleMode.kCoast)
+                .apply(globalConfig)
+                .inverted(false);
+            intakeLeaderConfig.closedLoop
                 .pid(IntakeConstants.kIntakeP, IntakeConstants.kIntakeI, IntakeConstants.kIntakeD)
                 .feedForward.kV(0.00205);
 
             intakeAngleConfig
-                .smartCurrentLimit(55)
+                .smartCurrentLimit(80)
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
                 .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
@@ -34,16 +42,22 @@ public final class Configs {
                 .positionWrappingInputRange(0, 1)
                 .outputRange(-0.5, 0.5)
                 .feedForward
-                    .kS(0.02)
-                    .kV(0.0) //0.5
-                    .kA(0.0) //0.05
-                    .kG(0)
-                    .kCos(.525)
+                    .kS(IntakeConstants.kIntakeAngleFFS)
+                    .kV(IntakeConstants.kIntakeAngleFFV) //0.5
+                    .kA(IntakeConstants.kIntakeAngleFFA) //0.05
+                    .kG(IntakeConstants.kIntakeAngleFFG)
+                    .kCos(IntakeConstants.kIntakeAngleFFCos)
                     .kCosRatio(1);
             // intakeAngleConfig.closedLoop.maxMotion
             //     .cruiseVelocity(15)
             //     .maxAcceleration(5)
             //     .allowedProfileError(1);
+            intakeFollowerConfig
+                //.smartCurrentLimit(55)
+                //.idleMode(IdleMode.kCoast)
+                .apply(globalConfig)
+                .follow(IntakeConstants.kIntakeLeaderCanid, true);
+
             intakeAngleConfig.absoluteEncoder
                 .inverted(false)
                 .positionConversionFactor(1);
