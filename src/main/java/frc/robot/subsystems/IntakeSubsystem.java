@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class IntakeSubsystem extends Subsystem {
 
     public final SparkMax m_intakeMotor;
@@ -67,23 +66,25 @@ public class IntakeSubsystem extends Subsystem {
     public void periodic() {
         SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
         SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
-        
-        if (isBlocked()) {
+
+        if (isBlocked() || clearingBlock) {
             if (!clearingBlock) {
-            clearingBlock = true;
-            timer.start(); 
-            }
+                clearingBlock = true;
+                timer.reset();
+                timer.start();
+            } 
             if (timer.hasElapsed(1)) {
-                if (isBlocked()) {
-                    setIntakePosition(IntakeConstants.kIntakeAgitatePosition);
+                if (isBlocked() || anglePIDController.getSetpoint() == IntakeConstants.kIntakeAgitatePosition) {
+                    if (anglePIDController.getSetpoint() != IntakeConstants.kIntakeAgitatePosition)
+                        setIntakePosition(IntakeConstants.kIntakeAgitatePosition);
                     if (timer.hasElapsed(1.5)) {
                         setIntakePosition(IntakeConstants.kIntakeExtendPosition);
                         clearingBlock = false;
-                        timer.reset();
+                        timer.stop();
                     }
                 } else {
                     clearingBlock = false;
-                    timer.reset();
+                    timer.stop();
                 }
             }
         }

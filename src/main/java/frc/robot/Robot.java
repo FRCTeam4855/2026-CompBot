@@ -30,7 +30,6 @@ import frc.robot.subsystems.PowerSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-//import frc.robot.subsystems.ClimberSubsystem;
 
 /**
  * The methods in this class are called automatically corresponding to each
@@ -71,13 +70,12 @@ public class Robot extends TimedRobot {
 
     FollowPathCommand.warmupCommand().schedule();
 
-    // m_allSubsystems.add(ClimberSubsystem.getInstance());
+
     m_allSubsystems.add(ConveyorSubsystem.getInstance());
     m_allSubsystems.add(FlywheelSubsystem.getInstance());
     m_allSubsystems.add(IndexerSubsystem.getInstance());
     m_allSubsystems.add(IntakeSubsystem.getInstance());
     m_allSubsystems.add(LightsSubsystem.getInstance());
-    // m_allSubsystems.add(SensorSubsystem.getInstance());
     m_allSubsystems.add(SwerveSubsystem.getInstance(new File(Filesystem.getDeployDirectory(), "swerve")));
     m_allSubsystems.add(PowerSubsystem.getInstance());
 
@@ -187,7 +185,7 @@ public class Robot extends TimedRobot {
 
       if (loopTimer.hasElapsed(maxTime)) {
       loopTimer.reset();
-      active =! active;
+      active = !active;
     }
   }
 

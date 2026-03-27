@@ -5,7 +5,6 @@ import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import frc.robot.Constants.ClimberConstants;
 import frc.robot.Constants.ConveyorConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.IndexerConstants;
@@ -96,18 +95,6 @@ public final class Configs {
             elevatorConfig.closedLoop
                 .pid(ConveyorConstants.kElevatorP, ConveyorConstants.kElevatorI, ConveyorConstants.kElevatorD)
                 .feedForward.kV(0.0024);
-        }
-    }
-    
-
-    public static final class ClimberConfigs {
-        public static final SparkMaxConfig climberConfig = new SparkMaxConfig();
-        static {
-            climberConfig
-                .idleMode(IdleMode.kBrake)
-                .smartCurrentLimit(ClimberConstants.kClimberCurrentLimit);
-            climberConfig.closedLoop
-                .pid(ClimberConstants.kClimberP, ClimberConstants.kClimberI, ClimberConstants.kClimberD);
         }
     }
 }

@@ -223,17 +223,20 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.toggleIntakePosition()));
 
-    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
-      m_flywheelSubsystem, FlywheelRequest.TOGGLE));
-
-    new JoystickButton(m_operatorBoard, 6).onTrue(new InstantCommand(
-      () -> m_indexerSubsystem.toggleIndexer()));
-
     new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleConveyor()));
 
+    new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
+      m_flywheelSubsystem, FlywheelRequest.START));
+
+    new JoystickButton(m_operatorBoard, 6).onTrue(new FlywheelControlCommand(
+      m_flywheelSubsystem, FlywheelRequest.STOP));
+
     new JoystickButton(m_operatorBoard, 8).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.toggleElevator()));
+
+    new JoystickButton(m_operatorBoard, 11).onTrue(new InstantCommand(
+      () -> m_indexerSubsystem.toggleIndexer()));
 
     new JoystickButton(m_operatorBoard, 14).onTrue(new InstantCommand(
       () -> m_conveyorSubsystem.reverseElevator()));
@@ -256,6 +259,9 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 20).onTrue(new InstantCommand(
       () -> m_flywheelSubsystem.decrementFlywheelSpeed(Constants.FlywheelConstants.kFlywheelOverrideAdjustment)));
+
+    new JoystickButton(m_operatorBoard, 23).onChange(new InstantCommand(
+      () -> m_flywheelSubsystem.toggleOverride()));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

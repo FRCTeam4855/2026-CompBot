@@ -10,18 +10,24 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import frc.robot.Constants.FlywheelConstants;
+import frc.robot.commands.FlywheelControlCommand;
+import frc.robot.HubTracker;
 import frc.robot.RobotContainer;
 import frc.robot.Configs.FlywheelConfigs;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 import com.revrobotics.spark.SparkBase.ControlType;
+import edu.wpi.first.units.Units;
 
 public class FlywheelSubsystem extends Subsystem {
 
     public final SparkFlex m_flywheelL, m_flywheelM, m_flywheelR;
     public final SparkClosedLoopController m_pidControllerL, m_pidControllerM, m_pidControllerR;
     public final RelativeEncoder m_encoderL, m_encoderM, m_encoderR;
-    public boolean flywheelRunning = false, flywheelUpToSpeed = false, delieverSpeed = false;
+    public boolean flywheelRunning = false, flywheelUpToSpeed = false, delieverSpeed = false, overrideUpToSpeed = false;
     public int goalFlywheelSpeed = 0, flywheelAdjustment = 0;
     private int lastFlywheelSpeed = 0;
     private SwerveSubsystem swerve = RobotContainer.drivebase;
@@ -113,6 +119,12 @@ public class FlywheelSubsystem extends Subsystem {
             }
         }
 
+        if (HubTracker.isActiveNext(swerve.isRedAlliance() ? Alliance.Red : Alliance.Blue) &&
+            HubTracker.timeRemainingInCurrentShift().map(time -> time.in(Units.Seconds)).orElse(0.0) < 3
+            && !flywheelRunning) {
+                CommandScheduler.getInstance().schedule(new FlywheelControlCommand(this, FlywheelRequest.START));
+            }
+
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Speed Index", speedIndex);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
@@ -141,5 +153,9 @@ public class FlywheelSubsystem extends Subsystem {
 
     public void decrementFlywheelSpeed(int adjustment) {
         flywheelAdjustment -= adjustment;
+    }
+
+    public void toggleOverride() {
+        overrideUpToSpeed = !overrideUpToSpeed;
     }
 }

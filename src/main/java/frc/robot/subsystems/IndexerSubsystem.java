@@ -9,7 +9,7 @@ import com.revrobotics.spark.SparkMax;
 
 import edu.wpi.first.wpilibj.DataLogManager;
 import frc.robot.Configs.IndexerConfigs;
-import frc.robot.Constants.IndexerConstants;;
+import frc.robot.Constants.IndexerConstants;
 
 public class IndexerSubsystem extends Subsystem {
 
@@ -75,7 +75,7 @@ public class IndexerSubsystem extends Subsystem {
 
     @Override
     public void periodic() {
-        if (m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !m_conveyorSubsystem.launchInProgress) {
+        if (m_conveyorSubsystem.m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !m_conveyorSubsystem.launchInProgress && !m_flywheelSubsystem.overrideUpToSpeed) {
             stopIndexer();
         }
     }

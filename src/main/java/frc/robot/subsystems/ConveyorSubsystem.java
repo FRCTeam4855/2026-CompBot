@@ -122,7 +122,7 @@ public class ConveyorSubsystem extends Subsystem {
         m_BallDetected = !m_BallSensor.get();
         SmartDashboard.putBoolean("Ball Sensor", m_BallDetected);
 
-        if(checkStall() & !fixingStall) {
+        if(checkStall() && !fixingStall) {
             fixingStall = true;
             CommandScheduler.getInstance().schedule(new SequentialCommandGroup(new WaitCommand(2),
             checkStall() ? new InstantCommand(() -> reverseElevator()) : new InstantCommand(), 
@@ -131,14 +131,14 @@ public class ConveyorSubsystem extends Subsystem {
             new InstantCommand(() -> fixingStall = !fixingStall)));
         }
 
-        if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !launchInProgress) {
+        if (m_BallDetected && !m_flywheelSubsystem.flywheelUpToSpeed && !launchInProgress && !m_flywheelSubsystem.overrideUpToSpeed) {
             stopElevator();
             stopConveyor();
         }
     }
 
     public boolean checkStall() {
-        return elevatorRunning && m_elevatorSpark.getOutputCurrent() > 50 && !m_elevatorController.isAtSetpoint() && m_elevatorEncoder.getVelocity() < ConveyorConstants.kElevatorIntakeSpeed / 2;
+        return m_elevatorSpark.getOutputCurrent() > 50 && !m_elevatorController.isAtSetpoint() && m_elevatorEncoder.getVelocity() < ConveyorConstants.kElevatorIntakeSpeed / 2;
     }
 
     public void toggleStallFix() {
