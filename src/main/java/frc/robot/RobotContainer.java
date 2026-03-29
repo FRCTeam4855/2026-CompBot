@@ -129,14 +129,16 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()))
                                                    .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
 
+    NamedCommands.registerCommand("Stop Launch", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
+                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
+                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer()))
+                                                   .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
+
     NamedCommands.registerCommand("Launch Sequence", new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
                                                     NamedCommands.getCommand("Launch Conveyor Sequence"),
                                                     new WaitCommand(1),
                                                     new IntakeAgitateCommand(m_intakeSubsystem)));
-                                                    //.andThen(new InstantCommand(()-> m_indexerSubsystem.startIndexer()))
-                                                    //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevator()))
-                                                    //.alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor()))));
 
     NamedCommands.registerCommand("Aim At Hub", new AimAtPointCommand(drivebase, m_leftDriveController));
 
@@ -261,6 +263,8 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 12).onChange(new InstantCommand(
       () -> m_flywheelSubsystem.toggleOverride()));
+
+    new JoystickButton(m_operatorBoard, 13).onChange(NamedCommands.getCommand("Stop Launch"));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

@@ -38,7 +38,7 @@ public final class Configs {
                 .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
                 .positionWrappingEnabled(true)
                 .positionWrappingInputRange(0, 1)
-                .outputRange(-0.5, 0.5)
+                .outputRange(-0.5, 1)
                 .feedForward
                     .kS(IntakeConstants.kIntakeAngleFFS)
                     .kV(IntakeConstants.kIntakeAngleFFV) //0.5

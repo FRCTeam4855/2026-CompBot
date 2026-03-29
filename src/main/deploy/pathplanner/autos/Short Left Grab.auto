@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "Intake Retract Sequence"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
@@ -32,39 +26,32 @@
         {
           "type": "named",
           "data": {
-            "name": "Stop All"
+            "name": "Stop Launch"
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Outside the Balls L"
+                  "name": "Intake Deploy Sequence"
                 }
               },
               {
-                "type": "race",
+                "type": "wait",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake Deploy Sequence"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.5
-                      }
-                    }
-                  ]
+                  "waitTime": 0.5
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outside the Balls L"
           }
         },
         {

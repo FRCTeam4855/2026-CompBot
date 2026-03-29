@@ -130,6 +130,7 @@ public class FlywheelSubsystem extends Subsystem {
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
         SmartDashboard.putNumber("Distance to Hub", distanceToHub);
         SmartDashboard.putNumber("Flywheel Adjustment", flywheelAdjustment);
+        SmartDashboard.putBoolean("Flywheel Override", overrideUpToSpeed);
     }
 
     private void setFlywheelSpeed(int speed) {

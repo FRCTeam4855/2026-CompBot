@@ -63,46 +63,46 @@ public final class Constants {
                                                   2000, // 0.75  6
                                                   2000, // 0.875 7
                                                   2000, // 1.0   8
-                                                  2300, // 1.125 9
-                                                  2300, // 1.25  10
-                                                  2300, // 1.375 11
-                                                  2300, // 1.5   12
-                                                  2400, // 1.625 13
-                                                  2450, // 1.75  14
-                                                  2500, // 1.875 15
-                                                  2550, // 2.0   16
-                                                  2600, // 2.125 17
-                                                  2650, // 2.25  18
-                                                  2700, // 2.375 19
-                                                  2750, // 2.5   20
-                                                  2850, // 2.625 21
-                                                  2900, // 2.75  22
-                                                  2950, // 2.875 23
-                                                  3000, // 3.0   24
-                                                  3100, // 3.125 25
-                                                  3150, // 3.25  26
-                                                  3200, // 3.375 27
-                                                  3250, // 3.5   28
-                                                  3300, // 3.625 29
-                                                  3350, // 3.75  30
-                                                  3425, // 3.875 31
-                                                  3500, // 4.0   32
-                                                  3675, // 4.125 33
-                                                  3800, // 4.25  34
-                                                  3900, // 4.375 35
-                                                  4000, // 4.5   36
-                                                  4100, // 4.625 37
-                                                  4200, // 4.75  38
-                                                  4300, // 4.875 39
-                                                  4400, // 5.0   40
-                                                  4500, // 5.125 41
-                                                  4600, // 5.25  42
-                                                  4700, // 5.375 43
-                                                  4800, // 5.5   44
-                                                  4900, // 5.625 45
-                                                  5000, // 5.75  46
-                                                  5100, // 5.875 47
-                                                  5200};// 6.0   48
+                                                  2350, // 1.125 9
+                                                  2350, // 1.25  10
+                                                  2350, // 1.375 11
+                                                  2350, // 1.5   12
+                                                  2450, // 1.625 13
+                                                  2500, // 1.75  14
+                                                  2550, // 1.875 15
+                                                  2600, // 2.0   16
+                                                  2650, // 2.125 17
+                                                  2700, // 2.25  18
+                                                  2750, // 2.375 19
+                                                  2800, // 2.5   20
+                                                  2900, // 2.625 21
+                                                  2950, // 2.75  22
+                                                  3000, // 2.875 23
+                                                  3050, // 3.0   24
+                                                  3150, // 3.125 25
+                                                  3200, // 3.25  26
+                                                  3250, // 3.375 27
+                                                  3300, // 3.5   28
+                                                  3350, // 3.625 29
+                                                  3400, // 3.75  30
+                                                  3475, // 3.875 31
+                                                  3550, // 4.0   32
+                                                  3725, // 4.125 33
+                                                  3850, // 4.25  34
+                                                  3950, // 4.375 35
+                                                  4050, // 4.5   36
+                                                  4150, // 4.625 37
+                                                  4250, // 4.75  38
+                                                  4350, // 4.875 39
+                                                  4450, // 5.0   40
+                                                  4550, // 5.125 41
+                                                  4650, // 5.25  42
+                                                  4750, // 5.375 43
+                                                  4850, // 5.5   44
+                                                  4950, // 5.625 45
+                                                  5050, // 5.75  46
+                                                  5150, // 5.875 47
+                                                  5250};// 6.0   48
     public static final int kFlywheelDelieverSpeed = 4000;
     public static final int kFlywheelTestOverrideSpeed = 0;
     public static final int kFlywheelOverrideAdjustment = 25; // The amount to increase/decrease the flywheel speed by when the operator requests an override adjustment
@@ -138,11 +138,11 @@ public final class Constants {
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;
 
-    public static final double kIntakeSpeed = 5500;
+    public static final double kIntakeSpeed = 5250;
     public static final double kIntakeRetractPosition = .175;
     // Angle reletive to 1 revolution of the intake arm
     public static final double kIntakeAgitatePosition = 0.12;
-    public static final double kIntakeExtendPosition = -0.02; //-0.03
+    public static final double kIntakeExtendPosition = -0.03; 
   }
 
   public static final class ConveyorConstants {
