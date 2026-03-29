@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.641232394366198,
+        "y": 2.5794008559201154
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 4.131428305455809,
+        "y": 2.587396510197559
+      },
+      "isLocked": false,
+      "linkedName": "Outside Balls R Reversed"
+    },
+    {
+      "anchor": {
+        "x": 3.4050641940085593,
+        "y": 2.5794008559201154
+      },
+      "prevControl": {
+        "x": 5.066978457571187,
+        "y": 2.577805050773429
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.3,
+    "maxAcceleration": 8.6,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 50.0
+  },
+  "reversed": false,
+  "folder": "Right Start + Outpost + Right Bump",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 50.0
+  },
+  "useDefaultConstraints": true
+}
