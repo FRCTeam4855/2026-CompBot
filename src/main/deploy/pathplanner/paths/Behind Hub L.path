@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.083366619115549,
+        "y": 5.438844507845934
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.057489300998572,
+        "y": 4.973052781740371
+      },
+      "isLocked": false,
+      "linkedName": "OHL"
+    },
+    {
+      "anchor": {
+        "x": 6.083366619115549,
+        "y": 4.041469329529244
+      },
+      "prevControl": {
+        "x": 6.162423560616216,
+        "y": 4.278640154043053
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Behind Hub"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2325020112630772,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.22285987565757215,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 0.4,
+        "maxAcceleration": 8.6,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.3,
+    "maxAcceleration": 8.6,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0.0,
+    "rotation": -90.0
+  },
+  "reversed": false,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0.0,
+    "rotation": -45.0
+  },
+  "useDefaultConstraints": true
+}

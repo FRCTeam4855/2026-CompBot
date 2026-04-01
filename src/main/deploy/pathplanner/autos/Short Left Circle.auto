@@ -67,9 +67,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left Outside Reverse over lBump"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left Outside Reverse over lBump"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Start Flywheel"
+                }
+              }
+            ]
           }
         },
         {

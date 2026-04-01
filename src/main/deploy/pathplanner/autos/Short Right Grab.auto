@@ -67,9 +67,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Right Middle to Over rBump"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Right Middle to Over rBump"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Start Flywheel"
+                }
+              }
+            ]
           }
         },
         {

@@ -11,31 +11,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Launch Sequence"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Launch"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
                   "name": "Intake Deploy Sequence"
                 }
               },
@@ -51,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Outside the Balls R For Circle"
+            "pathName": "Outside the Balls L"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "R Into the Balls Circle"
+            "pathName": "Into the Balls L"
           }
         },
         {
@@ -73,7 +48,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Outside Balls Right Reversed to Over rBump"
+                  "pathName": "Left Middle to Over lBump"
                 }
               },
               {
@@ -123,16 +98,47 @@
               {
                 "type": "wait",
                 "data": {
-                  "waitTime": 10.0
+                  "waitTime": 5.0
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake Deploy Sequence"
+                }
+              },
+              {
+                "type": "wait",
+                "data": {
+                  "waitTime": 0.5
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outside Hub L"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Behind Hub L"
           }
         }
       ]
     }
   },
   "resetOdom": false,
-  "folder": "Right",
+  "folder": "Left",
   "choreoAuto": false
 }

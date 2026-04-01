@@ -8,6 +8,7 @@ import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.AimAtPointCommand;
+import frc.robot.commands.ConveyorAgitateCommand;
 import frc.robot.commands.FlywheelControlCommand;
 import frc.robot.commands.IntakeAgitateCommand;
 import frc.robot.commands.RotateForBumpCommand;
@@ -112,8 +113,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
+    // NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
+    //                                                .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
+
+      NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
+                                                   .alongWith(new ConveyorAgitateCommand(m_conveyorSubsystem)));
 
     NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()),
                                                       new WaitCommand(3.0), 
@@ -121,7 +125,7 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Launch Conveyor Sequence", new InstantCommand(() -> m_indexerSubsystem.startIndexer())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorLaunch()))
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
+                                                   .alongWith(new ConveyorAgitateCommand(m_conveyorSubsystem)));
 
     NamedCommands.registerCommand("Stop All", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
@@ -136,9 +140,11 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Launch Sequence", new SequentialCommandGroup(
                                                     new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT),
-                                                    NamedCommands.getCommand("Launch Conveyor Sequence"),
-                                                    new WaitCommand(1),
-                                                    new IntakeAgitateCommand(m_intakeSubsystem)));
+                                                    NamedCommands.getCommand("Launch Conveyor Sequence")
+                                                    .alongWith(new SequentialCommandGroup(new WaitCommand(1),
+                                                    new IntakeAgitateCommand(m_intakeSubsystem)))));
+
+    NamedCommands.registerCommand("Start Flywheel", new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.START_WAIT));
 
     NamedCommands.registerCommand("Aim At Hub", new AimAtPointCommand(drivebase, m_leftDriveController));
 
@@ -224,8 +230,10 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.toggleIntakePosition()));
 
-    new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
-      () -> m_conveyorSubsystem.toggleConveyor()));
+    // new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
+    //   () -> m_conveyorSubsystem.toggleConveyor()));
+
+    new JoystickButton(m_operatorBoard, 4).toggleOnTrue(new ConveyorAgitateCommand(m_conveyorSubsystem));
 
     new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
       m_flywheelSubsystem, FlywheelRequest.START));

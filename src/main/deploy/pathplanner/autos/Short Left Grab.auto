@@ -67,9 +67,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Left Middle to Over lBump"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left Middle to Over lBump"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Start Flywheel"
+                }
+              }
+            ]
           }
         },
         {
