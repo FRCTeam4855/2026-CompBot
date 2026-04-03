@@ -25,15 +25,15 @@ public class ConveyorAgitateCommand extends Command {
 
     @Override
     public void execute() {
-        if (conveyor.conveyorRunning) {
-            if (timer.hasElapsed(1.25)) {
-                conveyor.startConveyor();
-                timer.reset();
-            } else if (timer.hasElapsed(1.0)) {
-                conveyor.reverseConveyor();
+        // if (conveyor.conveyorRunning) {
+        //     if (timer.hasElapsed(1.25)) {
+        //         conveyor.startConveyor();
+        //         timer.reset();
+        //     } else if (timer.hasElapsed(1.0)) {
+        //         conveyor.reverseConveyor();
 
-            }
-        }
+        //     }
+        // }
     }
 
     @Override

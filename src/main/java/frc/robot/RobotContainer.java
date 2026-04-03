@@ -11,6 +11,8 @@ import frc.robot.commands.AimAtPointCommand;
 import frc.robot.commands.ConveyorAgitateCommand;
 import frc.robot.commands.FlywheelControlCommand;
 import frc.robot.commands.IntakeAgitateCommand;
+import frc.robot.commands.IntakeDownCommand;
+import frc.robot.commands.IntakeToggleCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
@@ -119,7 +121,8 @@ public class RobotContainer {
       NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
                                                    .alongWith(new ConveyorAgitateCommand(m_conveyorSubsystem)));
 
-    NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeDeploySequence()),
+    NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeForward()),
+                                                      new IntakeDownCommand(m_intakeSubsystem),
                                                       new WaitCommand(3.0), 
                                                       NamedCommands.getCommand("Load Elevator Sequence")));
 
@@ -127,11 +130,11 @@ public class RobotContainer {
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startElevatorLaunch()))
                                                    .alongWith(new ConveyorAgitateCommand(m_conveyorSubsystem)));
 
-    NamedCommands.registerCommand("Stop All", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
-                                                   .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
-                                                   .alongWith(new InstantCommand(() -> m_indexerSubsystem.stopIndexer()))
-                                                   .alongWith(new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence()))
-                                                   .alongWith(new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
+    NamedCommands.registerCommand("Stop All", new SequentialCommandGroup(new InstantCommand(() -> m_conveyorSubsystem.stopConveyor(), m_conveyorSubsystem),
+                                                   new InstantCommand(() -> m_conveyorSubsystem.stopElevator(), m_conveyorSubsystem),
+                                                   new InstantCommand(() -> m_indexerSubsystem.stopIndexer(), m_indexerSubsystem),
+                                                   new InstantCommand(() -> m_intakeSubsystem.intakeRetractSequence(), m_intakeSubsystem),
+                                                   new FlywheelControlCommand(m_flywheelSubsystem, FlywheelRequest.STOP)));
 
     NamedCommands.registerCommand("Stop Launch", new InstantCommand(() -> m_conveyorSubsystem.stopConveyor())
                                                    .alongWith(new InstantCommand(() -> m_conveyorSubsystem.stopElevator()))
@@ -229,6 +232,12 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.toggleIntakePosition()));
+
+    // new FunctionalCommand(
+    //   () -> m_intakeSubsystem.setIntakePosition(IntakeConstants.kIntakeSlowPosition), 
+    //   null,
+    //   interrupted -> m_intakeSubsystem.setIntakePosition(IntakeConstants.kIntakeExtendPosition),
+    //   () -> intake.m_encoder.getPosition() > IntakeConstants.kIntakeSlowPosition - 0.005 && intake.m_encoder.getPosition() < IntakeConstants.kIntakeSlowPosition + 0.005)
 
     // new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
     //   () -> m_conveyorSubsystem.toggleConveyor()));

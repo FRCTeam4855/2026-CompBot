@@ -142,7 +142,8 @@ public final class Constants {
     public static final double kIntakeRetractPosition = .175;
     // Angle reletive to 1 revolution of the intake arm
     public static final double kIntakeAgitatePosition = 0.12;
-    public static final double kIntakeExtendPosition = -0.03; 
+    public static final double kIntakeSlowPosition = 0.03;
+    public static final double kIntakeExtendPosition = -0.05; 
   }
 
   public static final class ConveyorConstants {
@@ -150,7 +151,7 @@ public final class Constants {
     public static final double kConveyorP = 0.0002;
     public static final double kConveyorI = 0;
     public static final double kConveyorD = 0.05;
-    public static final int kConveyorSpeed = 3000;
+    public static final int kConveyorSpeed = 1000;
 
     public static final int kElevatorCanId = 11;
     public static final double kElevatorP = 0.0002;

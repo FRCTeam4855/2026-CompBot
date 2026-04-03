@@ -120,10 +120,10 @@ public class FlywheelSubsystem extends Subsystem {
         }
 
         // if (HubTracker.isActiveNext(swerve.isRedAlliance() ? Alliance.Red : Alliance.Blue) &&
-        //     HubTracker.timeRemainingInCurrentShift().map(time -> time.in(Units.Seconds)).orElse(0.0) < 3
+        //     HubTracker.timeRemainingInCurrentShift().map(time -> time.in(Units.Seconds)).orElse(0.0) < 3 TODO
         //     && !flywheelRunning) {
-        //         CommandScheduler.getInstance().schedule(new FlywheelControlCommand(this, FlywheelRequest.START)); TODO
-        //     }
+        //         CommandScheduler.getInstance().schedule(new FlywheelControlCommand(this, FlywheelRequest.START)); 
+        // }
 
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Speed Index", speedIndex);

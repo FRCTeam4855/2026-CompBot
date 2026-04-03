@@ -19,23 +19,23 @@ public class IntakeAgitateCommand extends Command {
 
     @Override
     public void initialize() {
-        System.out.println("IntakeAgitateCommand initialized");
-        intake.intakeForward();
-        intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
-        timer.reset();
-        timer.start();
+        // System.out.println("IntakeAgitateCommand initialized");
+        // intake.intakeForward();
+        // intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
+        // timer.reset();
+        // timer.start();
     }
 
     @Override
     public void execute() {
-        if (timer.hasElapsed(1.0)) {
-            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
-            timer.reset();
-        } else {
-            if (timer.hasElapsed(0.5)) {
-                intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
-            }
-        }
+        // if (timer.hasElapsed(1.0)) {
+        //     intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
+        //     timer.reset();
+        // } else {
+        //     if (timer.hasElapsed(0.5)) {
+        //         intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+        //     }
+        // }
     }
 
     @Override
