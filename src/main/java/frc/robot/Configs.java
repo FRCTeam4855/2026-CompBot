@@ -96,7 +96,7 @@ public final class Configs {
         public static final SparkMaxConfig elevatorConfig = new SparkMaxConfig();
         static {
             conveyorConfig
-                .smartCurrentLimit(50)
+                .smartCurrentLimit(80)
                 .idleMode(IdleMode.kBrake);
             conveyorConfig.closedLoop 
                 .pid(ConveyorConstants.kConveyorP, ConveyorConstants.kConveyorI, ConveyorConstants.kConveyorD)

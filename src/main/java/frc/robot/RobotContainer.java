@@ -80,9 +80,6 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-
-    // m_intakeSubsystem.setDefaultCommand(m_intakeSubsystem.set(-0.1));
-
     //register named commands
     NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
     NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
@@ -281,7 +278,11 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 12).onChange(new InstantCommand(
       () -> m_flywheelSubsystem.toggleOverride()));
 
-    new JoystickButton(m_operatorBoard, 13).onChange(NamedCommands.getCommand("Stop Launch"));
+    new JoystickButton(m_operatorBoard, 13).onTrue(new InstantCommand(
+      () -> m_intakeSubsystem.intakeReverse()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.reverseConveyor())));
+
+    new JoystickButton(m_operatorBoard, 13).onFalse(new InstantCommand(
+      () -> m_intakeSubsystem.intakeStop()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.stopConveyor())));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

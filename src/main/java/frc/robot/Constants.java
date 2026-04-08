@@ -151,14 +151,14 @@ public final class Constants {
     public static final double kConveyorP = 0.0002;
     public static final double kConveyorI = 0;
     public static final double kConveyorD = 0.05;
-    public static final int kConveyorSpeed = 1000;
+    public static final int kConveyorSpeed = 2000;
 
     public static final int kElevatorCanId = 11;
     public static final double kElevatorP = 0.0002;
     public static final double kElevatorI = 0;
     public static final double kElevatorD = 0.0;
-    public static final int kElevatorLaunchSpeed = 3000;
-    public static final int kElevatorIntakeSpeed = 2000;
+    public static final int kElevatorLaunchSpeed = 4500;
+    public static final int kElevatorIntakeSpeed = 3000;
   }
 
   public static final class LightsConstants {
