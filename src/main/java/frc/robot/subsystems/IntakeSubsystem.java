@@ -14,9 +14,7 @@ import frc.robot.Constants;
 import frc.robot.Configs.intakeConfigs;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.commands.IntakeDownCommand;
-import frc.robot.commands.IntakeToggleCommand;
 import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -27,8 +25,7 @@ public class IntakeSubsystem extends Subsystem {
     public final SparkFlex m_intakeAngleMotor;
     public final SparkClosedLoopController intakePIDController, anglePIDController;
     public final SparkAbsoluteEncoder m_encoder;
-    private Timer timer;
-    public boolean intakeRunning = false, intakeDeployed = false, clearingBlock = false;
+    public boolean intakeRunning = false, intakeDeployed = false;
     private SparkFlexConfig updatedIntakeAngleConfig = new SparkFlexConfig();
 
     private static IntakeSubsystem mInstance;
@@ -67,7 +64,6 @@ public class IntakeSubsystem extends Subsystem {
                 PersistMode.kPersistParameters);
         m_intakeFollowerMotor.configure(intakeConfigs.intakeFollowerConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
-        timer = new Timer();
         m_intakeAngleMotor.configure(intakeConfigs.intakeAngleConfig, ResetMode.kResetSafeParameters,
                 PersistMode.kPersistParameters);
         if (IntakeConstants.kIntakeDebug) {
@@ -87,32 +83,6 @@ public class IntakeSubsystem extends Subsystem {
     public void periodic() {
         SmartDashboard.putNumber("Intake Position", m_encoder.getPosition());
         SmartDashboard.putNumber("Intake Arm Velocity", m_encoder.getVelocity());
-        SmartDashboard.putBoolean("Intake Blocked", isBlocked());
-        // if (isBlocked() || clearingBlock) {
-        //     if (!clearingBlock) {
-        //         clearingBlock = true;
-        //         timer.reset();
-        //         timer.start();
-        //     }
-        //     if (timer.hasElapsed(1)) {
-        //         if (isBlocked() || anglePIDController.getSetpoint() == IntakeConstants.kIntakeAgitatePosition) { TODO
-        //             if (anglePIDController.getSetpoint() != IntakeConstants.kIntakeAgitatePosition)
-        //                 setIntakePosition(IntakeConstants.kIntakeAgitatePosition);
-        //             if (timer.hasElapsed(1.5)) {
-        //                 setIntakePosition(IntakeConstants.kIntakeExtendPosition);
-        //                 clearingBlock = false;
-        //                 timer.stop();
-        //             }
-        //         } else {
-        //             clearingBlock = false;
-        //             timer.stop();
-        //         }
-        //     }
-        // }
-    }
-
-    public boolean isBlocked() {
-        return anglePIDController.getSetpoint() == IntakeConstants.kIntakeExtendPosition && Math.abs(anglePIDController.getSetpoint() - m_encoder.getPosition()) > 0.1;
     }
 
     public void toggleIntakePosition() {
@@ -180,11 +150,6 @@ public class IntakeSubsystem extends Subsystem {
             : IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
         intakeRunning = true;
     }
-
-    // public void intakeForward() {
-    //     intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
-    //     intakeRunning = true;
-    // }
 
     public void intakeReverse() {
         intakePIDController.setSetpoint(-IntakeConstants.kIntakeSpeed, ControlType.kVelocity);

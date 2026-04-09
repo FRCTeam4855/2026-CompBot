@@ -10,17 +10,12 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
 import frc.robot.Constants.FlywheelConstants;
-import frc.robot.commands.FlywheelControlCommand;
-import frc.robot.HubTracker;
 import frc.robot.RobotContainer;
 import frc.robot.Configs.FlywheelConfigs;
 import edu.wpi.first.wpilibj.DataLogManager;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import com.revrobotics.spark.SparkBase.ControlType;
-import edu.wpi.first.units.Units;
 
 public class FlywheelSubsystem extends Subsystem {
 
@@ -119,12 +114,6 @@ public class FlywheelSubsystem extends Subsystem {
             }
         }
 
-        // if (HubTracker.isActiveNext(swerve.isRedAlliance() ? Alliance.Red : Alliance.Blue) &&
-        //     HubTracker.timeRemainingInCurrentShift().map(time -> time.in(Units.Seconds)).orElse(0.0) < 3 TODO
-        //     && !flywheelRunning) {
-        //         CommandScheduler.getInstance().schedule(new FlywheelControlCommand(this, FlywheelRequest.START)); 
-        // }
-
         SmartDashboard.putNumber("Goal Flywheel Speed", goalFlywheelSpeed);
         SmartDashboard.putNumber("Speed Index", speedIndex);
         SmartDashboard.putNumber("Current Flywheel Speed", m_encoderL.getVelocity());
@@ -159,5 +148,9 @@ public class FlywheelSubsystem extends Subsystem {
 
     public void toggleOverride() {
         overrideUpToSpeed = !overrideUpToSpeed;
+    }
+
+    public void setOverride(boolean override) {
+        overrideUpToSpeed = override;
     }
 }

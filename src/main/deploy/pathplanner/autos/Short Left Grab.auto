@@ -30,28 +30,22 @@
           }
         },
         {
-          "type": "race",
+          "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Outside the Balls L"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake Deploy Sequence"
                 }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.5
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Outside the Balls L"
           }
         },
         {

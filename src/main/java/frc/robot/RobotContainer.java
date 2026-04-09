@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.LightsConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.commands.AimAtPointCommand;
@@ -12,13 +11,11 @@ import frc.robot.commands.ConveyorAgitateCommand;
 import frc.robot.commands.FlywheelControlCommand;
 import frc.robot.commands.IntakeAgitateCommand;
 import frc.robot.commands.IntakeDownCommand;
-import frc.robot.commands.IntakeToggleCommand;
 import frc.robot.commands.RotateForBumpCommand;
 import frc.robot.subsystems.ConveyorSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LightsSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.subsystems.FlywheelSubsystem.FlywheelRequest;
 import swervelib.SwerveInputStream;
@@ -56,7 +53,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  private final LightsSubsystem m_lights = LightsSubsystem.getInstance();
   private final IntakeSubsystem m_intakeSubsystem = IntakeSubsystem.getInstance();
   private final ConveyorSubsystem m_conveyorSubsystem = ConveyorSubsystem.getInstance();
   private final FlywheelSubsystem m_flywheelSubsystem =  FlywheelSubsystem.getInstance();
@@ -81,16 +77,6 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //register named commands
-    NamedCommands.registerCommand("Green", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly());
-    NamedCommands.registerCommand("Violet", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly());
-    NamedCommands.registerCommand("Hot Pink", new RunCommand(()-> m_lights.setLEDs(LightsConstants.HOT_PINK), m_lights).repeatedly());
-    NamedCommands.registerCommand("Aqua", new RunCommand(()-> m_lights.setLEDs(LightsConstants.AQUA), m_lights).repeatedly());
-    NamedCommands.registerCommand("Intake Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.GREEN), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Intaking!!!"))));
-    NamedCommands.registerCommand("Launch Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.RED), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Launching!!!"))));
-    NamedCommands.registerCommand("Climb Representation", new RunCommand(()-> m_lights.setLEDs(LightsConstants.VIOLET), m_lights).repeatedly()
-                                                                .alongWith(new InstantCommand(()-> System.out.println("Climbing!!!"))));
 
     NamedCommands.registerCommand("setX", new RunCommand(drivebase::lock, drivebase).repeatedly());
 
@@ -230,15 +216,6 @@ public class RobotContainer {
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
       () -> m_intakeSubsystem.toggleIntakePosition()));
 
-    // new FunctionalCommand(
-    //   () -> m_intakeSubsystem.setIntakePosition(IntakeConstants.kIntakeSlowPosition), 
-    //   null,
-    //   interrupted -> m_intakeSubsystem.setIntakePosition(IntakeConstants.kIntakeExtendPosition),
-    //   () -> intake.m_encoder.getPosition() > IntakeConstants.kIntakeSlowPosition - 0.005 && intake.m_encoder.getPosition() < IntakeConstants.kIntakeSlowPosition + 0.005)
-
-    // new JoystickButton(m_operatorBoard, 4).onTrue(new InstantCommand(
-    //   () -> m_conveyorSubsystem.toggleConveyor()));
-
     new JoystickButton(m_operatorBoard, 4).toggleOnTrue(new ConveyorAgitateCommand(m_conveyorSubsystem));
 
     new JoystickButton(m_operatorBoard, 5).onTrue(new FlywheelControlCommand(
@@ -279,10 +256,10 @@ public class RobotContainer {
       () -> m_flywheelSubsystem.toggleOverride()));
 
     new JoystickButton(m_operatorBoard, 13).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.intakeReverse()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.reverseConveyor())));
+      () -> m_intakeSubsystem.intakeReverse()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.reverseConveyor())).alongWith(new InstantCommand(() -> m_flywheelSubsystem.setOverride(true))));
 
     new JoystickButton(m_operatorBoard, 13).onFalse(new InstantCommand(
-      () -> m_intakeSubsystem.intakeStop()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.stopConveyor())));
+      () -> m_intakeSubsystem.intakeStop()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.stopConveyor())).alongWith(new InstantCommand(() -> m_flywheelSubsystem.setOverride(false))));
 
     // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
     //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));

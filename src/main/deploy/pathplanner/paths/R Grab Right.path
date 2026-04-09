@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.700699001426534,
-        "y": 2.126547788873039
+        "x": 7.90771754636234,
+        "y": 2.4370756062767476
       },
       "isLocked": false,
       "linkedName": "Outside Balls R"
@@ -17,18 +17,23 @@
     {
       "anchor": {
         "x": 7.756397590361445,
-        "y": 3.4886144578313254
+        "y": 1.0
       },
       "prevControl": {
-        "x": 7.843024251069899,
-        "y": 2.721726105563481
+        "x": 7.691702420962959,
+        "y": 1.2414840265038274
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Right Middle"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.20836685438455377,
+      "rotationDegrees": -45.79300603054534
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
@@ -56,7 +61,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "Right Start + Outpost + Right Bump",
