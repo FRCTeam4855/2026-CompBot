@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -24,7 +25,7 @@ public class IntakeDownCommand extends Command {
         if (intake.m_encoder.getPosition() < 0.125) {
             intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
         } else {
-            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeSlowPosition, ControlType.kPosition);
+            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeSlowPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         }
 
     }
@@ -33,7 +34,8 @@ public class IntakeDownCommand extends Command {
     public boolean isFinished() {
         if ((intake.m_encoder.getPosition() > IntakeConstants.kIntakeSlowPosition - 0.005
                 && intake.m_encoder.getPosition() < IntakeConstants.kIntakeSlowPosition + 0.005) || timer.get() > 1) {
-            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition, ClosedLoopSlot.kSlot1);
+            timer.stop();
             return true;
         } else {
             return false;

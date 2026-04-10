@@ -1,6 +1,7 @@
 package frc.robot;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -34,18 +35,25 @@ public final class Configs {
                 .smartCurrentLimit(80)
                 .idleMode(IdleMode.kBrake);
             intakeAngleConfig.closedLoop
-                .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD)
+                .pid(IntakeConstants.kIntakeAngleP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD, ClosedLoopSlot.kSlot0) // slot 0 for position control
+                .pid(IntakeConstants.kIntakeAngleHoldP, IntakeConstants.kIntakeAngleI, IntakeConstants.kIntakeAngleD, ClosedLoopSlot.kSlot1) // slot 1 for position control
                 .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
                 .positionWrappingEnabled(true)
                 .positionWrappingInputRange(0, 1)
                 .outputRange(-0.5, 1)
                 .feedForward
-                    .kS(IntakeConstants.kIntakeAngleFFS)
-                    .kV(IntakeConstants.kIntakeAngleFFV) //0.5
-                    .kA(IntakeConstants.kIntakeAngleFFA) //0.05
-                    .kG(IntakeConstants.kIntakeAngleFFG)
-                    .kCos(IntakeConstants.kIntakeAngleFFCos)
-                    .kCosRatio(1);
+                    .kS(IntakeConstants.kIntakeAngleFFS, ClosedLoopSlot.kSlot0)
+                    .kV(IntakeConstants.kIntakeAngleFFV, ClosedLoopSlot.kSlot0)
+                    .kA(IntakeConstants.kIntakeAngleFFA, ClosedLoopSlot.kSlot0)
+                    .kG(IntakeConstants.kIntakeAngleFFG, ClosedLoopSlot.kSlot0)
+                    .kCos(IntakeConstants.kIntakeAngleFFCos, ClosedLoopSlot.kSlot0)
+                    .kCosRatio(1, ClosedLoopSlot.kSlot0)
+                    .kS(IntakeConstants.kIntakeAngleFFS, ClosedLoopSlot.kSlot1)
+                    .kV(IntakeConstants.kIntakeAngleFFV, ClosedLoopSlot.kSlot1)
+                    .kA(IntakeConstants.kIntakeAngleFFA, ClosedLoopSlot.kSlot1)
+                    .kG(IntakeConstants.kIntakeAngleFFG, ClosedLoopSlot.kSlot1)
+                    .kCos(IntakeConstants.kIntakeAngleFFCos, ClosedLoopSlot.kSlot1)
+                    .kCosRatio(1, ClosedLoopSlot.kSlot1);
             // intakeAngleConfig.closedLoop.maxMotion
             //     .cruiseVelocity(15)
             //     .maxAcceleration(5)

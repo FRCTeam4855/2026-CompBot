@@ -134,6 +134,7 @@ public final class Constants {
     public static final double kIntakeAngleP = 2.4;
     public static final double kIntakeAngleI = 0;
     public static final double kIntakeAngleD = 0;
+    public static final double kIntakeAngleHoldP = 4.0;
 
     public static final int kIntakeCurrentLimit = 20;
     public static final int kIntakeAngleCurrentLimit = 20;

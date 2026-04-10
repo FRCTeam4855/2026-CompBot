@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.700699001426534,
-        "y": 2.126547788873039
+        "x": 7.920656205420826,
+        "y": 2.1394864479315263
       },
       "isLocked": false,
       "linkedName": "Outside Balls R"
     },
     {
       "anchor": {
-        "x": 7.756397590361445,
-        "y": 3.4886144578313254
+        "x": 7.756,
+        "y": 3.489
       },
       "prevControl": {
-        "x": 7.843024251069899,
-        "y": 2.721726105563481
+        "x": 7.764994706357527,
+        "y": 3.2137806919546956
       },
       "nextControl": null,
       "isLocked": false,
@@ -35,7 +35,7 @@
       "minWaypointRelativePos": 0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.65,
+        "maxVelocity": 0.55,
         "maxAcceleration": 8.6,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -44,7 +44,18 @@
       }
     }
   ],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 7.756,
+        "y": 3.489
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.25,
+      "maxWaypointRelativePos": 0.75,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 4.3,
