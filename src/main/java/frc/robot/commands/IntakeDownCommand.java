@@ -22,8 +22,9 @@ public class IntakeDownCommand extends Command {
     @Override
     public void initialize() {
         timer.start();
+        timer.start();
         if (intake.m_encoder.getPosition() < 0.125) {
-            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         } else {
             intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeSlowPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         }

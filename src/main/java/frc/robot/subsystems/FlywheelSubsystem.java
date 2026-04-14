@@ -92,6 +92,8 @@ public class FlywheelSubsystem extends Subsystem {
             goalFlywheelSpeed = FlywheelConstants.kFlywheelTestOverrideSpeed;
         } else if (delieverSpeed) {
             goalFlywheelSpeed = FlywheelConstants.kFlywheelDelieverSpeed;
+        } else if (overrideUpToSpeed) {
+            goalFlywheelSpeed = FlywheelConstants.kFlywheelSpeeds[23];
         }
 
         if (flywheelRunning) {

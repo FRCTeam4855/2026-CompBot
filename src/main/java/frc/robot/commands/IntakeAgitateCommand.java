@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -21,7 +22,7 @@ public class IntakeAgitateCommand extends Command {
     public void initialize() {
         System.out.println("IntakeAgitateCommand initialized");
         intake.intakeForward();
-        intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
+        intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         timer.reset();
         timer.start();
     }
@@ -29,11 +30,11 @@ public class IntakeAgitateCommand extends Command {
     @Override
     public void execute() {
         if (timer.hasElapsed(1.0)) {
-            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition);
+            intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeAgitatePosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
             timer.reset();
         } else {
             if (timer.hasElapsed(0.5)) {
-                intake.anglePIDController.setSetpoint(0.0, ControlType.kPosition);
+                intake.anglePIDController.setSetpoint(0.0, ControlType.kPosition, ClosedLoopSlot.kSlot0);
             }
         }
     }
@@ -45,7 +46,7 @@ public class IntakeAgitateCommand extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition);
+        intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         intake.intakeDeployed = false;
         System.out.println("IntakeAgitateCommand finished");
     }

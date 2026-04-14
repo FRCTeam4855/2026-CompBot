@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
@@ -103,14 +104,14 @@ public class IntakeSubsystem extends Subsystem {
                 m_intakeAngleMotor.configure(updatedIntakeAngleConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
             }
 
-            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition);
+            anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
             intakeDeployed = false;
         } else {
             System.out.printf("Extending Intake\n");
             
             if (Constants.IntakeConstants.kIntakeDebug) {
                 updatedIntakeAngleConfig.closedLoop
-                    .pid(SmartDashboard.getNumber("Intake arm P", IntakeConstants.kIntakeP), SmartDashboard.getNumber("Intake arm I", IntakeConstants.kIntakeI),            SmartDashboard.getNumber("Intake arm D", IntakeConstants.kIntakeD))
+                    .pid(SmartDashboard.getNumber("Intake arm P", IntakeConstants.kIntakeP), SmartDashboard.getNumber("Intake arm I", IntakeConstants.kIntakeI), SmartDashboard.getNumber("Intake arm D", IntakeConstants.kIntakeD))
                     .feedForward
                         .kS(SmartDashboard.getNumber("Intake arm FF S", IntakeConstants.kIntakeAngleFFS))
                         .kV(SmartDashboard.getNumber("Intake arm FF V", IntakeConstants.kIntakeAngleFFV))
@@ -124,10 +125,6 @@ public class IntakeSubsystem extends Subsystem {
             CommandScheduler.getInstance().schedule(new IntakeDownCommand(mInstance));
             intakeDeployed = true;
         }
-    }
-
-    public void setIntakePosition(double position) {
-        anglePIDController.setSetpoint(position, ControlType.kPosition);
     }
 
     public void intakeToggle() {
@@ -156,16 +153,9 @@ public class IntakeSubsystem extends Subsystem {
         intakeRunning = true;
     }
 
-    public void intakeDeploySequence() {
-        intakePIDController.setSetpoint(IntakeConstants.kIntakeSpeed, ControlType.kVelocity);
-        setIntakePosition(IntakeConstants.kIntakeExtendPosition);
-        intakeRunning = true;
-        intakeDeployed = true;
-    }
-
     public void intakeRetractSequence() {
         m_intakeLeaderMotor.set(0);
-        setIntakePosition(IntakeConstants.kIntakeRetractPosition);
+        anglePIDController.setSetpoint(IntakeConstants.kIntakeRetractPosition, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         intakeRunning = false;
         intakeDeployed = false;
     }

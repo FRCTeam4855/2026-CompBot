@@ -98,10 +98,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Indexer Stop", new InstantCommand(() -> m_indexerSubsystem.stopIndexer()));
     NamedCommands.registerCommand("Indexer Toggle", new InstantCommand(() -> m_indexerSubsystem.toggleIndexer()));
 
-    // NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
-    //                                                .alongWith(new InstantCommand(() -> m_conveyorSubsystem.startConveyor())));
-
-      NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
+    NamedCommands.registerCommand("Load Elevator Sequence", new InstantCommand(() -> m_conveyorSubsystem.startElevatorIntake())
                                                    .alongWith(new ConveyorAgitateCommand(m_conveyorSubsystem)));
 
     NamedCommands.registerCommand("Intake Deploy Sequence", new SequentialCommandGroup(new InstantCommand(() -> m_intakeSubsystem.intakeForward()),
@@ -187,7 +184,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-
+    
       //drivebase commands
     m_leftDriveController.button(1).whileTrue(new AimAtPointCommand(drivebase, m_leftDriveController));
     m_leftDriveController.button(2).whileTrue(Commands.run(drivebase::lock, drivebase).repeatedly());
@@ -214,7 +211,7 @@ public class RobotContainer {
       () -> m_intakeSubsystem.intakeReverse()));
 
     new JoystickButton(m_operatorBoard, 3).onTrue(new InstantCommand(
-      () -> m_intakeSubsystem.toggleIntakePosition()));
+      () -> m_intakeSubsystem.toggleIntakePosition(), m_intakeSubsystem));
 
     new JoystickButton(m_operatorBoard, 4).toggleOnTrue(new ConveyorAgitateCommand(m_conveyorSubsystem));
 
@@ -260,13 +257,6 @@ public class RobotContainer {
 
     new JoystickButton(m_operatorBoard, 13).onFalse(new InstantCommand(
       () -> m_intakeSubsystem.intakeStop()).alongWith(new InstantCommand(()-> m_conveyorSubsystem.stopConveyor())).alongWith(new InstantCommand(() -> m_flywheelSubsystem.setOverride(false))));
-
-    // new JoystickButton(m_operatorBoard, 22).onTrue(new InstantCommand(
-    //   () -> m_intakeSubsystem.intakeSequence(IntakeConstants.kIntakeSpeed)));
-
-    // new JoystickButton(m_operatorBoard, 15).onTrue(m_intakeSubsystem.setAngle(Degrees.of(45)));
-
-    // new JoystickButton(m_operatorBoard, 11).onTrue(m_intakeSubsystem.setAngle(Degrees.of(0)));
   }
 
   /**
