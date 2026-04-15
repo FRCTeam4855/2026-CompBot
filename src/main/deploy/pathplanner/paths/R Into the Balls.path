@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.920656205420826,
-        "y": 2.1394864479315263
+        "x": 7.843024251069899,
+        "y": 1.2984736091298146
       },
       "isLocked": false,
       "linkedName": "Outside Balls R"
@@ -28,7 +28,16 @@
       "linkedName": "Right Middle"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.151733453399372,
+      "rotationDegrees": -16.375816781436058
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": 73.05732953183319
+    }
+  ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
@@ -51,8 +60,8 @@
         "y": 3.489
       },
       "rotationOffset": 0.0,
-      "minWaypointRelativePos": 0.25,
-      "maxWaypointRelativePos": 0.75,
+      "minWaypointRelativePos": 0.5985761226725141,
+      "maxWaypointRelativePos": 1.0,
       "name": "Point Towards Zone"
     }
   ],

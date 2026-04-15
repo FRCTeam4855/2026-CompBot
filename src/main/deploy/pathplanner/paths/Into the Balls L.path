@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.687760342368046,
-        "y": 5.516476462196862
+        "x": 7.752453637660485,
+        "y": 6.486875891583452
       },
       "isLocked": false,
       "linkedName": "Outside Balls L"
@@ -30,8 +30,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.30661864025214197,
-      "rotationDegrees": -50.59075454219036
+      "waypointRelativePos": 0.17694732102656616,
+      "rotationDegrees": -4.710570652420873
+    },
+    {
+      "waypointRelativePos": 0.6235929761368731,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -42,8 +46,8 @@
         "y": 4.417
       },
       "rotationOffset": 0.0,
-      "minWaypointRelativePos": 0.41237677984665905,
-      "maxWaypointRelativePos": 0.5480631276901042,
+      "minWaypointRelativePos": 0.8154435925520161,
+      "maxWaypointRelativePos": 1.0,
       "name": "Point Towards Zone"
     }
   ],

@@ -158,7 +158,7 @@ public final class Constants {
     public static final double kElevatorI = 0;
     public static final double kElevatorD = 0.0;
     public static final int kElevatorLaunchSpeed = 4500;
-    public static final int kElevatorIntakeSpeed = 3000;
+    public static final int kElevatorIntakeSpeed = 2000;
   }
 
   public static final class LightsConstants {
