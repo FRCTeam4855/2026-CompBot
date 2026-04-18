@@ -128,6 +128,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("Aim At Hub", new AimAtPointCommand(drivebase, m_leftDriveController));
 
+    NamedCommands.registerCommand("Drive Forward", drivebase.forward());
+
     // Build auto chooser AFTER registering named commands
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

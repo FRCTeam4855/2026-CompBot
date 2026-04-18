@@ -23,7 +23,7 @@ public class RotateForBumpCommand extends Command {
         System.out.println("RotateForBumpCommand initialized");
         int gyroAngle = (int) drive.getHeading().getDegrees();
         double signum = gyroAngle == 0 ? 1.0 : Math.signum(gyroAngle);
-        target = gyroAngle / 90 * 90 + 45 * signum;
+        target = gyroAngle / 90 * 180 * signum;
         targetRotation = new Rotation2d(Math.toRadians(target));
     }
 

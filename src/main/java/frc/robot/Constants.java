@@ -29,9 +29,9 @@ public final class Constants {
       //public static final Matter CHASSIS    = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
       public static final double LOOP_TIME  = 0.13; //s, 20ms + 110ms sprk max velocity lag
       public static final double MAX_SPEED  = 4.3;
-      public static final double kSpeedMultiplierDefault = 1.0;   
+      public static final double kSpeedMultiplierDefault = 0.8;   
       public static final double kSpeedMultiplierSlow = 0.2;
-      public static final double kScaleTranslation = 0.8; //Used for normal drive
+      public static final double kScaleTranslation = 1; //Used for normal drive
       public static final double kScaleTranslationLow = 0.65; //Used for drive with the getTargetSpeedsMethod
 
       public static final Pose2d kTestPose = new Pose2d(2, 2, new Rotation2d(0));

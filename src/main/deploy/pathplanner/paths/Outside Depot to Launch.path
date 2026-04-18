@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.107,
-        "y": 5.325
+        "x": 1.2313694721825963,
+        "y": 5.89169757489301
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7999809146288843,
-        "y": 4.595255161853006
+        "x": 1.9171184022824534,
+        "y": 5.1930099857346645
       },
       "isLocked": false,
-      "linkedName": "Blue Left Bump"
+      "linkedName": "Outside Depot"
     },
     {
       "anchor": {
-        "x": 2.732253922967189,
-        "y": 3.899144079885877
+        "x": 2.227646219686162,
+        "y": 4.947175463623396
       },
       "prevControl": {
-        "x": 2.829510508935385,
-        "y": 4.214971230601521
+        "x": 1.9688730385164046,
+        "y": 5.141255349500714
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Center Launch"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -20.93253536510313
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 130.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

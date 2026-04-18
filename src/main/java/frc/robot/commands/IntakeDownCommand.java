@@ -37,6 +37,7 @@ public class IntakeDownCommand extends Command {
                 && intake.m_encoder.getPosition() < IntakeConstants.kIntakeSlowPosition + 0.005) || timer.get() > 1) {
             intake.anglePIDController.setSetpoint(IntakeConstants.kIntakeExtendPosition, ControlType.kPosition, ClosedLoopSlot.kSlot1);
             timer.stop();
+            intake.intakeDeployed = true;
             return true;
         } else {
             return false;

@@ -11,6 +11,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "Start Flywheel"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Backup"
@@ -21,22 +27,15 @@
           "data": {
             "commands": [
               {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
                 "type": "named",
                 "data": {
                   "name": "Launch Sequence"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Aim At Hub"
                 }
               },
               {
